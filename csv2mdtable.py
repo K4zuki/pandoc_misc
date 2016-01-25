@@ -65,10 +65,10 @@ for i in range(width): #x
 #    print "|"
 
 _outfile.write( hline+"\n")
-_outfile.write( u"|%s|\n" %"|".join(lst[0]))
+_outfile.write( "|%smake|\n" %"|".join(lst[0]))
 _outfile.write( hbar+"\n")
 for j in range(height-1): #y
-    _outfile.write( u"|%s|\n" %"|".join(lst[j+1]))
+    _outfile.write( "|%s|\n" %"|".join(lst[j+1]))
     _outfile.write( hline+"\n")
 
 _outfile.close()
