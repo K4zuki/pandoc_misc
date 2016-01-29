@@ -24,7 +24,7 @@ _output = parser.args.out
 _delimiter = parser.args.delimiter
 
 _read = csv.reader(open(_file, 'r'), delimiter=_delimiter, quotechar='\"')
-_outfile = open( _output,'a' )
+_outfile = open( _output,'w' )
 
 lst = list(_read)
 width = len(lst[0])
