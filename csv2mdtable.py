@@ -24,7 +24,7 @@ _output = parser.args.out
 _delimiter = parser.args.delimiter
 
 _read = csv.reader(open(_file, 'r'), delimiter=_delimiter, quotechar='\"')
-_outfile = open( _output,'a' )
+_outfile = open( _output,'w' )
 
 lst = list(_read)
 width = len(lst[0])
@@ -65,7 +65,7 @@ for i in range(width): #x
 #    print "|"
 
 _outfile.write( hline+"\n")
-_outfile.write( "|%smake|\n" %"|".join(lst[0]))
+_outfile.write( "|%s|\n" %"|".join(lst[0]))
 _outfile.write( hbar+"\n")
 for j in range(height-1): #y
     _outfile.write( "|%s|\n" %"|".join(lst[j+1]))
