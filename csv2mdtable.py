@@ -3,18 +3,14 @@
 
 import csv
 
-# convert from csv file to markdown table
-
 import argparse
 class MyParser(object):
     def __init__(self):
-        self._parser = argparse.ArgumentParser(description = """take screenshot from Tek MSO/DPO/MDO4000 Oscilloscope,
-        will *Not* control instuments other than Oscillo
-        """)
+        self._parser = argparse.ArgumentParser(description = "convert from csv file to markdown grid table")
         self._parser.add_argument('--file', '-F', help = 'input csv file', default = "csv.csv")
         self._parser.add_argument('--out', '-O', help = 'output markdown file', default = "csv_t.md")
         self._parser.add_argument('--delimiter', '-D', help = 'device number', default = ',')
-#        self._parser.add_argument('--basename','-B', help = 'base directry of output',
+#        self._parser.add_argument('--basedir','-B', help = 'base directry of output',
 #            default = "C:\\Users\\Public\\Documents\\")
         self.args = self._parser.parse_args(namespace=self)
 
