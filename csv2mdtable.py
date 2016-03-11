@@ -23,7 +23,7 @@ _read = csv.reader(open(_file, 'r'), delimiter=_delimiter, quotechar='\"')
 _outfile = open( _output,'w' )
 
 lst = list(_read)
-width = len(lst[0])
+width = len(lst[0]) #number of member in list
 height = len(lst)
 
 widthlist = []
@@ -31,9 +31,9 @@ maxwidthlist = []
 for i in range(width): #x
     widthlist.append([])
     for j in range(height): #y
-        widthlist[i].append(len(lst[j][i]))
+        widthlist[i].append(len(lst[j][i])) #list up width of (x=i, y=0~(j-1))
 #        print lst[j][i]
-    maxwidthlist.append(max(widthlist[i]))
+    maxwidthlist.append(max(widthlist[i])) #get longest length of each x
 #    print max(widthlist[i])
 
 #print widthlist
@@ -41,7 +41,7 @@ for i in range(width): #x
 hbar="+"
 hline="+"
 for i in maxwidthlist:
-    for j in range(i):
+    for j in range(i+1):
         hbar+=u"="
         hline+=u"-"
     hbar+=u"+"
@@ -54,7 +54,7 @@ for i in range(width): #x
     for j in range(height): #y
 #        print "%d" %(maxwidthlist[i] - len(lst[j][i])),
         str=""
-        for s in range(maxwidthlist[i] - len(lst[j][i])):
+        for s in range(maxwidthlist[i] - len(lst[j][i]) +1):
             str+=" "
         lst[j][i] = lst[j][i]+str
 #        print lst[j][i],
