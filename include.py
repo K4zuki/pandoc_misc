@@ -21,7 +21,7 @@ _output = parser.args.out
 _basedir = parser.args.basedir
 
 include = re.compile("`([^`]+)`\{.include}")
-listing = re.compile("`([^`]+)`\{.listingtable}")
+listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
 stripped = re.sub("<!--[\s\S]*?-->", "", _file.read())
 output = open(_basedir+"/"+_output,'wb')
 
@@ -31,7 +31,10 @@ for line in stripped.split("\n"):
         file_contents = open(_basedir+"/"+input_file, "rb").read()
         line = include.sub(line, file_contents)
     elif listing.search(line):
+        print "!"
         input_file = listing.search(line).groups()[0]
-        convert = f2l(input_file)
+        filetype = listing.search(line).groups()[1]
+        print filetype
+        convert = f2l(input_file, filetype)
         line = listing.sub(line, convert)
     output.write(line+"\n")

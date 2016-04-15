@@ -2,24 +2,14 @@
 #!/usr/bin/env python27
 
 
-def file2listingtable(file = "Makefile", type = "makefile"):
+def file2listingtable(file = "Makefile", type = ".makefile"):
     _file = file
     _type = type
-
-    _ext = _file.split('.')
-    if (len(_ext) > 1):
-        if(_ext[0] == "Makefile"):
-            _ext = ".makefile"
-        else:
-            _ext = "." + _ext[1]
-    else:
-        _ext = "." + _type
-    # print (_ext)
 
     _list = """Listing: %s
 ```{#lst:%s %s}
 dummy source code
-```"""%(_file, _file.lower().replace(".","_"), _ext)
+```"""%(_file, _file.lower().replace(".","_"), _type)
     _list = _list.split("\n")
     # print _list
 
@@ -53,7 +43,7 @@ dummy source code
         header = "|" + _list[i].ljust(_maxwidth) + "|"
         headers.append(header)
 
-    _dummyhead = "```{%s}"%(_ext)
+    _dummyhead = "```{%s}"%(_type)
     _dummyhead = "|" + _dummyhead.ljust(_maxwidth) + "|"
 
     _dummytail = "|" + "```".ljust(_maxwidth) + "|"
@@ -84,7 +74,7 @@ if __name__ == '__main__':
             self._parser = argparse.ArgumentParser(description = "convert from a file to markdown grid table")
             self._parser.add_argument('--file', '-F', help = 'input file', default = "Makefile")
             self._parser.add_argument('--out', '-O', help = 'output markdown file', default = "Makefile_t.md")
-            self._parser.add_argument('--type', '-T', help = 'input file type', default = "makefile")
+            self._parser.add_argument('--type', '-T', help = 'input file type', default = ".makefile")
             self.args = self._parser.parse_args(namespace=self)
 
     parser = MyParser()
