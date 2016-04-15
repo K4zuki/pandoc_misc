@@ -4,6 +4,8 @@
 import re
 import sys
 import argparse
+from file2listingtable import file2listingtable as f2l
+
 class MyParser(object):
     def __init__(self):
         self._parser = argparse.ArgumentParser(description = "cat some.txt| python include.py --out out_f.md")
@@ -19,6 +21,7 @@ _output = parser.args.out
 _basedir = parser.args.basedir
 
 include = re.compile("`([^`]+)`\{.include}")
+listing = re.compile("`([^`]+)`\{.listingtable}")
 stripped = re.sub("<!--[\s\S]*?-->", "", _file.read())
 output = open(_basedir+"/"+_output,'wb')
 
@@ -27,4 +30,8 @@ for line in stripped.split("\n"):
         input_file = include.search(line).groups()[0]
         file_contents = open(_basedir+"/"+input_file, "rb").read()
         line = include.sub(line, file_contents)
+    elif listing.search(line):
+        input_file = listing.search(line).groups()[0]
+        convert = f2l(input_file)
+        line = listing.sub(line, convert)
     output.write(line+"\n")
