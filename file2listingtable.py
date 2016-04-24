@@ -8,7 +8,6 @@ def file2listingtable(file = "Makefile", type = ".makefile"):
 
     _list = """Listing: %s
 ```{#lst:%s %s}
-dummy source code
 ```"""%(_file, _file.lower().replace(".","_"), _type)
     _list = _list.split("\n")
     # print _list
