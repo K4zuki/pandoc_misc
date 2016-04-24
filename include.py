@@ -2,20 +2,20 @@
 #!/usr/bin/env python27
 
 def include(file, basename = "./"):
-    _include = re.compile("`([^`]+)`\{.include}")
-    listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
-    stripped = re.sub("<!--[\s\S]*?-->", "", open(file, "rb").read())
+    _include = re.compile("`([^`]+)`\{.include}") # regex filter to find out include statement
+    listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}") # regex filter to find out listing statement
+    stripped = re.sub("<!--[\s\S]*?-->", "", open(file, "rb").read()) # regex filter to remove markdown comment
     output = []
 
     for line in stripped.split("\n"):
         if _include.search(line):
-            print file+" include",
+            print file+": include",
             input_file = _include.search(line).groups()[0]
             print input_file
             # file_contents = open(input_file, "rb").read()
             line = _include.sub(line, include(basename+input_file))
         if listing.search(line):
-            print file+" lisingtable",
+            print file+": listingtable of",
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
             print filetype
@@ -44,19 +44,19 @@ if __name__ == '__main__':
     _output = parser.args.out
     _basedir = parser.args.basedir
 
-    _include = re.compile("`([^`]+)`\{.include}")
-    listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
-    stripped = re.sub("<!--[\s\S]*?-->", "", _file.read())
+    _include = re.compile("`([^`]+)`\{.include}") # regex filter to find out include statement
+    listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}") # regex filter to find out listing statement
+    stripped = re.sub("<!--[\s\S]*?-->", "", _file.read()) # regex filter to remove markdown comment
     output = open(_basedir+"/"+_output,'wb')
 
     for line in stripped.split("\n"):
         if _include.search(line):
-            print "main include",
+            print "main: include",
             input_file = _include.search(line).groups()[0]
             print input_file
             line = _include.sub(line, include(input_file, _basedir))
         if listing.search(line):
-            print "main lisingtable",
+            print "main: listingtable of",
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
             print filetype
