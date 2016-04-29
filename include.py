@@ -41,17 +41,17 @@ if __name__ == '__main__':
             self.args = self._parser.parse_args(namespace=self)
 
     modesel = {
-        "NONE": (False,False)
-        "TEX":  (False,True)
-        "DOCX": (True,False)
+        "NONE": (False,False),
+        "TEX":  (False,True),
+        "DOCX": (True,False),
     }
 
     parser = MyParser()
     _file = parser.args.infile
     _output = parser.args.out
     _basedir = parser.args.basedir
-    _mode = modesel[parser.args.mode]
-
+    _mode = modesel[parser.args.mode.upper()]
+    print _mode
     _include = re.compile("`([^`]+)`\{.include}") # regex filter to find out include statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}") # regex filter to find out listing statement
     stripped = re.sub("<!--[\s\S]*?-->", "", _file.read()) # regex filter to remove markdown comment
