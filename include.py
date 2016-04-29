@@ -1,10 +1,19 @@
 #-*- coding: utf-8 -*-
 #!/usr/bin/env python27
 
-def include(file, basename = "./"):
+modesel = {
+    "NONE": (False,False),
+    "TEX":  (False,True),
+    "DOCX": (True,False),
+}
+
+def include(file, basename = "./", mode = "none"):
     _include = re.compile("`([^`]+)`\{.include}") # regex filter to find out include statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}") # regex filter to find out listing statement
     stripped = re.sub("<!--[\s\S]*?-->", "", open(file, "rb").read()) # regex filter to remove markdown comment
+
+    _mode = modesel[mode.upper()]
+    print _mode
 
     output = []
 
@@ -14,13 +23,13 @@ def include(file, basename = "./"):
             input_file = _include.search(line).groups()[0]
             print input_file
             # file_contents = open(input_file, "rb").read()
-            line = _include.sub(line, include(basename+input_file))
+            line = _include.sub(line, include(basename+input_file, mode = mode))
         if listing.search(line):
             print file+": listingtable of",
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
             print filetype
-            convert = f2l(input_file, filetype)
+            convert = f2l(input_file, filetype, _mode[0], _mode[1])
             line = listing.sub(line, convert)
         output.append(line)
     return "\n".join(output)
@@ -40,18 +49,14 @@ if __name__ == '__main__':
             self._parser.add_argument('--mode','-M', help = 'TeX or DOCX output', default = "none")
             self.args = self._parser.parse_args(namespace=self)
 
-    modesel = {
-        "NONE": (False,False),
-        "TEX":  (False,True),
-        "DOCX": (True,False),
-    }
-
     parser = MyParser()
     _file = parser.args.infile
     _output = parser.args.out
     _basedir = parser.args.basedir
-    _mode = modesel[parser.args.mode.upper()]
+    _mode = parser.args.mode
+    __mode = modesel[_mode.upper()]
     print _mode
+
     _include = re.compile("`([^`]+)`\{.include}") # regex filter to find out include statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}") # regex filter to find out listing statement
     stripped = re.sub("<!--[\s\S]*?-->", "", _file.read()) # regex filter to remove markdown comment
@@ -65,16 +70,16 @@ if __name__ == '__main__':
             print "main: include",
             input_file = _include.search(line).groups()[0]
             print input_file
-            line = _include.sub(line, include(input_file, _basedir))
+            line = _include.sub(line, include(input_file, _basedir, _mode))
         if listing.search(line):
             print "main: listingtable of",
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
             print filetype
-            convert = f2l(input_file, filetype, _mode[0], _mode[1])
+            convert = f2l(input_file, filetype, __mode[0], __mode[1])
             line = listing.sub(line, convert)
         if tblcaption.search(line):
-            if(_mode[0]):
+            if(__mode[0]):
                 caption =   tblcaption.search(line).groups()[2]
                 link =      tblcaption.search(line).groups()[4]
                 line = "TC \"[@"+link+"] "+caption+"\" `\l` 5\n\n"+line
