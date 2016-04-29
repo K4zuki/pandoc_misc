@@ -2,13 +2,21 @@
 #!/usr/bin/env python27
 
 
-def file2listingtable(file = "Makefile", type = ".makefile"):
+def file2listingtable(file = "Makefile", type = ".makefile", docx = False, tex = False):
     _file = file
     _type = type
+    _docx = docx
+    _tex = tex
 
-    _list = """Listing: %s
+    _label = _file.lower().replace(".","_")
+    _link = ""
+    if(_docx):
+        _link = "TC \"[@lst:"+_label+"] "+_file+"\" `\l` 6\n\n"
+
+    # print _link
+    _list = """Listing: %s %s
 ```{#lst:%s %s}
-```"""%(_file, _file.lower().replace(".","_"), _type)
+```"""%(_file.replace("_","\\\\\\_"), _link, _label, _type)
     _list = _list.split("\n")
     # print _list
 
@@ -36,28 +44,41 @@ def file2listingtable(file = "Makefile", type = ".makefile"):
     # print hline
 
     headers = []
-    for i in range(len(_list)):
-        # print _list[i]
-        width = len(_list[i])
-        header = "|" + _list[i].ljust(_maxwidth) + "|"
+    for statement in _list:
+        # print statement
+        header = "|" + statement.ljust(_maxwidth) + "|"
         headers.append(header)
+    # for i in range(len(_list)):
+    #     # print _list[i]
+    #     header = "|" + _list[i].ljust(_maxwidth) + "|"
+    #     headers.append(header)
 
-    _dummyhead = "```{%s}"%(_type)
-    _dummyhead = "|" + _dummyhead.ljust(_maxwidth) + "|"
+    if _tex:
+        _dummyhead = '```{%s .numberLines numbers="left"}'%(_type)
+        _dummytail = "```"
+    else:
+        _dummyhead = "```{%s}"%(_type)
+        _dummyhead = "|" + _dummyhead.ljust(_maxwidth) + "|"
+        _dummytail = "|" + "```".ljust(_maxwidth) + "|"
 
-    _dummytail = "|" + "```".ljust(_maxwidth) + "|"
     lines = []
     for i in range(height):
         swap = _read[i].rstrip('\n').replace("\t","    ")
         width = len(swap)
-        line = "|" + swap.ljust(_maxwidth) + "|"
-        lines.append(line)
+        if(_tex):
+            lines.append(swap)
+        else:
+            line = "|" + swap.ljust(_maxwidth) + "|"
+            lines.append(line)
 
     # print lines
 
-    result = [hline]
+    result = []
+    result.append(hline)
     result.extend(headers)
     result.append(hline)
+    if(_tex):
+    result.append("")
     result.append(_dummyhead)
     result.extend(lines)
     result.append(_dummytail)
@@ -81,7 +102,7 @@ if __name__ == '__main__':
     _output = parser.args.out
     _type = parser.args.type
 
-    hoge = file2listingtable(_file, _type)
-    output = open(out,"wb")
+    hoge = file2listingtable(_file, _type, docx=False, tex=False)
+    output = open(_output,"wb")
     output.write(hoge)
     output.close()
