@@ -82,7 +82,8 @@ def file2listingtable(file = "Makefile", type = ".makefile", docx = False, tex =
     result.append(_dummyhead)
     result.extend(lines)
     result.append(_dummytail)
-    result.append(hline)
+    if not _tex:
+        result.append(hline)
     # print "\n".join(result)
 
     return "\n".join(result)
