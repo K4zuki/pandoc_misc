@@ -13,7 +13,7 @@ def include(file, basename = "./", mode = "none"):
     stripped = re.sub("<!--[\s\S]*?-->", "", open(file, "rb").read()) # regex filter to remove markdown comment
 
     _mode = modesel[mode.upper()]
-    print _mode
+    # print _mode
 
     output = []
 
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     _basedir = parser.args.basedir
     _mode = parser.args.mode
     __mode = modesel[_mode.upper()]
-    print _mode
+    # print _mode
 
     _include = re.compile("`([^`]+)`\{.include}") # regex filter to find out include statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}") # regex filter to find out listing statement
