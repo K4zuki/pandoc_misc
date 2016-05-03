@@ -103,7 +103,7 @@ if __name__ == '__main__':
     _output = parser.args.out
     _type = parser.args.type
 
-    hoge = file2listingtable(_file, _type, docx=False, tex=False)
+    hoge = file2listingtable(_file, _type, docx = False, tex = False)
     output = open(_output,"wb")
     output.write(hoge)
     output.close()
