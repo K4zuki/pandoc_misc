@@ -1,22 +1,22 @@
-# USERNAME=
-HOME= C:/Users/$(USERNAME)
+# USERNAME:=
+HOME:= C:/Users/$(USERNAME)
 
-CABAL= $(HOME)/AppData/Roaming/cabal
-PANDOC= $(CABAL)/bin/pandoc.exe
-PANSTYLES= $HOME/.pandoc
-MISC= $(PANSTYLES)/pandoc_misc
+CABAL:= $(HOME)/AppData/Roaming/cabal
+PANDOC:= $(CABAL)/bin/pandoc.exe
+PANSTYLES:= $(HOME)/.pandoc
+MISC:= $(PANSTYLES)/pandoc_misc
 
-REFERENCE= $(PANSTYLES)/ref.docx
+REFERENCE:= $(PANSTYLES)/ref.docx
 
-SVN= TortoiseProc
-SVNDIR=
+SVN:= TortoiseProc
+SVNDIR:=
 REPO= ${PWD##*/}
 
 PANFLAGS= -s -S
-PANFLAGS+= --read=markdown+ignore_line_breaks++header_attributes+escaped_line_breaks+implicit_figures
-PANFLAGS+= --filter $(CABAL)/bin/pandoc-crossref.exe
+PANFLAGS+= --read=markdown+ignore_line_breaks+header_attributes+escaped_line_breaks+implicit_figures
+PANFLAGS+= --filter=$(CABAL)/bin/pandoc-crossref.exe
 
-PYTHON= C:/Python27/python.exe
-CSV2TABLE= $(MISC)/csv2mdtable.py
-FILTER= $(MISC)/include.py
-DOCXPWRTR=
+PYTHON:= C:/Python27/python.exe
+CSV2TABLE:= $(MISC)/csv2mdtable.py
+FILTER:= $(MISC)/include.py
+DOCXPWRTR:=$(PANSTYLES)/docxPropertywriter.py

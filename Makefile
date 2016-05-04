@@ -1,36 +1,39 @@
 include Makefile.win
 # include Makefile.in
 
-INPUT= source.md
-OUTPUT= $(shell basename $(INPUT) .md)
-CSV= $(shell ls *.csv)
-TABLES= $(CSV:.csv=_t.md)
-TARGETDIR= ./Out
+MDDIR:= markdown
+DATADIR:= data
+TARGETDIR:= Out
 
-SRC= $(filter-out f_%.md, $(INPUT))
-FILTERED= $(SRC:%=$(TARGETDIR)/f_%)
+INPUT:= source.md
+OUTPUT:= $(shell basename $(INPUT) .md)
+CSV:= $(shell cd $(DATADIR); ls *.csv)
+TABLES:= $(CSV:%.csv=%.tmd)
+FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.fmd)
+
+
+.PHONY: docx html filtered tables clean
 
 all: docx
 
-docx: html
-	$(PANDOC) --reference-docx=$(REFERENCE) $(OUTPUT).html -o $(OUTPUT).docx; \
-	$(PYTHON) $(DOCXPWRTR) -I $(INPUT) -O $(OUTPUT).docx
+docx: $(TARGETDIR)/$(OUTPUT).html
+	$(PANDOC) --reference-docx=$(REFERENCE) $(TARGETDIR)/$(OUTPUT).html -o $(TARGETDIR)/$(OUTPUT).docx; \
+	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(TARGETDIR)/$(OUTPUT).docx
 
-html: filtered
+html: filtered $(TARGETDIR)/$(OUTPUT).html
+
+$(TARGETDIR)/$(OUTPUT).html: $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
 		$(FILTERED) -o $(TARGETDIR)/$(OUTPUT).html
 
-filtered: tables
-	for src in $(SRC); do \
-		cat "$$src" | $(PYTHON) $(FILTER) --out f_"$$src" --basedir $(TARGETDIR) \
-	;done
+filtered: tables $(FILTERED)
+$(FILTERED): $(MDDIR)/$(INPUT)
+	cat $< | $(PYTHON) $(FILTER) --out $@
 
-tables: $(CSV)
-	mkdir -p $(TARGETDIR); \
-	for csv in $(CSV); do \
-		echo "$$csv"; \
-		$(PYTHON) $(CSV2TABLE) --file "$$csv" --out $(TARGETDIR)/`baseneme "$$csv" .csv`_t.md --delimiter ','; \
-	done
+tables: $(TABLES)
+$(TABLES): $(CSV:%=$(DATADIR)/%)
+	$(PYTHON) $(CSV2TABLE) --file $< --out $(TARGETDIR)/$@ --delimiter ','
 
 clean:
 	rm -rf $(TARGETDIR)
+	mkdir -p $(TARGETDIR)
