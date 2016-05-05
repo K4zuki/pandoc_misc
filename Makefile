@@ -8,21 +8,23 @@ TARGETDIR:= Out
 INPUT:= source.md
 OUTPUT:= $(shell basename $(INPUT) .md)
 CSV:= $(shell cd $(DATADIR); ls *.csv)
-TABLES:= $(CSV:%.csv=%.tmd)
+TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.fmd)
-
+HTML:=$(TARGETDIR)/$(OUTPUT).html
+DOCX:=$(TARGETDIR)/$(OUTPUT).docx
 
 .PHONY: docx html filtered tables clean
 
 all: docx
 
-docx: $(TARGETDIR)/$(OUTPUT).html
+docx: $(DOCX)
+$(DOCX): $(HTML)
 	$(PANDOC) --reference-docx=$(REFERENCE) $(TARGETDIR)/$(OUTPUT).html -o $(TARGETDIR)/$(OUTPUT).docx; \
-	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(TARGETDIR)/$(OUTPUT).docx
+	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
-html: filtered $(TARGETDIR)/$(OUTPUT).html
+html: $(HTML)
 
-$(TARGETDIR)/$(OUTPUT).html: $(FILTERED)
+$(HTML): $(TABLES) $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
 		$(FILTERED) -o $(TARGETDIR)/$(OUTPUT).html
 
@@ -32,7 +34,7 @@ $(FILTERED): $(MDDIR)/$(INPUT)
 
 tables: $(TABLES)
 $(TABLES): $(CSV:%=$(DATADIR)/%)
-	$(PYTHON) $(CSV2TABLE) --file $< --out $(TARGETDIR)/$@ --delimiter ','
+	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 clean:
 	rm -rf $(TARGETDIR)
