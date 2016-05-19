@@ -9,6 +9,7 @@ def file2listingtable(file = "Makefile", type = ".makefile", docx = False, tex =
     _tex = tex
 
     _label = _file.lower().replace(".","_")
+    _label = _label.replace("/","_")
     _link = ""
     if(_docx):
         _link = "TC \"[@lst:"+_label+"] "+_file+"\" `\l` 6\n\n"
