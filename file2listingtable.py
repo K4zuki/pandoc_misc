@@ -15,9 +15,12 @@ def file2listingtable(file = "Makefile", type = ".makefile", docx = False, tex =
         _link = "TC \"[@lst:"+_label+"] "+_file+"\" `\l` 6\n\n"
 
     # print _link
+    if _tex:
+        _file = _file.replace("_","\\\\\\_")
+
     _list = """Listing: %s %s
 ```{#lst:%s %s}
-```"""%(_file.replace("_","\\\\\\_"), _link, _label, _type)
+```"""%(_file, _link, _label, _type)
     _list = _list.split("\n")
     # print _list
 
