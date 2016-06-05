@@ -19,14 +19,14 @@ all: docx
 
 docx: $(DOCX)
 $(DOCX): $(HTML)
-	$(PANDOC) --reference-docx=$(REFERENCE) $(TARGETDIR)/$(OUTPUT).html -o $(TARGETDIR)/$(OUTPUT).docx; \
+	$(PANDOC) --reference-docx=$(REFERENCE) $(HTML) -o $(TARGETDIR)/$(OUTPUT).docx; \
 	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
 
 $(HTML): $(TABLES) $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
-		$(FILTERED) -o $(TARGETDIR)/$(OUTPUT).html
+		$(FILTERED) -o $(HTML)
 
 filtered: tables $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT)
