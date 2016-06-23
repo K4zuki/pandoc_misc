@@ -33,7 +33,7 @@ $(FILTERED): $(MDDIR)/$(INPUT)
 	cat $< | $(PYTHON) $(FILTER) --out $@
 
 tables: $(TABLES)
-$(TABLES): $(CSV:%=$(DATADIR)/%)
+$(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 clean:
