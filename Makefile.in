@@ -24,9 +24,9 @@ SVNDIR=
 REPO= ${PWD##*/}
 
 PANFLAGS= -s -S
-PFLAGS += --read=markdown+east_asian_line_breaks
+PANFLAGS += --read=markdown+east_asian_line_breaks
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
-PFLAGS += --filter $(PCROSSREF)
+PANFLAGS += --filter $(PCROSSREF)
 
 PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
