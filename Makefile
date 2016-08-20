@@ -1,5 +1,5 @@
-include Makefile.win
-# include Makefile.in
+# include Makefile.win
+include Makefile.in
 
 MDDIR:= markdown
 DATADIR:= data
@@ -15,7 +15,7 @@ DOCX:=$(TARGETDIR)/$(OUTPUT).docx
 
 .PHONY: docx html filtered tables clean
 
-all: docx
+all: mkdir html
 
 docx: $(DOCX)
 $(DOCX): $(HTML)
@@ -36,6 +36,11 @@ tables: $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
-clean:
+mkdir:
+	mkdir -p $(TARGETDIR)
+	mkdir -p $(DATADIR)
+	mkdir -p $(MDDIR)
+
+clean: mkdir
 	rm -rf $(TARGETDIR)
 	mkdir -p $(TARGETDIR)
