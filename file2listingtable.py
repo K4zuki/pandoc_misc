@@ -1,24 +1,26 @@
 #-*- coding: utf-8 -*-
 #!/usr/bin/env python27
 
-
+import os
+# os.path.basename(path)
 def file2listingtable(file = "Makefile", type = ".makefile", docx = False, tex = False):
     _file = file
+    _basename = os.path.basename(_file)
     _type = type
     _docx = docx
     _tex = tex
 
-    _label = _file.lower().replace(".","_")
+    _label = _basename.lower().replace(".","_")
     _label = _label.replace("/","_")
     _link = ""
     if(_docx):
-        _link = "TC \"[@lst:"+_label+"] "+_file+"\" `\l` 6\n\n"
+        _link = "TC \"[@lst:"+_label+"] "+_basename+"\" `\l` 6\n\n"
 
     # print _link
     if (_tex):
-        _file_title = _file.replace("_","\\\\\\_")
+        _file_title = _basename.replace("_","\\\\\\_")
     else:
-        _file_title = _file
+        _file_title = _basename
 
     _list = """Listing: %s %s
 ```{#lst:%s %s}
