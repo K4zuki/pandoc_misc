@@ -10,6 +10,11 @@ else
 CABAL = $(HOME)/.cabal
 PCROSSREF = $(CABAL)/bin/pandoc-crossref
 PANDOC:= $(CABAL)/bin/pandoc
+ifeq ($(shell uname),Linux)
+FONTDIR = "ExternalLocation = /usr/local/share/texmf/fonts/"
+else
+FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
+endif
 endif
 
 # CABAL = $(HOME)/.cabal
