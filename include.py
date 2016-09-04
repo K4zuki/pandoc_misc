@@ -10,6 +10,8 @@ modesel = {
 def include(file, basename = "./", mode = "none"):
     # regex filter to find out include statement
     _include = re.compile("`([^`]+)`\{.include}")
+    # regex filter to find out rotate statement
+    _rotimg = re.compile("`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
     # regex filter to remove markdown comment
@@ -34,6 +36,15 @@ def include(file, basename = "./", mode = "none"):
             print filetype
             convert = f2l(input_file, filetype, _mode[0], _mode[1])
             line = listing.sub(line, convert)
+        if _rotimg.search(line):
+            print file+": rotate image of",
+            input_file = _rotimg.search(line).groups()[0]
+            caption =  _rotimg.search(line).groups()[1]
+            angle = _rotimg.search(line).groups()[2]
+            print input_file, angle
+            rotatedcaption = rotatepic(input_file, caption, angle)
+            # print rotatedcaption
+            line = listing.sub(line, rotatedcaption)
         output.append(line)
     return "\n".join(output)
 
@@ -42,6 +53,7 @@ if __name__ == '__main__':
     import sys
     import argparse
     from file2listingtable import file2listingtable as f2l
+    from rotateimg import rotatepic
 
     class MyParser(object):
         def __init__(self):
@@ -71,6 +83,9 @@ if __name__ == '__main__':
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
 
+    # regex filter to find out rotate statement
+    _rotimg = re.compile("`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
+
     # regex filter to remove markdown comment
     stripped = re.sub("<!--[\s\S]*?-->", "", _file.read())
 
@@ -92,6 +107,15 @@ if __name__ == '__main__':
             print filetype
             convert = f2l(input_file, filetype, __mode[0], __mode[1])
             line = listing.sub(line, convert)
+        if _rotimg.search(line):
+            print "main: rotate image of",
+            input_file = _rotimg.search(line).groups()[0]
+            caption =  _rotimg.search(line).groups()[1]
+            angle = _rotimg.search(line).groups()[2]
+            print input_file, angle
+            rotatedcaption = rotatepic(input_file, caption, angle)
+            # print rotatedcaption
+            line = listing.sub(line, rotatedcaption)
         if tblcaption.search(line):
             if(__mode[0]):
                 caption =   tblcaption.search(line).groups()[2]
