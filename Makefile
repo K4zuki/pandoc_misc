@@ -18,6 +18,7 @@ PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
 PANFLAGS += -M localfontdir=$(FONTDIR)
+PANFLAGS += -M css=$(MISC)/github.css
 
 .PHONY: docx html filtered tables pdf tex merge clean
 
@@ -58,7 +59,6 @@ tables: $(TARGETDIR) $(DATADIR) $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
-# mkdir:
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
 $(DATADIR):
@@ -67,5 +67,4 @@ $(MDDIR):
 	mkdir -p $(MDDIR)
 
 clean: $(TARGETDIR)
-	rm -rf $(TARGETDIR)
-	mkdir -p $(TARGETDIR)
+	rm -rf $(TARGETDIR)/*
