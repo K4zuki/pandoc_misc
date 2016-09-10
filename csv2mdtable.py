@@ -2,6 +2,25 @@
 #!/usr/bin/env python27
 
 import csv
+import sys
+
+### thanks to http://www.hiroom2.com/2016/04/07/pythonで全角文字を含む文字列の幅を取得する/
+
+import unicodedata
+def get_char_width(c):
+    data = unicodedata.east_asian_width(c)
+    if data == 'Na' or data == 'H':
+        return 1
+    return 2
+
+
+def get_string_width(string):
+    width = 0
+    for c in string:
+        width += get_char_width(c)
+    return width
+
+################################################################################
 
 import argparse
 class MyParser(object):
@@ -31,8 +50,11 @@ maxwidthlist = []
 for i in range(width): #x
     widthlist.append([])
     for j in range(height): #y
-        widthlist[i].append(len(lst[j][i])) #list up width of (x=i, y=0~(j-1))
-#        print lst[j][i]
+        # list up width of (x=i, y=0~(j-1))
+        widthlist[i].append(get_string_width(lst[j][i].decode(sys.stdin.encoding)))
+        # print len(lst[j][i])
+        # print get_string_width(lst[j][i].decode(sys.stdin.encoding))
+        # print len(lst[j][i].decode(sys.stdin.encoding))
     maxwidthlist.append(max(widthlist[i])) #get longest length of each x
 #    print max(widthlist[i])
 
@@ -54,7 +76,7 @@ for i in range(width): #x
     for j in range(height): #y
 #        print "%d" %(maxwidthlist[i] - len(lst[j][i])),
         str=""
-        for s in range(maxwidthlist[i] - len(lst[j][i]) +1):
+        for s in range(maxwidthlist[i] - get_string_width(lst[j][i].decode(sys.stdin.encoding)) +1):
             str+=" "
         lst[j][i] = lst[j][i]+str
 #        print lst[j][i],
