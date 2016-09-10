@@ -5,13 +5,14 @@ MDDIR:= markdown
 DATADIR:= data
 TARGETDIR:= Out
 
-INPUT:= source.md
-OUTPUT:= $(shell basename $(INPUT) .md)
+INPUT:= TITLE.md
+TARGET = TARGET
+
 CSV:= $(shell cd $(DATADIR); ls *.csv)
 TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.fmd)
-HTML:=$(TARGETDIR)/$(OUTPUT).html
-DOCX:=$(TARGETDIR)/$(OUTPUT).docx
+HTML:=$(TARGETDIR)/$(TARGET).html
+DOCX:=$(TARGETDIR)/$(TARGET).docx
 
 PANFLAGS += --toc
 PANFLAGS += --listings
@@ -20,11 +21,11 @@ PANFLAGS += -M localfontdir=$(FONTDIR)
 
 .PHONY: docx html filtered tables pdf tex merge clean
 
-all: mkdir html
+all: $(TARGETDIR) $(DATADIR) $(MDDIR) html
 
 docx: $(DOCX)
 $(DOCX): $(HTML)
-	$(PANDOC) --reference-docx=$(REFERENCE) $(HTML) -o $(TARGETDIR)/$(OUTPUT).docx; \
+	$(PANDOC) --reference-docx=$(REFERENCE) $(HTML) -o $(DOCX); \
 	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
@@ -34,32 +35,37 @@ $(HTML): $(TABLES) $(FILTERED)
 		$(FILTERED) -o $(HTML)
 
 pdf: tex
-	xelatex --output-directory=$(TARGETDIR) --no-pdf $(TARGETDIR)/$(TARGET).tex; \
 	cd $(TARGETDIR); \
 	rm -f ./images; \
 	ln -s ../images; \
 	xelatex $(TARGET).tex
 
-tex: merge
+tex: merge $(TARGETDIR)/$(TARGET).tex
+$(TARGETDIR)/$(TARGET).tex:
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
-		$(TARGETDIR)/$(TARGET).md -o $(TARGETDIR)/$(TARGET).tex
+		$(TARGETDIR)/$(TARGET).md -o $(TARGETDIR)/$(TARGET).tex; \
+	xelatex --output-directory=$(TARGETDIR) --no-pdf $(TARGETDIR)/$(TARGET).tex
 
-merge: filtered
+merge: filtered $(TARGETDIR)/$(TARGET).md
+$(TARGETDIR)/$(TARGET).md:
 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
-filtered: tables $(FILTERED)
+filtered: $(MDDIR) $(TABLES) $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT)
 	cat $< | $(PYTHON) $(FILTER) --out $@
 
-tables: $(TABLES)
+tables: $(TARGETDIR) $(DATADIR) $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
-mkdir:
+# mkdir:
+$(TARGETDIR):
 	mkdir -p $(TARGETDIR)
+$(DATADIR):
 	mkdir -p $(DATADIR)
+$(MDDIR):
 	mkdir -p $(MDDIR)
 
-clean: mkdir
+clean: $(TARGETDIR)
 	rm -rf $(TARGETDIR)
 	mkdir -p $(TARGETDIR)
