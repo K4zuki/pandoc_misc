@@ -1,2 +1,3 @@
 *.pyc
 Out/
+.DS_Store
