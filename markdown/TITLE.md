@@ -33,3 +33,9 @@ listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 ...
 
 # まえがき {.unnumbered}
+`$ this is a code`{.sh}
+```{.c}
+ThisIsAnother(){
+  code_block();
+}
+```
