@@ -6,7 +6,7 @@ author: 本の作者
 date: 本の出版日時
 comiket: コミケ
 year: 出版年
-publisher: 出版社
+publisher: 出版社で印刷製本
 docrevision: 初版
 
 documentclass: book
