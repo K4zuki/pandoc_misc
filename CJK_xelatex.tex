@@ -209,7 +209,7 @@ $endif$
 \vspace*{2\baselineskip} % Whitespace between location/year and editors
 
 Edited by  \leavevmode\\[\baselineskip]
-{\Large $author$} % Editor list
+{\Large $circle$ / $author$} % Editor list
 %{\itshape The University of California \\ Berkeley\par} % Editor affiliation
 
 \vfill* % Whitespace between editor names and publisher logo
@@ -349,5 +349,27 @@ $endfor$
 %\end{minipage}
 %\end{flushright}
 %$endif$
+
+$if(title)$
+
+\newpage
+
+\thispagestyle{empty}
+\checkoddpage\ifoddpage\cleardoublepage\else\clearpage\fi
+\thispagestyle{empty} \vspace*{100ex}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+$title$\tabularnewline
+\midrule
+\endhead
+$circle$\tabularnewline
+$author$\tabularnewline
+Markdown x Pandoc x \XeLaTeX\tabularnewline
+Revision $docrevision$ / $comiket$ / $short-hash$\tabularnewline
+秋葉原キンコーズで印刷製本\tabularnewline
+\bottomrule
+\end{longtable}
+$endif$
 
 \end{document}

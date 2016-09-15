@@ -1,11 +1,13 @@
 ---
 title: 本のタイトル
 abstract: 本の概要
+circle: サークル名
 author: 本の作者
 date: 本の出版日時
 comiket: コミケ
 year: 出版年
 publisher: 出版社
+docrevision: 初版
 
 documentclass: book
 papersize: b5paper
