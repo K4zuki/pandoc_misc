@@ -6,14 +6,19 @@ HOME = C:/Users/$(USERNAME)
 CABAL = $(HOME)/AppData/Roaming/cabal
 PCROSSREF = $(CABAL)/bin/pandoc-crossref.exe
 PANDOC:= $(CABAL)/bin/pandoc.exe
+EXE:=.exe
+WAVEDROM = C:/Users/kyamamot/AppData/Roaming/npm/wavedrom
 else
 CABAL = $(HOME)/.cabal
 PCROSSREF = $(CABAL)/bin/pandoc-crossref
 PANDOC:= $(CABAL)/bin/pandoc
+EXE=
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = /usr/local/share/texmf/fonts/"
+WAVEDROM = /usr/local/bin/wavedrom
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
+WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 endif
 endif
 
