@@ -7,7 +7,8 @@ date: 本の出版日時
 comiket: コミケ
 year: 出版年
 publisher: 出版社で印刷製本
-docrevision: 初版
+docrevision: "1.0"
+short-hash: (git short hash)
 
 documentclass: book
 papersize: b5paper
