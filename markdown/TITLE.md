@@ -1,5 +1,5 @@
 ---
-title: title
+title: 本のタイトル
 abstract: 本の概要
 circle: サークル名
 author: 本の作者
@@ -9,6 +9,7 @@ year: 出版年
 publisher: 出版社で印刷製本
 docrevision: "1.0"
 short-hash: (git short hash)
+created: 
 
 documentclass: book
 papersize: b5paper
