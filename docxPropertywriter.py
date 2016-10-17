@@ -47,8 +47,14 @@ file_contents = open(_infile, "r").read()
 _yaml = re.compile("---[\s\S]*?\.\.\.")
 _yaml = _yaml.findall(file_contents)[0]
 data = yaml.load(_yaml)
-import sys
 
+import sys
+# sysモジュールをリロードする
+reload(sys)
+# デフォルトの文字コードを変更する.
+sys.setdefaultencoding('utf-8')
+# デフォルトの文字コードを出力する.
+print 'defaultencoding:', sys.getdefaultencoding()
 print sys.stdout.encoding
 # import pprint
 # pprint.pprint(data)
@@ -128,11 +134,11 @@ except:
 
 # for line in _yaml:
 if _comments:
-    print _comments
+    print unicode(_comments)
     docu.core_properties.comments = _comments
 if _keywords:
-    print _keywords.encode('utf-8')
-    docu.core_properties.keywords = _keywords.decode('utf-8')
+    print (_keywords)
+    docu.core_properties.keywords = _keywords
 if _category:
     print _category
     docu.core_properties.category = _category
