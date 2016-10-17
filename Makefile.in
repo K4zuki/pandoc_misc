@@ -27,7 +27,7 @@ endif
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 
-REFERENCE= $(PANSTYLES)/ref.docx
+REFERENCE= $(MISC)/ref.docx
 
 SVN=
 SVNDIR=
