@@ -1,17 +1,19 @@
-#-*- coding: utf-8 -*-
 #!/usr/bin/env python27
+# -*- coding: utf-8 -*-
 
 modesel = {
-    "NONE": (False,False),
-    "TEX":  (False,True),
-    "DOCX": (True,False),
+    "NONE": (False, False),
+    "TEX":  (False, True),
+    "DOCX": (True, False),
 }
 
-def include(file, basename = "./", mode = "none"):
+
+def include(file, basename="./", mode="none"):
     # regex filter to find out include statement
     _include = re.compile("`([^`]+)`\{.include}")
     # regex filter to find out rotate statement
-    _rotimg = re.compile("`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
+    _rotimg = re.compile(
+        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
     # regex filter to remove markdown comment
@@ -24,22 +26,23 @@ def include(file, basename = "./", mode = "none"):
 
     for line in stripped.split("\n"):
         if _include.search(line):
-            print file+": include",
+            print file + ": include",
             input_file = _include.search(line).groups()[0]
             print input_file
             # file_contents = open(input_file, "rb").read()
-            line = _include.sub(line, include(basename+input_file, mode = mode))
+            line = _include.sub(line,
+                                include(basename + input_file, mode=mode))
         if listing.search(line):
-            print file+": listingtable of",
+            print file + ": listingtable of",
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
             print filetype
             convert = f2l(input_file, filetype, _mode[0], _mode[1])
             line = listing.sub(line, convert)
         if _rotimg.search(line):
-            print file+": rotate image of",
+            print file + ": rotate image of",
             input_file = _rotimg.search(line).groups()[0]
-            caption =  _rotimg.search(line).groups()[1]
+            caption = _rotimg.search(line).groups()[1]
             angle = _rotimg.search(line).groups()[2]
             print input_file, angle
             rotatedcaption = rotatepic(input_file, caption, angle)
@@ -56,17 +59,26 @@ if __name__ == '__main__':
     from rotateimg import rotatepic
 
     class MyParser(object):
+
         def __init__(self):
-            self._parser = argparse.ArgumentParser(description =
-                "cat some.txt| python include.py --out out_f.md")
-            self._parser.add_argument('infile', nargs='?', type=argparse.FileType('r'),
-                default=sys.stdin)
-            self._parser.add_argument('--out', '-O', help = 'output markdown file',
-                default = "table.md")
-            self._parser.add_argument('--basedir','-B', help = 'base directry of output',
-                default = "./")
-            self._parser.add_argument('--mode','-M', help = 'TeX or DOCX output',
-                default = "none")
+            self._parser = argparse.ArgumentParser(
+                description="cat some.txt| python include.py --out out_f.md")
+            self._parser.add_argument(  'infile',
+                                        nargs='?',
+                                        type=argparse.FileType('r'),
+                                        default=sys.stdin)
+            self._parser.add_argument(  '--out',
+                                        '-O',
+                                        help='output markdown file',
+                                        default="table.md")
+            self._parser.add_argument(  '--basedir',
+                                        '-B',
+                                        help='base directry of output',
+                                        default="./")
+            self._parser.add_argument(  '--mode',
+                                        '-M',
+                                        help='TeX or DOCX output',
+                                        default="none")
             self.args = self._parser.parse_args(namespace=self)
 
     parser = MyParser()
@@ -84,7 +96,8 @@ if __name__ == '__main__':
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
 
     # regex filter to find out rotate statement
-    _rotimg = re.compile("`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
+    _rotimg = re.compile(
+        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
 
     # regex filter to remove markdown comment
     stripped = re.sub("<!--[\s\S]*?-->", "", _file.read())
@@ -92,7 +105,7 @@ if __name__ == '__main__':
     # regex filter to find out table caption
     tblcaption = re.compile(
         "(Table:)([\*_\ ]*)(.[^\{\}\*_]*)([\*_\ ]*).*\{\ *#(tbl:.[^\*\n]*[^\ ])\ *\}")
-    output = open(_basedir + "/" + _output,'wb')
+    output = open(_basedir + "/" + _output, 'wb')
 
     for line in stripped.split("\n"):
         if _include.search(line):
@@ -110,7 +123,7 @@ if __name__ == '__main__':
         if _rotimg.search(line):
             print "main: rotate image of",
             input_file = _rotimg.search(line).groups()[0]
-            caption =  _rotimg.search(line).groups()[1]
+            caption = _rotimg.search(line).groups()[1]
             angle = _rotimg.search(line).groups()[2]
             print input_file, angle
             rotatedcaption = rotatepic(input_file, caption, angle)
@@ -118,8 +131,8 @@ if __name__ == '__main__':
             line = listing.sub(line, rotatedcaption)
         if tblcaption.search(line):
             if(__mode[0]):
-                caption =   tblcaption.search(line).groups()[2]
-                link =      tblcaption.search(line).groups()[4]
-                line = "TC \"[@"+link+"] "+caption+"\" `\l` 5\n\n"+line
+                caption = tblcaption.search(line).groups()[2]
+                link = tblcaption.search(line).groups()[4]
+                line = "TC \"[@" + link + "] " + caption + "\" `\l` 5\n\n" + line
                 print link
-        output.write(line+"\n")
+        output.write(line + "\n")

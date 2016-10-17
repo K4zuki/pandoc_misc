@@ -1,5 +1,5 @@
 #!/usr/bin/env python27
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import re
 import docx
@@ -47,6 +47,9 @@ file_contents = open(_infile, "r").read()
 _yaml = re.compile("---[\s\S]*?\.\.\.")
 _yaml = _yaml.findall(file_contents)[0]
 data = yaml.load(_yaml)
+import sys
+
+print sys.stdout.encoding
 # import pprint
 # pprint.pprint(data)
 
@@ -125,40 +128,34 @@ except:
 
 # for line in _yaml:
 if _comments:
-    # print __comments
+    print _comments
     docu.core_properties.comments = _comments
 if _keywords:
-    # print __keywords
-    docu.core_properties.keywords = _keywords
-elif _category:
-    # print __category
+    print _keywords.encode('utf-8')
+    docu.core_properties.keywords = _keywords.decode('utf-8')
+if _category:
+    print _category
     docu.core_properties.category = _category
-elif _subject:
-    # print __subject
+if _subject:
+    print _subject
     docu.core_properties.subject = _subject
-elif _content_status:
-    # print __status
+if _content_status:
+    print _status
     docu.core_properties.content_status = _status
-elif _author:
-    # print __author
+if _author:
+    print _author
     docu.core_properties.author = _author
-elif _title:
-    # print __title
+if _title:
+    print _title
     docu.core_properties.title = _title
-elif _revision:
-    # print __revision
-    docu.core_properties.revision = int(__revision)
-elif _version:
-    # print __version
+if _revision:
+    print _revision
+    docu.core_properties.revision = int(_revision)
+if _version:
+    print _version
     docu.core_properties.version = _version
-elif _created:
-    # __created = _created.search(line)
-    # YYYY = __created.groups()[1]
-    # MM = __created.groups()[2]
-    # MMM = monthname[ __created.groups()[2] ]
-    # DD = __created.groups()[3]
-    # __created = datetime.datetime(int(YYYY), int(MM), int(DD))
-    # print __created
+if _created:
+    print _created
     docu.core_properties.created = _created
 
 docu.save(_outfile)
