@@ -41,4 +41,4 @@ PANFLAGS += --filter $(PCROSSREF)
 PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
-DOCXPWRTR:=
+DOCXPWRTR:= $(MISC)/docxPropertywriter.py

@@ -1,5 +1,5 @@
 ---
-title: 本のタイトル
+title: title
 abstract: 本の概要
 circle: サークル名
 author: 本の作者

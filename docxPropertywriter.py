@@ -1,5 +1,5 @@
 #!/usr/bin/env python27
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 import re
 import docx
@@ -97,7 +97,7 @@ for line in yaml:
         docu.core_properties.author = __author
     elif _title.search(line):
         __title = _title.search(line).groups()[0]
-        # print __title
+        print __title
         docu.core_properties.title = __title
     # elif _revision.search(line):
     #     __revision = _revision.search(line).groups()[0]
