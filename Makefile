@@ -7,7 +7,7 @@ IMAGEDIR:= images
 WAVEDIR:= images/waves
 
 INPUT:= TITLE.md
-TARGET = NXPemulatesNXP
+TARGET = TARGET
 
 CSV:= $(shell cd $(DATADIR); ls *.csv)
 TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
