@@ -1,10 +1,26 @@
 include Makefile.in
 
+REQ = 'Requirements -\n'
+REQ += '\033[92m'
+REQ += 'pyYAML(via pip)'
+REQ += '\033[0m'
+REQ += 'to convert yaml to json waveform file \n\033[0m'
+REQ += '\033[92m'
+REQ += 'WAVEDROM+PhantomJS(via npm)'
+REQ += '\033[0m'
+REQ += 'to convert JSON to waveform png\n'
+REQ += '\033[92m'
+REQ += 'rsvg-convert(via librsvg)'
+REQ += '\033[0m'
+REQ += 'to convert SVG to PNG'
+REQ += '\033[0m'
+
 MDDIR:= markdown
 DATADIR:= data
 TARGETDIR:= Out
 IMAGEDIR:= images
 WAVEDIR:= images/waves
+BITFIELD:= images/bitfields
 
 INPUT:= TITLE.md
 TARGET = TARGET
@@ -36,6 +52,9 @@ MARKDOWN = $(shell ls $(MDDIR)/*.md)
 .PHONY: docx html filtered tables pdf tex merge clean linking
 
 all: html
+
+help:
+	@echo $(REQ)"\033[0m"
 
 docx: $(DOCX)
 $(DOCX): $(HTML)
