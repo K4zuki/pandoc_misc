@@ -19,8 +19,8 @@ MDDIR:= markdown
 DATADIR:= data
 TARGETDIR:= Out
 IMAGEDIR:= images
-WAVEDIR:= images/waves
-BITFIELD:= images/bitfields
+WAVEDIR:= waves
+BITDIR:= bitfields
 
 INPUT:= TITLE.md
 TARGET = TARGET
@@ -28,12 +28,17 @@ TARGET = TARGET
 CSV:= $(shell cd $(DATADIR); ls *.csv)
 TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
 
-WAVEYAML:= $(shell cd $(DATADIR); ls *.yaml)
+WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c
 PYWAVEOPTS += 'import sys, yaml, json; \
 							json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
-WAVEJSON:= $(WAVEYAML:%.yaml=$(TARGETDIR)/%.json)
-WAVEPNG:= $(WAVEYAML:%.yaml=$(WAVEDIR)/%.png)
+WAVEJSON:= $(WAVEYAML:%.yaml=$(WAVEDIR)/%.json)
+WAVEPNG:= $(WAVEYAML:%.yaml=$(IMAGEDIR)/$(WAVEDIR)/%.png)
+
+BITYAML:= $(shell cd $(DATADIR)/$(BITDIR); ls *.yaml)
+BITJSON:= $(BITYAML:%.yaml=$(BITDIR)/%.json)
+BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
+# rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.fmd)
 HTML:=$(TARGETDIR)/$(TARGET).html
@@ -51,7 +56,7 @@ MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
 .PHONY: docx html filtered tables pdf tex merge clean linking
 
-all: html
+all: bitfield wavedrom html
 
 help:
 	@echo $(REQ)"\033[0m"
@@ -87,19 +92,29 @@ $(TARGETDIR)/$(TARGET).md: $(FILTERED)
 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
 	cat $< | $(PYTHON) $(FILTER) --out $@
 
 tables: $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
-wavedrom: $(WAVEPNG)
-$(WAVEDIR)/%.png: $(TARGETDIR)/%.json
+wavedrom: $(WAVEDIR) $(WAVEPNG)
+$(IMAGEDIR)/$(WAVEDIR)/%.png: $(WAVEDIR)/%.json
 	phantomjs $(WAVEDROM) -i $< -p $@
 
-yaml2json: $(WAVEJSON)
-$(TARGETDIR)/%.json: $(DATADIR)/%.yaml
+bitfield: $(BITDIR) $(BITPNG)
+$(IMAGEDIR)/$(BITDIR)/%.png: $(BITDIR)/%.json
+	./bitfield/bin/bitfield.js $< > $<.svg
+	rsvg-convert $<.svg --format=png --output=$@
+
+yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
+$(WAVEDIR)/%.json: $(DATADIR)/$(WAVEDIR)/%.yaml
+	if [ ! -e $(WAVEDIR) ]; then mkdir -p $(WAVEDIR); fi
+	$(PYTHON) $(PYWAVEOPTS) < $< > $@
+
+$(BITDIR)/%.json: $(DATADIR)/$(BITDIR)/%.yaml
+	if [ ! -e $(BITDIR) ]; then mkdir -p $(BITDIR); fi
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
 $(TARGETDIR):
@@ -111,7 +126,13 @@ $(MDDIR):
 $(IMAGEDIR):
 	mkdir -p $(IMAGEDIR)
 $(WAVEDIR):
+	mkdir -p $(IMAGEDIR)/$(WAVEDIR)
 	mkdir -p $(WAVEDIR)
+$(BITDIR):
+	mkdir -p $(IMAGEDIR)/$(BITDIR)
+	mkdir -p $(BITDIR)
 
 clean: $(TARGETDIR)
-	rm -rf $(TARGETDIR)/* $(WAVEDIR)/
+	rm -rf $(TARGETDIR)/*
+	rm -rf $(WAVEDIR)/ $(IMAGEDIR)/$(WAVEDIR)/
+	rm -rf $(BITDIR)/ $(IMAGEDIR)/$(BITDIR)/
