@@ -32,11 +32,11 @@ WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c
 PYWAVEOPTS += 'import sys, yaml, json; \
 							json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
-WAVEJSON:= $(WAVEYAML:%.yaml=$(WAVEDIR)/%.json)
+WAVEJSON:= $(WAVEYAML:%.yaml=$(TARGETDIR)/%.wavejson)
 WAVEPNG:= $(WAVEYAML:%.yaml=$(IMAGEDIR)/$(WAVEDIR)/%.png)
 
 BITYAML:= $(shell cd $(DATADIR)/$(BITDIR); ls *.yaml)
-BITJSON:= $(BITYAML:%.yaml=$(BITDIR)/%.json)
+BITJSON:= $(BITYAML:%.yaml=$(TARGETDIR)/%.bitjson)
 BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
@@ -56,7 +56,7 @@ MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
 .PHONY: docx html filtered tables pdf tex merge clean linking
 
-all: bitfield wavedrom html
+all: html
 
 help:
 	@echo $(REQ)"\033[0m"
@@ -100,21 +100,21 @@ $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
-$(IMAGEDIR)/$(WAVEDIR)/%.png: $(WAVEDIR)/%.json
+$(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
 	phantomjs $(WAVEDROM) -i $< -p $@
 
 bitfield: $(BITDIR) $(BITPNG)
-$(IMAGEDIR)/$(BITDIR)/%.png: $(BITDIR)/%.json
+$(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 	./bitfield/bin/bitfield.js $< > $<.svg
 	rsvg-convert $<.svg --format=png --output=$@
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
-$(WAVEDIR)/%.json: $(DATADIR)/$(WAVEDIR)/%.yaml
-	if [ ! -e $(WAVEDIR) ]; then mkdir -p $(WAVEDIR); fi
+$(TARGETDIR)/%.wavejson: $(DATADIR)/$(WAVEDIR)/%.yaml
+	if [ ! -e $(IMAGEDIR)/$(WAVEDIR) ]; then mkdir -p $(IMAGEDIR)/$(WAVEDIR); fi
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
-$(BITDIR)/%.json: $(DATADIR)/$(BITDIR)/%.yaml
-	if [ ! -e $(BITDIR) ]; then mkdir -p $(BITDIR); fi
+$(TARGETDIR)/%.bitjson: $(DATADIR)/$(BITDIR)/%.yaml
+	if [ ! -e $(IMAGEDIR)/$(BITDIR) ]; then mkdir -p $(IMAGEDIR)/$(BITDIR); fi
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
 $(TARGETDIR):
@@ -127,12 +127,10 @@ $(IMAGEDIR):
 	mkdir -p $(IMAGEDIR)
 $(WAVEDIR):
 	mkdir -p $(IMAGEDIR)/$(WAVEDIR)
-	mkdir -p $(WAVEDIR)
 $(BITDIR):
 	mkdir -p $(IMAGEDIR)/$(BITDIR)
-	mkdir -p $(BITDIR)
 
 clean: $(TARGETDIR)
 	rm -rf $(TARGETDIR)/*
-	rm -rf $(WAVEDIR)/ $(IMAGEDIR)/$(WAVEDIR)/
-	rm -rf $(BITDIR)/ $(IMAGEDIR)/$(BITDIR)/
+	rm -rf $(IMAGEDIR)/$(WAVEDIR)/
+	rm -rf $(IMAGEDIR)/$(BITDIR)/
