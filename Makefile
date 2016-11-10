@@ -2,18 +2,24 @@ include Makefile.in
 
 REQ = 'Requirements -\n'
 REQ += '\033[92m'
+REQ += 'pandoc'
+REQ += '\033[0m'
+REQ += 'to convert Markdown to TeX/html\n\033[0m'
+REQ += '\033[92m'
+REQ += 'XeLaTeX'
+REQ += '\033[0m'
+REQ += 'to convert TeX to PDF\n\033[0m'
+REQ += '\033[92m'
 REQ += 'pyYAML(via pip)'
 REQ += '\033[0m'
 REQ += 'to convert yaml to json waveform file \n\033[0m'
 REQ += '\033[92m'
 REQ += 'WAVEDROM+PhantomJS(via npm)'
 REQ += '\033[0m'
-REQ += 'to convert JSON to waveform png\n'
-REQ += '\033[92m'
+REQ += 'to convert JSON to waveform png\n\033[92m'
 REQ += 'rsvg-convert(via librsvg)'
 REQ += '\033[0m'
-REQ += 'to convert SVG to PNG'
-REQ += '\033[0m'
+REQ += 'to convert SVG to PNG\n\033[0m'
 
 MDDIR:= markdown
 DATADIR:= data
