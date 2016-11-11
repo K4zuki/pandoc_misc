@@ -16,7 +16,8 @@ REQ += 'to convert yaml to json waveform file \n\033[0m'
 REQ += '\033[92m'
 REQ += 'WAVEDROM+PhantomJS(via npm)'
 REQ += '\033[0m'
-REQ += 'to convert JSON to waveform png\n\033[92m'
+REQ += 'to convert JSON to waveform png\n\033[0m'
+REQ += '\033[92m'
 REQ += 'rsvg-convert(via librsvg)'
 REQ += '\033[0m'
 REQ += 'to convert SVG to PNG\n\033[0m'
@@ -111,7 +112,7 @@ $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
 
 bitfield: $(BITDIR) $(BITPNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
-	./bitfield/bin/bitfield.js $< > $<.svg
+	$(MISC)/bitfield/bin/bitfield.js $< > $<.svg
 	rsvg-convert $<.svg --format=png --output=$@
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
