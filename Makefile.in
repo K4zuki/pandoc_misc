@@ -42,3 +42,4 @@ PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
+BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
