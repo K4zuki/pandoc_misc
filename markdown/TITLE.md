@@ -43,3 +43,4 @@ ThisIsAnother(){
   code_block();
 }
 ```
+`images/wave.png`{.rotate .caption="回路図" .angle=90}{}

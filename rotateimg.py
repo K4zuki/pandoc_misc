@@ -6,7 +6,7 @@ import sys
 from PIL import Image
 
 
-def rotatepic(filename, caption="", angle=0):
+def rotatepic(filename, caption="", angle=0, others=""):
 
     # print "rotatepic"
     try:
@@ -18,7 +18,7 @@ def rotatepic(filename, caption="", angle=0):
         angle = int(angle)
         caption = caption.split("=")[-1]
         caption = caption.strip(' "" ')
-        # print caption, angle
+        # print caption, angle, others
 
         if(angle == 0):
             pass
@@ -43,7 +43,7 @@ def rotatepic(filename, caption="", angle=0):
     except:
         print sys.exc_info()
     finally:
-        return "![%s](%s)" % (caption, filename)
+        return "![%s](%s){%s}" % (caption, filename, others)
 
 if __name__ == '__main__':
     import argparse

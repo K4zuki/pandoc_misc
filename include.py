@@ -13,7 +13,7 @@ def include(file, basename="./", mode="none"):
     _include = re.compile("`([^`]+)`\{.include}")
     # regex filter to find out rotate statement
     _rotimg = re.compile(
-        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
+        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)\}\{([^`]*)\}")
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
     # regex filter to remove markdown comment
@@ -44,8 +44,9 @@ def include(file, basename="./", mode="none"):
             input_file = _rotimg.search(line).groups()[0]
             caption = _rotimg.search(line).groups()[1]
             angle = _rotimg.search(line).groups()[2]
+            others = _rotimg.search(line).groups()[3]
             print input_file, angle
-            rotatedcaption = rotatepic(input_file, caption, angle)
+            rotatedcaption = rotatepic(input_file, caption, angle, others)
             # print rotatedcaption
             line = listing.sub(line, rotatedcaption)
         output.append(line)
@@ -97,7 +98,7 @@ if __name__ == '__main__':
 
     # regex filter to find out rotate statement
     _rotimg = re.compile(
-        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)}")
+        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)\}\{([^`]*)\}")
 
     # regex filter to remove markdown comment
     stripped = re.sub("<!--[\s\S]*?-->", "", _file.read())
@@ -125,8 +126,9 @@ if __name__ == '__main__':
             input_file = _rotimg.search(line).groups()[0]
             caption = _rotimg.search(line).groups()[1]
             angle = _rotimg.search(line).groups()[2]
+            others = _rotimg.search(line).groups()[3]
             print input_file, angle
-            rotatedcaption = rotatepic(input_file, caption, angle)
+            rotatedcaption = rotatepic(input_file, caption, angle, others)
             # print rotatedcaption
             line = listing.sub(line, rotatedcaption)
         if tblcaption.search(line):
