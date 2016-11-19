@@ -12,7 +12,7 @@ def rotatepic(filename, caption="", angle=0, others=""):
     try:
         img = Image.open(filename)
         path, ext = os.path.splitext(filename)
-        print path, ext
+        # print path, ext
         angle = angle.split("=")[-1]
         angle = angle.strip()
         angle = int(angle)
