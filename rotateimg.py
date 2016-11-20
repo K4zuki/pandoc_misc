@@ -36,7 +36,7 @@ def rotatepic(filename, caption="", angle=0, others=""):
             if(angle < 0):
                 angle = 360 - abs(angle)
             # print angle
-            tmp = img.rotate(angle)
+            tmp = img.rotate(angle, expand=True)
             filename = "%s_r%+03d%s" % (path, angle, ext)
         if not os.path.exists(filename):
             tmp.save(filename)
@@ -53,14 +53,14 @@ if __name__ == '__main__':
         def __init__(self):
             self._parser = argparse.ArgumentParser(
                 description="convert from a file to markdown grid table")
-            self._parser.add_argument(  '--file',
-                                        '-F',
-                                        help='input file',
-                                        default="picture.png")
-            self._parser.add_argument(  '--rotate',
-                                        '-R',
-                                        help='rotate angle',
-                                        default=0)
+            self._parser.add_argument('--file',
+                                      '-F',
+                                      help='input file',
+                                      default="picture.png")
+            self._parser.add_argument('--rotate',
+                                      '-R',
+                                      help='rotate angle',
+                                      default=0)
             self.args = self._parser.parse_args(namespace=self)
 
     parser = MyParser()
