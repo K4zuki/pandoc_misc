@@ -36,11 +36,88 @@ listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 ...
 
-# まえがき {.unnumbered}
+# 使用例 {.unnumbered}
 `$ this is a code`{.sh}
-```{.c}
+
+```cpp
 ThisIsAnother(){
   code_block();
 }
 ```
-`images/wave.png`{.rotate .caption="回路図" .angle=90}{}
+![WaveDrom画像](images/waves/wave.png)
+
+`images/waves/wave.png`{.rotate .caption="任意角度（90度）で回転させたWaveDrom画像" .angle=90}{}
+
+`images/waves/wave.png`{.rotate .caption="任意角度（45度）で回転させたWaveDrom画像" .angle=45}{}
+
+![bit-field画像](images/bitfields/bit.png)
+
+# 必要なもの
+## GNU Make
+`$ make clean` → 生成物を消去
+
+## pandoc(HTML出力)
+`$ make html` → HTML出力
+
+### XeLaTeX(PDF出力)
+`$ make pdf` → PDF出力
+
+## Python
+### yaml - json converter {#yaml2json}
+Makefileの中に直接記述
+
+```makefile
+PYWAVEOPTS:= -c
+PYWAVEOPTS += 'import sys, yaml, json; \
+							json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
+
+python $(PYWAVEOPTS) < $< > $@
+```
+### include.py
+\` `path/to/filename.file` \` `{command}`
+
+#### rotate image + import
+
+|type|command|
+|---|---|
+|images|.rotate .caption .angle|
+
+#### code listing as table
+
+|type|command|
+|---|---|
+|source codes|.listingtable .\<extention\>|
+
+#### csv to table convert
+
+|type|command|
+|---|---|
+|pre-converted csv table`.tmd`|.include|
+
+`data/table.csv`{.listingtable .csv}
+
+```markdown
+`Out/table.tmd`{.include}
+```
+## wavedrom
+`$ npm --install -g wavedrom-cli`
+
+`$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
+
+`data/waves/wave.yaml`{.listingtable .yaml}
+
+```sh
+$ python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < data/waves/wave.yaml > Out/wave.wavejson
+$ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom -i Out/wave.wavejson -p images/waves/wave.png
+```
+
+## bit-field / librsvg
+`$ npm --install -g bit-field`
+
+`$ make bitfield` → レジスタ構成画像をYAMLから[コンバータ](#yaml2json)を通して生成
+
+```
+$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
+rsvg-convert $<.svg --format=png --output=$@
+```
+`data/bitfields/bit.yaml`{.listingtable .yaml}
