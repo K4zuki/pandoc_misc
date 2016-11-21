@@ -69,7 +69,8 @@ Makefileの中に直接記述
 ```makefile
 PYWAVEOPTS:= -c
 PYWAVEOPTS += 'import sys, yaml, json; \
-							json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
+							json.dump(yaml.load(sys.stdin), \
+              sys.stdout, indent=4)'
 
 python $(PYWAVEOPTS) < $< > $@
 ```

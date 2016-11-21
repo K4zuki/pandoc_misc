@@ -83,24 +83,25 @@ pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(TARGET).tex
 	xelatex --no-pdf $(TARGET).tex; \
 	xelatex $(TARGET).tex
 
+
 linking: $(TARGETDIR)/$(IMAGEDIR)
 $(TARGETDIR)/$(IMAGEDIR):
 	rm -f $(TARGETDIR)/$(IMAGEDIR); \
 	cd $(TARGETDIR);\
 	ln -s ../$(IMAGEDIR)
 
-tex: $(TARGETDIR)/$(TARGET).tex
+tex: merge $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TARGET).tex: $(TARGETDIR)/$(TARGET).md
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
 		$(TARGETDIR)/$(TARGET).md -o $(TARGETDIR)/$(TARGET).tex
 
-merge: $(TARGETDIR)/$(TARGET).md
+merge: filtered $(TARGETDIR)/$(TARGET).md
 $(TARGETDIR)/$(TARGET).md: $(FILTERED)
 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
-filtered: $(FILTERED)
+filtered: tables $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
-	cat $< | $(PYTHON) $(FILTER) --out $@
+	cat $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
 tables: $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
