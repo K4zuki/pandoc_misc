@@ -13,7 +13,7 @@ def include(file, basename="./", mode="none"):
     _include = re.compile("`([^`]+)`\{.include}")
     # regex filter to find out rotate statement
     _rotimg = re.compile(
-        "`([^`]+)`\{.rotate\ +(\.caption\ *=\ *[^`\.]+)\ +(\.angle\ *=\ *[^`\.]+)\}\{([^`]*)\}")
+        "`([^`]+)`\{.rotate\s+(\.caption\s*=\s*[^`\.]+)\ +(\.angle\s*=\s*[^`\.]+)\}\{([^`]*)\}")
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
     # regex filter to remove markdown comment
