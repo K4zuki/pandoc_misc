@@ -34,7 +34,7 @@ listings: true
 codeBlockCaptions: true
 listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
-...
+---
 
 # 使用例 {.unnumbered}
 `$ this is a code`{.sh}
