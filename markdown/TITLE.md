@@ -63,43 +63,58 @@ ThisIsAnother(){
 `$ make pdf` → PDF出力
 
 ## Python
-### yaml - json converter {#yaml2json}
+### ワンライナーYAML - JSON コンバータ {#yaml2json}
 Makefileの中に直接記述
 
 ```makefile
 PYWAVEOPTS:= -c
 PYWAVEOPTS += 'import sys, yaml, json; \
-							json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
+							json.dump(yaml.load(sys.stdin), \
+              sys.stdout, indent=4)'
 
 python $(PYWAVEOPTS) < $< > $@
 ```
 ### include.py
-\` `path/to/filename.file` \` `{command}`
 
-#### rotate image + import
+    `path/to/filename.file`{command}
 
-|type|command|
-|---|---|
-|images|.rotate .caption .angle|
+の書式で各種ファイルをインポート
+するためのpandoc前段フィルタ
 
-#### code listing as table
+#### 画像を任意回転して貼り付け
 
-|type|command|
-|---|---|
-|source codes|.listingtable .\<extention\>|
+| type            | command            |
+|-----------------|--------------------|
+| images          | .rotate            |
+| `filename.file` | .caption="caption" |
+|                 | .angle=\<angle\>   |
 
-#### csv to table convert
+変換後の出力：`![ caption ]( filename_r<angle>.file ){ }`
 
-|type|command|
-|---|---|
-|pre-converted csv table`.tmd`|.include|
+＊例外的に画像リンクのオプション(`width=80%`とか)を使える
+
+#### ソースコードなどをリストとして表にする
+
+\<extention\>に合わせたマークアップが施される
+
+| type         | command                      |
+|--------------|------------------------------|
+| source codes | .listingtable .\<extention\> |
+
+#### CSVファイルをmarkdownのテーブルに変換してコピペ取り込み
+
+| type                          | command  |
+|-------------------------------|----------|
+| pre-converted csv table`.tmd` | .include |
 
 `data/table.csv`{.listingtable .csv}
 
 ```markdown
 `Out/table.tmd`{.include}
 ```
+
 ## wavedrom
+
 `$ npm --install -g wavedrom-cli`
 
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
@@ -116,7 +131,7 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom -i Out/wave.wavejson 
 
 `$ make bitfield` → レジスタ構成画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
-```
+```makefile
 $(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
 rsvg-convert $<.svg --format=png --output=$@
 ```
