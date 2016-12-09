@@ -109,12 +109,16 @@ $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
+ifneq ($(OS),Windows_NT)
 	phantomjs $(WAVEDROM) -i $< -p $@
+else
+	touch $@
+endif
 
 bitfield: $(BITDIR) $(BITPNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
-	rsvg-convert $<.svg --format=png --output=$@
+	$(RSVG) $<.svg --format=png --output=$@
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
 $(TARGETDIR)/%.wavejson: $(DATADIR)/$(WAVEDIR)/%.yaml

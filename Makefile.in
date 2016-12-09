@@ -8,11 +8,14 @@ PCROSSREF = $(CABAL)/bin/pandoc-crossref.exe
 PANDOC:= $(CABAL)/bin/pandoc.exe
 EXE:=.exe
 WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
+BITFIELD:= $(HOME)/AppData/Roaming/npm/node_modules/bit-field/bin/bitfield.js
+RSVG = $(HOME)/rsvg-convert/rsvg-convert
 else
 CABAL = $(HOME)/.cabal
 PCROSSREF = $(CABAL)/bin/pandoc-crossref
 PANDOC:= $(CABAL)/bin/pandoc
 EXE=
+RSVG = rsvg-convert
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = /usr/local/share/texmf/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
@@ -42,4 +45,3 @@ PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
-BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
