@@ -8,8 +8,8 @@ PCROSSREF = $(CABAL)/bin/pandoc-crossref.exe
 PANDOC:= $(CABAL)/bin/pandoc.exe
 EXE:=.exe
 WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
-BITFIELD:= $(HOME)/AppData/Roaming/npm/node_modules/bit-field/bin/bitfield.js
-RSVG = $(HOME)/rsvg-convert/rsvg-convert
+# BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
+RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
 else
 CABAL = $(HOME)/.cabal
 PCROSSREF = $(CABAL)/bin/pandoc-crossref
@@ -27,6 +27,7 @@ endif
 
 # CABAL = $(HOME)/.cabal
 # PANDOC= $(CABAL)/bin/pandoc.exe
+BITFIELD:= bitfield/bin/bitfield.js
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 
