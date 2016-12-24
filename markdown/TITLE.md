@@ -122,8 +122,11 @@ python $(PYWAVEOPTS) < $< > $@
 `data/waves/wave.yaml`{.listingtable .yaml}
 
 ```sh
-$ python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)' < data/waves/wave.yaml > Out/wave.wavejson
-$ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom -i Out/wave.wavejson -p images/waves/wave.png
+$ python -c
+  'import sys, yaml, json; json.dump(yaml.load(sys.stdin),
+  sys.stdout, indent=4)' < data/waves/wave.yaml > Out/wave.wavejson
+$ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
+  -i Out/wave.wavejson -p images/waves/wave.png
 ```
 
 ## bit-field / librsvg
