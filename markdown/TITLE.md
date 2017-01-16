@@ -34,6 +34,8 @@ listings: true
 codeBlockCaptions: true
 listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
+
+front: images/LPC1768-pin.png
 ---
 
 # 使用例 {.unnumbered}
