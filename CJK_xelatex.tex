@@ -268,6 +268,16 @@ Edited by  \leavevmode\\[\baselineskip]
 \endorigfigure
 }
 
+\def\surplus#1#2{%
+        \newcount\n \newcount\m \newcount\t
+        \n=#1 \m=#2 \t=\n%
+        \divide \n by \m%
+        \multiply \n by \m%
+        \advance \t by -\n%
+        #1=\t\relax%
+}
+\usepackage{lastpage}
+
 \begin{document}
 $if(title)$
 %\maketitle
@@ -361,6 +371,10 @@ $endfor$
 $if(title)$
 
 \newpage
+\newcount\p \p=\thepage % always even numver
+\advance\p by2 % \thepage does not include title and first blank pages
+\newcount\q \q=4
+\surplus\p\q % p = p % 4 : 2 or 0
 
 \thispagestyle{empty}
 % \checkoddpage\ifoddpage{}\else\blankpage\fi
@@ -380,7 +394,21 @@ $publisher$\tabularnewline
 \end{longtable}
 $endif$
 
-\afterpage{\blankpage}
-\afterpage{\blankpage}
+$if(printer)$ % use home printer
+  \if\p=2 % 
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+  \fi
+$else$
+  \if\p=0
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+  \else
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+  \fi
+$endif$
 
 \end{document}
