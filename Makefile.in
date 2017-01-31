@@ -27,9 +27,9 @@ endif
 
 # CABAL = $(HOME)/.cabal
 # PANDOC= $(CABAL)/bin/pandoc.exe
-BITFIELD:= bitfield/bin/bitfield.js
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
+BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
 
 REFERENCE= $(MISC)/ref.docx
 
