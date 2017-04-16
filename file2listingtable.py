@@ -5,10 +5,10 @@ import os
 # os.path.basename(path)
 
 
-def file2listingtable(  file="Makefile",
-                        type=".makefile",
-                        docx=False,
-                        tex=False):
+def file2listingtable(file="Makefile",
+                      type=".makefile",
+                      docx=False,
+                      tex=False):
     _file = file
     _basename = os.path.basename(_file)
     _type = type
@@ -27,10 +27,10 @@ def file2listingtable(  file="Makefile",
     else:
         _file_title = _basename
 
-    _list = """Listing: %s %s
-```{#lst:%s %s}
-```""" % (_file_title, _link, _label, _type)
-    _list = _list.split("\n")
+    _list = ["Listing: %s %s" % (_file_title, _link),
+             "```{#lst:%s %s}" % (_label, _type),
+             "```"]
+    # _list = _list.split("\n")
     # print _list
 
     widthlist = []
@@ -112,18 +112,18 @@ if __name__ == '__main__':
         def __init__(self):
             self._parser = argparse.ArgumentParser(
                 description="convert from a file to markdown grid table")
-            self._parser.add_argument(  '--file',
-                                        '-F',
-                                        help='input file',
-                                        default="Makefile")
-            self._parser.add_argument(  '--out',
-                                        '-O',
-                                        help='output markdown file',
-                                        default="Makefile_t.md")
-            self._parser.add_argument(  '--type',
-                                        '-T',
-                                        help='input file type',
-                                        default=".makefile")
+            self._parser.add_argument('--file',
+                                      '-F',
+                                      help='input file',
+                                      default="Makefile")
+            self._parser.add_argument('--out',
+                                      '-O',
+                                      help='output markdown file',
+                                      default="Makefile_t.md")
+            self._parser.add_argument('--type',
+                                      '-T',
+                                      help='input file type',
+                                      default=".makefile")
             self.args = self._parser.parse_args(namespace=self)
 
     parser = MyParser()
