@@ -33,10 +33,11 @@ def file2listingtable(file="Makefile",
     # _list = _list.split("\n")
     # print _list
 
-    widthlist = []
-    for i in range(len(_list)):
+    widthlist = [80]
+    # for i in range(len(_list)):
+    for index, value in enumerate(_list):
         # print _list[i]
-        width = len(_list[i])
+        width = len(value)
         widthlist.append(width)
 
     result = []
@@ -52,6 +53,7 @@ def file2listingtable(file="Makefile",
             swap = _read[i].rstrip('\n').replace("\t", "    ")
             width = len(swap)
             widthlist.append(width)
+
         _maxwidth = max(widthlist)
         # print _maxwidth
 
