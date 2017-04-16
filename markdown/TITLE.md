@@ -13,9 +13,9 @@ created:
 
 documentclass: book
 papersize: b5paper
-mainfont: RictyDiminished-Regular
-sansfont: RictyDiminished-Regular
-monofont: RictyDiminished-Regular
+mainfont: SourceCodePro-Medium
+sansfont: SourceCodePro-Medium
+monofont: SourceCodePro-Medium
 mainlang: Japanese
 CJKoptions: BoldFont=RictyDiminished-Bold,
   ItalicFont=RictyDiminished-Oblique,
@@ -136,8 +136,7 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 
 `$ make bitfield` → レジスタ構成画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
-```makefile
-$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
-rsvg-convert $<.svg --format=png --output=$@
-```
+`$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg`
+`rsvg-convert $<.svg --format=png --output=$@`
+
 `data/bitfields/bit.yaml`{.listingtable .yaml}
