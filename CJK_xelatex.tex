@@ -44,7 +44,9 @@ $endif$
 \usepackage{xltxtra,xunicode}
 \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 \newcommand{\euro}{€}
-
+\newcommand{\hrulemfill}{
+	\leaders\hbox{─}\hfill\kern0pt
+}
 
 $if(mainfont)$
 \setmainfont{$mainfont$}
@@ -125,7 +127,14 @@ $endif$
 
 $if(listings)$
 \usepackage{listings}
-$endif$
+\lstset{% general command to set parameter(s)
+basicstyle=\small, % print whole listing small
+keywordstyle=\color{black}\bfseries\underbar,
+% underlined bold black keywords
+identifierstyle=, % nothing happens
+commentstyle=\color{white}, % white comments
+stringstyle=\ttfamily, % typewriter type for strings
+showstringspaces=false} % no special string spaces$endif$
 
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
@@ -399,7 +408,7 @@ $publisher$\tabularnewline
 $endif$
 
 $if(printer)$ % use home printer
-  \if\p=2 % 
+  \if\p=2 %
     \afterpage{\blankpage}
     \afterpage{\blankpage}
   \fi
