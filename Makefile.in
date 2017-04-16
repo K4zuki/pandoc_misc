@@ -17,7 +17,7 @@ PANDOC:= $(CABAL)/bin/pandoc
 EXE=
 RSVG = rsvg-convert
 ifeq ($(shell uname),Linux)
-FONTDIR = "ExternalLocation = /usr/local/share/texmf/fonts/"
+FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
