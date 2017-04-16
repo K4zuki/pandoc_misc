@@ -121,7 +121,7 @@ python $(PYWAVEOPTS) < $< > $@
 
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
-`data/waves/wave.yaml`{.listingtable .yaml}
+`data/waves/wave.yaml`{.listingtable .yml}
 
 ```sh
 $ python -c
