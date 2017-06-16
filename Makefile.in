@@ -12,6 +12,7 @@ else
 CABAL = $(HOME)/.cabal
 EXE=
 RSVG = rsvg-convert
+PANTABLE = /usr/local/bin/pantable
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
@@ -21,7 +22,7 @@ WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 endif
 endif
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
-PANDOC:= $(CABAL)/bin/pandoc$(EXE)
+PANDOC= $(CABAL)/bin/pandoc$(EXE)
 
 # CABAL = $(HOME)/.cabal
 # PANDOC= $(CABAL)/bin/pandoc.exe
