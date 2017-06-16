@@ -115,10 +115,12 @@ python $(PYWAVEOPTS) < $< > $@
 `Out/table.tmd`{.include}
 ```
 
-### pantable フィルタ：CSVファイルをmarkdownのテーブルに変換してコピペ取り込み
+### pantable
 
 自作フィルタは廃止して[pantable](https://github.com/ickc/pantable)フィルタを使う
 
+- install
+    - `pip install pantable`
 - syntax
 ```
 ---
@@ -131,10 +133,8 @@ include: "data/table.csv" # eternal file
 ---
 ```
 - csv file
-```
-`data/table.csv`{.include}
-```
-
+    - see @lst:table_csv
+- result
 ```table
 ---
 # yaml front matter
@@ -145,7 +145,6 @@ markdown: True
 include: "data/table.csv"
 ---
 ```
-
 
 ## wavedrom
 
