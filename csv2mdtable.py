@@ -25,24 +25,26 @@ def get_string_width(string):
 
 
 class MyParser(object):
+
     def __init__(self):
         self._parser = argparse.ArgumentParser(
             description="convert from csv file to markdown grid table")
-        self._parser.add_argument(  '--file',
-                                    '-F',
-                                    help = 'input csv file',
-                                    default = "csv.csv")
-        self._parser.add_argument(  '--out',
-                                    '-O',
-                                    help = 'output markdown file',
-                                    default = "csv_t.md")
-        self._parser.add_argument(  '--delimiter',
-                                    '-D',
-                                    help = 'device number',
-                                    default = ',')
+        self._parser.add_argument('--file',
+                                  '-F',
+                                  help='input csv file',
+                                  default="csv.csv")
+        self._parser.add_argument('--out',
+                                  '-O',
+                                  help='output markdown file',
+                                  default="csv_t.md")
+        self._parser.add_argument('--delimiter',
+                                  '-D',
+                                  help='device number',
+                                  default=',')
 #        self._parser.add_argument('--basedir','-B', help = 'base directry of output',
 #            default = "C:\\Users\\Public\\Documents\\")
         self.args = self._parser.parse_args(namespace=self)
+
 
 parser = MyParser()
 _file = parser.args.file
@@ -75,7 +77,7 @@ for i in range(width):  # x
 hbar = "+"
 hline = "+"
 for i in maxwidthlist:
-    for j in range(i+1):
+    for j in range(i + 1):
         hbar += u"="
         hline += u"-"
     hbar += u"+"
@@ -89,17 +91,17 @@ for i in range(width):  # x
         # print "%d" %(maxwidthlist[i] - len(lst[j][i])),
         str = ""
         for s in range(maxwidthlist[i] - get_string_width(
-                        lst[j][i].decode(sys.stdin.encoding)) + 1):
+                lst[j][i].decode(sys.stdin.encoding)) + 1):
             str += " "
         lst[j][i] = lst[j][i] + str
 #        print lst[j][i],
 #    print "|"
 
-_outfile.write(hline+"\n")
+_outfile.write(hline + "\n")
 _outfile.write("|%s|\n" % "|".join(lst[0]))
-_outfile.write(hbar+"\n")
+_outfile.write(hbar + "\n")
 for j in range(height - 1):  # y
-    _outfile.write("|%s|\n" % "|".join(lst[j+1]))
+    _outfile.write("|%s|\n" % "|".join(lst[j + 1]))
     _outfile.write(hline + "\n")
 
 _outfile.close()
