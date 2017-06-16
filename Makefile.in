@@ -4,16 +4,12 @@
 ifeq ($(OS),Windows_NT)
 HOME = C:/Users/$(USERNAME)
 CABAL = $(HOME)/AppData/Roaming/cabal
-PCROSSREF = $(CABAL)/bin/pandoc-crossref.exe
-PANDOC:= $(CABAL)/bin/pandoc.exe
 EXE:=.exe
 WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 # BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
 RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
 else
 CABAL = $(HOME)/.cabal
-PCROSSREF = $(CABAL)/bin/pandoc-crossref
-PANDOC:= $(CABAL)/bin/pandoc
 EXE=
 RSVG = rsvg-convert
 ifeq ($(shell uname),Linux)
@@ -24,6 +20,8 @@ FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 endif
 endif
+PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
+PANDOC:= $(CABAL)/bin/pandoc$(EXE)
 
 # CABAL = $(HOME)/.cabal
 # PANDOC= $(CABAL)/bin/pandoc.exe
@@ -40,7 +38,7 @@ REPO= ${PWD##*/}
 PANFLAGS= -s -S
 PANFLAGS += --read=markdown+east_asian_line_breaks
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
-PANFLAGS += --filter $(PCROSSREF)
+PANFLAGS += --filter=$(PCROSSREF) --filter=pantable
 
 PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
