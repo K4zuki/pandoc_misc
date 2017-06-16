@@ -103,7 +103,7 @@ python $(PYWAVEOPTS) < $< > $@
 |--------------|------------------------------|
 | source codes | .listingtable .\<extention\> |
 
-#### CSVファイルをmarkdownのテーブルに変換してコピペ取り込み
+#### ~~CSVファイルをmarkdownのテーブルに変換してコピペ取り込み~~後述のフィルタで置き換え
 
 | type                          | command  |
 |-------------------------------|----------|
@@ -114,6 +114,38 @@ python $(PYWAVEOPTS) < $< > $@
 ```markdown
 `Out/table.tmd`{.include}
 ```
+
+### pantable フィルタ：CSVファイルをmarkdownのテーブルに変換してコピペ取り込み
+
+自作フィルタは廃止して[pantable](https://github.com/ickc/pantable)フィルタを使う
+
+- syntax
+```
+---
+# yaml front matter
+caption: '*Awesome* **Markdown** Table'
+alignment: RCDL # Right, Center, Default, Left
+table-width: 2/3 # default is 1.0 * page width
+markdown: True # inline markdown
+include: "data/table.csv" # eternal file
+---
+```
+- csv file
+```
+`data/table.csv`{.include}
+```
+
+```table
+---
+# yaml front matter
+caption: '*Awesome* **Markdown** Table'
+alignment: RCDL
+table-width: 2/3
+markdown: True
+include: "data/table.csv"
+---
+```
+
 
 ## wavedrom
 

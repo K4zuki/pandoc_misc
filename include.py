@@ -9,8 +9,6 @@ modesel = {
 
 
 def include(file, basename="./", mode="none"):
-    # regex filter to find out include statement
-    _include = re.compile("`([^`]+)`\{.include}")
     # regex filter to find out rotate statement
     _rotimg = re.compile(
         "`([^`]+)`\{.rotate\s+(\.caption\s*=\s*[^`\.]+)\ +(\.angle\s*=\s*[^`\.]+)\}\{([^`]*)\}")
@@ -25,13 +23,6 @@ def include(file, basename="./", mode="none"):
     output = []
 
     for line in stripped.split("\n"):
-        if _include.search(line):
-            print file + ": include",
-            input_file = _include.search(line).groups()[0]
-            print input_file
-            # file_contents = open(input_file, "rb").read()
-            line = _include.sub(line,
-                                include(basename + input_file, mode=mode))
         if listing.search(line):
             print file + ": listingtable of",
             input_file = listing.search(line).groups()[0]
@@ -52,6 +43,7 @@ def include(file, basename="./", mode="none"):
         output.append(line)
     return "\n".join(output)
 
+
 if __name__ == '__main__':
     import re
     import sys
@@ -64,22 +56,22 @@ if __name__ == '__main__':
         def __init__(self):
             self._parser = argparse.ArgumentParser(
                 description="cat some.txt| python include.py --out out_f.md")
-            self._parser.add_argument(  'infile',
-                                        nargs='?',
-                                        type=argparse.FileType('r'),
-                                        default=sys.stdin)
-            self._parser.add_argument(  '--out',
-                                        '-O',
-                                        help='output markdown file',
-                                        default="table.md")
-            self._parser.add_argument(  '--basedir',
-                                        '-B',
-                                        help='base directry of output',
-                                        default="./")
-            self._parser.add_argument(  '--mode',
-                                        '-M',
-                                        help='TeX or DOCX output',
-                                        default="none")
+            self._parser.add_argument('infile',
+                                      nargs='?',
+                                      type=argparse.FileType('r'),
+                                      default=sys.stdin)
+            self._parser.add_argument('--out',
+                                      '-O',
+                                      help='output markdown file',
+                                      default="table.md")
+            self._parser.add_argument('--basedir',
+                                      '-B',
+                                      help='base directry of output',
+                                      default="./")
+            self._parser.add_argument('--mode',
+                                      '-M',
+                                      help='TeX or DOCX output',
+                                      default="none")
             self.args = self._parser.parse_args(namespace=self)
 
     parser = MyParser()
@@ -89,9 +81,6 @@ if __name__ == '__main__':
     _mode = parser.args.mode
     __mode = modesel[_mode.upper()]
     # print _mode
-
-    # regex filter to find out include statement
-    _include = re.compile("`([^`]+)`\{.include}")
 
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
@@ -109,11 +98,6 @@ if __name__ == '__main__':
     output = open(_basedir + "/" + _output, 'wb')
 
     for line in stripped.split("\n"):
-        if _include.search(line):
-            print "main: include",
-            input_file = _include.search(line).groups()[0]
-            print input_file
-            line = _include.sub(line, include(input_file, _basedir, _mode))
         if listing.search(line):
             print "main: listingtable of",
             input_file = listing.search(line).groups()[0]
