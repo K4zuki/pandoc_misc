@@ -39,7 +39,7 @@ REPO= ${PWD##*/}
 PANFLAGS= -s -S
 PANFLAGS += --read=markdown+east_asian_line_breaks
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
-PANFLAGS += --filter=$(PCROSSREF) --filter=pantable
+PANFLAGS += --filter=$(PCROSSREF) --filter=$(PANTABLE)
 
 PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
