@@ -45,6 +45,7 @@ def rotatepic(filename, caption="", angle=0, others=""):
     finally:
         return "![%s](%s){%s}" % (caption, filename, others)
 
+
 if __name__ == '__main__':
     import argparse
 
