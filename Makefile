@@ -118,7 +118,7 @@ endif
 bitfield: $(BITDIR) $(BITPNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
-	--fontfamily monospace --fontsize 16 > $<.svg
+	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
 	$(RSVG) $<.svg --format=png --output=$@
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
