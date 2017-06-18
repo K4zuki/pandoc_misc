@@ -37,9 +37,14 @@ SVNDIR=
 REPO= ${PWD##*/}
 
 PANFLAGS= -s -S
+PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --read=markdown+east_asian_line_breaks
+ifneq ($(OS),Windows_NT)
+PANFLAGS += --filter=$(PANTABLE)
+endif
+PANFLAGS += --filter=$(MISC)/panflute/include,py
+
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
-PANFLAGS += --filter=$(PCROSSREF) --filter=$(PANTABLE)
 
 PYTHON= python
 CSV2TABLE= $(MISC)/csv2mdtable.py
