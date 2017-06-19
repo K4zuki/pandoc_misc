@@ -15,13 +15,14 @@ CABAL = $(HOME)/.cabal
 EXE =
 RSVG = rsvg-convert
 PANTABLE = /usr/local/bin/pantable
-GPP = /usr/local/bin/gpp
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
+GPP = /usr/bin/gpp
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
+GPP = /usr/local/bin/gpp
 endif
 endif
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
