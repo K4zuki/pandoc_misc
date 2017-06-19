@@ -59,7 +59,10 @@ PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
 
-GPPFLAGS = -H +c "<!--" "-->" -I$(MDDIR) -I$(DATADIR)
+GPPFLAGS = -H +c "<!--" "-->"
+GPPFLAGS += -I$(MDDIR)
+GPPFLAGS += -I$(DATADIR)
+GPPFLAGS += -I$(TARGETDIR)
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
@@ -92,7 +95,7 @@ $(TARGETDIR)/$(IMAGEDIR):
 	cd $(TARGETDIR);\
 	ln -s ../$(IMAGEDIR)
 
-tex: merge $(TARGETDIR)/$(TARGET).tex
+tex: $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
 		$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
@@ -102,12 +105,12 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 # 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG)
-	$(GPP) $(GPPFLAGS) -Ipanflute $< | $(PYTHON) $(FILTER) --mode tex --out $@
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
+	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
-# tables: $(TABLES)
-# $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
-# 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
+tables: $(TABLES)
+$(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
+	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
