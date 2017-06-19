@@ -54,17 +54,28 @@ ThisIsAnother(){
 
 ![bit-field画像](images/bitfields/bit.png)
 
+<#include "source.md">
+
 # 必要なもの
 ## GNU Make
-`$ make clean` → 生成物を消去
 
-## pandoc(HTML出力)
-`$ make html` → HTML出力
+- 全体のコンパイルに必要
 
-### XeLaTeX(PDF出力)
-`$ make pdf` → PDF出力
+### syntax
+#### 生成物を消去
+`$ make clean`
 
-## Python
+#### pandoc(HTML出力)
+`$ make html`
+
+#### XeLaTeX(PDF出力)
+`$ make pdf`
+
+## Python _3_
+
+- データ変換とpandocフィルタに必要
+- **やはりPython２は悪い文明！粉砕する！**
+
 ### ワンライナーYAML - JSON コンバータ {#yaml2json}
 Makefileの中に直接記述
 
@@ -76,7 +87,7 @@ PYWAVEOPTS += 'import sys, yaml, json; \
 
 python $(PYWAVEOPTS) < $< > $@
 ```
-### include.py
+### include.py(自作フィルタ)
 
     `path/to/filename.file`{command}
 
@@ -112,8 +123,12 @@ python $(PYWAVEOPTS) < $< > $@
 `data/table.csv`{.listingtable .csv}
 
 ```markdown
-`Out/table.tmd`{.include}
+
+<#include "table.tmd">
+
 ```
+
+<!-- `Out/table.tmd`{.include} -->
 
 ### pantable
 
@@ -122,7 +137,7 @@ python $(PYWAVEOPTS) < $< > $@
 - install
     - `pip install pantable`
 - syntax
-```
+```yaml
 ---
 # yaml front matter
 caption: '*Awesome* **Markdown** Table'
@@ -163,6 +178,7 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 ```
 
 ## bit-field / librsvg
+
 `$ npm --install -g bit-field`
 
 `$ make bitfield` → レジスタ構成画像をYAMLから[コンバータ](#yaml2json)を通して生成
@@ -172,6 +188,26 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 
 `data/bitfields/bit.yaml`{.listingtable .yaml}
 
----
+## GPP (Generic Preprocessor)
 
-<#include "../panflute/source.md">
+- Ubuntu - `$ apt-get install gpp`{.sh}
+    - 日本語でおｋ
+- Mac - `$ brew install gpp`{.sh}
+    - 日本語でおｋ
+- Windows - **日本語ダメ**
+
+# 基本的ディレクトリ構成
+
+```
+project root
+|-- markdown (markdown原稿)
+|   |-- TITLE.md (必ず必要)
+|   `-- other.md
+`-- data
+    |-- bitfields
+    |   `-- bit.yaml (bitfield形式)
+    |-- waves
+    |   `-- wave.yaml (wavedrom形式)
+    `-- images
+        `-- front-image.png (表紙絵・原稿ファイル内でファイル名を指定できる)
+```
