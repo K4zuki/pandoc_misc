@@ -59,7 +59,7 @@ PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
 
-GPPFLAGS = -H -I$(MDDIR) -I$(DATADIR)
+GPPFLAGS = -H +c "<!--" "-->" -I$(MDDIR) -I$(DATADIR)
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
@@ -93,9 +93,9 @@ $(TARGETDIR)/$(IMAGEDIR):
 	ln -s ../$(IMAGEDIR)
 
 tex: merge $(TARGETDIR)/$(TARGET).tex
-$(TARGETDIR)/$(TARGET).tex: $(TARGETDIR)/$(TARGET)
+$(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
-		$(TARGETDIR)/$(TARGET).md -o $(TARGETDIR)/$(TARGET).tex
+		$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
 
 # merge: filtered $(TARGETDIR)/$(TARGET).md
 # $(TARGETDIR)/$(TARGET).md: $(FILTERED)
