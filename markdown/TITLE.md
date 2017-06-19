@@ -152,7 +152,7 @@ include: "data/table.csv"
 
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
-`data/waves/wave.yaml`{.listingtable .yml}
+`data/waves/wave.yaml`{.listingtable .yaml}
 
 ```sh
 $ python -c
@@ -171,3 +171,7 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 `rsvg-convert $<.svg --format=png --output=$@`
 
 `data/bitfields/bit.yaml`{.listingtable .yaml}
+
+---
+
+<#include "../panflute/source.md">

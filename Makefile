@@ -47,7 +47,7 @@ BITJSON:= $(BITYAML:%.yaml=$(TARGETDIR)/%.bitjson)
 BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
-FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.fmd)
+FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
 
@@ -58,6 +58,8 @@ PANFLAGS += -M localfontdir=$(FONTDIR)
 PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
+
+GPPFLAGS = -H -I$(MDDIR) -I$(DATADIR)
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
@@ -74,7 +76,7 @@ $(DOCX): $(HTML)
 	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
-$(HTML): $(TARGETDIR)/$(TARGET).md
+$(HTML): $(TARGETDIR)/$(INPUT)
 	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
 		$(FILTERED) -o $(HTML)
 
@@ -91,21 +93,21 @@ $(TARGETDIR)/$(IMAGEDIR):
 	ln -s ../$(IMAGEDIR)
 
 tex: merge $(TARGETDIR)/$(TARGET).tex
-$(TARGETDIR)/$(TARGET).tex: $(TARGETDIR)/$(TARGET).md
+$(TARGETDIR)/$(TARGET).tex: $(TARGETDIR)/$(TARGET)
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
 		$(TARGETDIR)/$(TARGET).md -o $(TARGETDIR)/$(TARGET).tex
 
-merge: filtered $(TARGETDIR)/$(TARGET).md
-$(TARGETDIR)/$(TARGET).md: $(FILTERED)
-	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
+# merge: filtered $(TARGETDIR)/$(TARGET).md
+# $(TARGETDIR)/$(TARGET).md: $(FILTERED)
+# 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
-filtered: tables $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
-	cat $< | $(PYTHON) $(FILTER) --mode tex --out $@
+filtered: $(FILTERED)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG)
+	$(GPP) $(GPPFLAGS) -Ipanflute $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
-tables: $(TABLES)
-$(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
-	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
+# tables: $(TABLES)
+# $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
+# 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson

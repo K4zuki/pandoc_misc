@@ -9,11 +9,13 @@ WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 # BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
 PANTABLE = C:/Python27/Scripts/pantable.exe
 RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
+GPP =
 else
 CABAL = $(HOME)/.cabal
-EXE=
+EXE =
 RSVG = rsvg-convert
 PANTABLE = /usr/local/bin/pantable
+GPP = /usr/local/bin/gpp
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
@@ -37,8 +39,7 @@ SVN=
 SVNDIR=
 REPO= ${PWD##*/}
 
-PANFLAGS= -s -S
-PANFLAGS += --filter=$(PCROSSREF)
+PANFLAGS= --filter=$(PCROSSREF) --no-tex-ligatures
 PANFLAGS += --read=markdown+east_asian_line_breaks
 ifneq ($(OS),Windows_NT)
 PANFLAGS += --filter=$(PANTABLE)
