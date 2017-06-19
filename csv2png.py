@@ -17,42 +17,43 @@ class MyParser(object):
 
     def __init__(self):
         self._parser = argparse.ArgumentParser(description="")
-        self._parser.add_argument(  '--file',
-                                    '-F',
-                                    help='input csv file name',
-                                    default='default.csv')
+        self._parser.add_argument('--file',
+                                  '-F',
+                                  help='input csv file name',
+                                  default='default.csv')
 
-        self._parser.add_argument(  '--xmin',
-                                    default=0)
-        self._parser.add_argument(  '--xmax',
-                                    default=1000)
-        self._parser.add_argument(  '--xlabel',
-                                    default="I")
-        self._parser.add_argument(  '--xsuffix',
-                                    default="in")
-        self._parser.add_argument(  '--xunit',
-                                    default="mA")
+        self._parser.add_argument('--xmin',
+                                  default=0)
+        self._parser.add_argument('--xmax',
+                                  default=1000)
+        self._parser.add_argument('--xlabel',
+                                  default="I")
+        self._parser.add_argument('--xsuffix',
+                                  default="in")
+        self._parser.add_argument('--xunit',
+                                  default="mA")
 
-        self._parser.add_argument(  '--ymin',
-                                    default=2.5)
-        self._parser.add_argument(  '--ymax',
-                                    default=5.5)
-        self._parser.add_argument(  '--ylabel',
-                                    default="V")
-        self._parser.add_argument(  '--ysuffix',
-                                    default="out")
-        self._parser.add_argument(  '--yunit',
-                                    default="V")
+        self._parser.add_argument('--ymin',
+                                  default=2.5)
+        self._parser.add_argument('--ymax',
+                                  default=5.5)
+        self._parser.add_argument('--ylabel',
+                                  default="V")
+        self._parser.add_argument('--ysuffix',
+                                  default="out")
+        self._parser.add_argument('--yunit',
+                                  default="V")
 
 #        self._parser.add_argument('--input', '-I', help = 'input voltage', default = 3.6)
-        self._parser.add_argument(  '--output',
-                                    '-O',
-                                    help='output file name',
-                                    default='default.png')
+        self._parser.add_argument('--output',
+                                  '-O',
+                                  help='output file name',
+                                  default='default.png')
 #        self._parser.add_argument('--device', '-D', help = 'device number', default = 1)
 #        self._parser.add_argument('--basename','-B', help = 'base directry of output',
 #            default = "C:\\Users\\Public\\Documents\\")
         self.args = self._parser.parse_args(namespace=self)
+
 
 parser = MyParser()
 _file = parser.args.file

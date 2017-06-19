@@ -52,56 +52,56 @@ _output = parser.args.out
 _delimiter = parser.args.delimiter
 
 _read = csv.reader(open(_file, 'r'), delimiter=_delimiter, quotechar='\"')
-_outfile = open(_output, 'w')
+# _outfile = open(_output, 'w')
 
-lst = list(_read)
-width = len(lst[0])  # number of member in list
-height = len(lst)
+with open(_output, 'w') as _outfile:
 
-widthlist = []
-maxwidthlist = []
-for i in range(width):  # x
-    widthlist.append([])
-    for j in range(height):  # y
-        # list up width of (x=i, y=0~(j-1))
-        widthlist[i].append(get_string_width(
-            lst[j][i].decode(sys.stdin.encoding)))
-        # print len(lst[j][i])
-        # print get_string_width(lst[j][i].decode(sys.stdin.encoding))
-        # print len(lst[j][i].decode(sys.stdin.encoding))
-    maxwidthlist.append(max(widthlist[i]))  # get longest length of each x
-#    print max(widthlist[i])
+    lst = list(_read)
+    width = len(lst[0])  # number of member in list
+    height = len(lst)
 
-# print widthlist
-# print maxwidthlist
-hbar = "+"
-hline = "+"
-for i in maxwidthlist:
-    for j in range(i + 1):
-        hbar += u"="
-        hline += u"-"
-    hbar += u"+"
-    hline += u"+"
-# print hbar
-# print hline
+    widthlist = []
+    maxwidthlist = []
+    for i in range(width):  # x
+        widthlist.append([])
+        for j in range(height):  # y
+            # list up width of (x=i, y=0~(j-1))
+            widthlist[i].append(get_string_width(
+                lst[j][i].decode(sys.stdin.encoding)))
+            # print len(lst[j][i])
+            # print get_string_width(lst[j][i].decode(sys.stdin.encoding))
+            # print len(lst[j][i].decode(sys.stdin.encoding))
+        maxwidthlist.append(max(widthlist[i]))  # get longest length of each x
+    #    print max(widthlist[i])
 
-str = ""
-for i in range(width):  # x
-    for j in range(height):  # y
-        # print "%d" %(maxwidthlist[i] - len(lst[j][i])),
-        str = ""
-        for s in range(maxwidthlist[i] - get_string_width(
-                lst[j][i].decode(sys.stdin.encoding)) + 1):
-            str += " "
-        lst[j][i] = lst[j][i] + str
-#        print lst[j][i],
-#    print "|"
+    # print widthlist
+    # print maxwidthlist
+    hbar = "+"
+    hline = "+"
+    for i in maxwidthlist:
+        for j in range(i + 1):
+            hbar += u"="
+            hline += u"-"
+        hbar += u"+"
+        hline += u"+"
+    # print hbar
+    # print hline
 
-_outfile.write(hline + "\n")
-_outfile.write("|%s|\n" % "|".join(lst[0]))
-_outfile.write(hbar + "\n")
-for j in range(height - 1):  # y
-    _outfile.write("|%s|\n" % "|".join(lst[j + 1]))
+    str = ""
+    for i in range(width):  # x
+        for j in range(height):  # y
+            # print "%d" %(maxwidthlist[i] - len(lst[j][i])),
+            str = ""
+            for s in range(maxwidthlist[i] - get_string_width(
+                    lst[j][i].decode(sys.stdin.encoding)) + 1):
+                str += " "
+            lst[j][i] = lst[j][i] + str
+    #        print lst[j][i],
+    #    print "|"
+
     _outfile.write(hline + "\n")
-
-_outfile.close()
+    _outfile.write("|%s|\n" % "|".join(lst[0]))
+    _outfile.write(hbar + "\n")
+    for j in range(height - 1):  # y
+        _outfile.write("|%s|\n" % "|".join(lst[j + 1]))
+        _outfile.write(hline + "\n")

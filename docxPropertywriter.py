@@ -39,6 +39,7 @@ class MyParser(object):
                                   default="document.docx")
         self.args = self._parser.parse_args(namespace=self)
 
+
 parser = MyParser()
 _infile = parser.infile
 _outfile = parser.outfile
