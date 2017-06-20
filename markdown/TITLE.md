@@ -108,11 +108,11 @@ python $(PYWAVEOPTS) < $< > $@
 
 #### ソースコードなどをリストとして表にする
 
-\<extention\>に合わせたマークアップが施される
+\\<extention\\>に合わせたマークアップが施される
 
-| type         | command                      |
-|--------------|------------------------------|
-| source codes | .listingtable .\<extention\> |
+| type         | command                        |
+|--------------|--------------------------------|
+| source codes | .listingtable .\\<extention\\> |
 
 #### ~~CSVファイルをmarkdownのテーブルに変換してコピペ取り込み~~後述のフィルタで置き換え
 
