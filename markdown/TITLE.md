@@ -188,13 +188,24 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 
 `data/bitfields/bit.yaml`{.listingtable .yaml}
 
-## GPP (Generic Preprocessor)
+## GPP (Generic Preprocessor) 汎用プリプロセッサ
+### インストール
 
 - Ubuntu - `$ apt-get install gpp`{.sh}
-    - 日本語でおｋ
+    - 日本語ファイル使える
 - Mac - `$ brew install gpp`{.sh}
-    - 日本語でおｋ
-- Windows - **日本語ダメ**
+    - 日本語ファイル使える
+- Windows - **日本語ファイル化ける**
+
+### syntax
+
+`<#include "source.md">` で外部ファイル読み込み(`-H` オプション)
+
+HTMLのコメントが使えるように`+c "<!-- -->"`オプションを使用
+
+### options
+
+- `gpp -H +c "<!-- -->"`
 
 # 基本的ディレクトリ構成
 
