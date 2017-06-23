@@ -22,6 +22,7 @@ GPP = /usr/bin/gpp
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
+MFILTER = $(HOME)/.nodebrew/current/bin/mermaid-filter
 GPP = /usr/local/bin/gpp
 endif
 endif
@@ -44,12 +45,13 @@ PANFLAGS= --filter=$(PCROSSREF) --no-tex-ligatures
 PANFLAGS += --read=markdown+east_asian_line_breaks
 ifneq ($(OS),Windows_NT)
 PANFLAGS += --filter=$(PANTABLE)
+PANFLAGS += --filter=$(MFILTER)
 endif
-PANFLAGS += --filter=$(MISC)/panflute/include.py
+# PANFLAGS += --filter=$(MISC)/panflute/include.py
 
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
 
-PYTHON= python
+PYTHON= python3
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py

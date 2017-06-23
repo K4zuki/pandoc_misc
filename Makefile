@@ -63,10 +63,11 @@ GPPFLAGS = -H +c "<!--" "-->"
 GPPFLAGS += -I$(MDDIR)
 GPPFLAGS += -I$(DATADIR)
 GPPFLAGS += -I$(TARGETDIR)
+GPPFLAGS += -Ipanflute
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
-.PHONY: docx html filtered tables pdf tex merge clean linking
+.PHONY: docx html filtered pdf tex merge clean linking
 
 all: html
 
@@ -105,12 +106,12 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 # 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG)
 	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
-tables: $(TABLES)
-$(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
-	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
+# tables: $(TABLES)
+# $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
+# 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
