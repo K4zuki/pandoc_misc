@@ -76,7 +76,16 @@ ThisIsAnother(){
 - データ変換とpandocフィルタに必要
 - **やはりPython２は悪い文明！粉砕する！**
 
+### インストール
+- Mac
+    - `$ brew install python3`
+- Linux
+    - `$ sudo apt-get install python3`
+
 ### ワンライナーYAML - JSON コンバータ {#yaml2json}
+
+- `$ pip3 install pyyaml`
+
 Makefileの中に直接記述
 
 ```makefile
@@ -85,14 +94,19 @@ PYWAVEOPTS += 'import sys, yaml, json; \
 							json.dump(yaml.load(sys.stdin), \
               sys.stdout, indent=4)'
 
-python $(PYWAVEOPTS) < $< > $@
+python3 $(PYWAVEOPTS) < $< > $@
 ```
+
 ### include.py(自作フィルタ)
 
     `path/to/filename.file`{command}
 
-の書式で各種ファイルをインポート
-するためのpandoc前段フィルタ
+の書式で各種ファイルをインポートするためのpandoc前段フィルタ
+内部でPillowライブラリを利用している
+
+#### インストール
+
+- `$ pip3 install pillow`
 
 #### 画像を任意回転して貼り付け
 
@@ -123,9 +137,17 @@ python $(PYWAVEOPTS) < $< > $@
 `data/table.csv`{.listingtable .csv}
 
 ```markdown
-
-<#include "table.tmd">
-
++-----+------+---------+--------------------------+
+|this |is    |a table  |multi\
+line\
+title      |
++=====+======+=========+==========================+
+|to   |show  |an       |example                   |
++-----+------+---------+--------------------------+
+|of   |table |markdown |importer\
+of\
+multiline |
++-----+------+---------+--------------------------+
 ```
 
 <!-- `Out/table.tmd`{.include} -->
@@ -135,7 +157,7 @@ python $(PYWAVEOPTS) < $< > $@
 自作フィルタは廃止して[pantable](https://github.com/ickc/pantable)フィルタを使う
 
 - install
-    - `pip install pantable`
+    - `$ pip3 install pantable`
 - syntax
 ```yaml
 ---
@@ -157,14 +179,28 @@ caption: '*Awesome* **Markdown** Table'
 alignment: RCDL
 table-width: 2/3
 markdown: True
-include: "data/table.csv"
+include: "../data/table.csv"
 ---
 ```
+## Node.js と npm
 
-## wavedrom
+更新頻度高すぎ\&\&ワケワカラン過ぎてあんまり好きじゃない。
+`6.x`がLTSらしいので当面6系を使用
 
+### インストール
+
+- Mac
+    - `$ brew install nodebrew`
+    - `$ nodebrew use v6.5.0`
+    - `~/.nodebrew/current/bin/{node,npm}`
+- Ubuntu
+    - **TBC**
+
+### wavedrom
+#### インストール
 `$ npm --install -g wavedrom-cli`
 
+#### 使用例
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
 `data/waves/wave.yaml`{.listingtable .yaml}
@@ -177,9 +213,19 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
   -i Out/wave.wavejson -p images/waves/wave.png
 ```
 
-## bit-field / librsvg
+### bit-field / librsvg
+#### インストール
 
-`$ npm --install -g bit-field`
+- bit-field
+  - `$ npm install -g bit-field`
+
+- librsvg
+  - Mac
+    - `$ brew install librsvg`
+  - Ubuntu
+    - **TBC**
+
+#### 使用例
 
 `$ make bitfield` → レジスタ構成画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
@@ -187,6 +233,10 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 `rsvg-convert $<.svg --format=png --output=$@`
 
 `data/bitfields/bit.yaml`{.listingtable .yaml}
+
+### mermaid-filter
+#### インストール
+`$ npm install -g raghur/mermaid-filter`
 
 ## GPP (Generic Preprocessor) 汎用プリプロセッサ
 ### インストール
@@ -199,13 +249,13 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 
 ### syntax
 
-`<#include "source.md">` で外部ファイル読み込み(`-H` オプション)
+`＜#include "source.md"＞` で外部ファイル読み込み(`-H` オプション)
 
 HTMLのコメントが使えるように`+c "<!-- -->"`オプションを使用
 
 ### options
 
-- `gpp -H +c "<!-- -->"`
+- `gpp -H +c "＜!-- --＞"`
 
 # 基本的ディレクトリ構成
 
