@@ -1,4 +1,4 @@
-#!/usr/bin/env python27
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 modesel = {
@@ -24,19 +24,19 @@ def include(file, basename="./", mode="none"):
 
     for line in stripped.split("\n"):
         if listing.search(line):
-            print file + ": listingtable of",
+            print (file + ": listingtable of",)
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
-            print filetype
+            print (filetype)
             convert = f2l(input_file, filetype, _mode[0], _mode[1])
             line = listing.sub(line, convert)
         if _rotimg.search(line):
-            print file + ": rotate image of",
+            print (file + ": rotate image of",)
             input_file = _rotimg.search(line).groups()[0]
             caption = _rotimg.search(line).groups()[1]
             angle = _rotimg.search(line).groups()[2]
             others = _rotimg.search(line).groups()[3]
-            print input_file, angle
+            print (input_file, angle)
             rotatedcaption = rotatepic(input_file, caption, angle, others)
             # print rotatedcaption
             line = listing.sub(line, rotatedcaption)
@@ -95,23 +95,23 @@ if __name__ == '__main__':
     # regex filter to find out table caption
     tblcaption = re.compile(
         "(Table:)([\*_\ ]*)(.[^\{\}\*_]*)([\*_\ ]*).*\{\ *#(tbl:.[^\*\n]*[^\ ])\ *\}")
-    output = open(_basedir + "/" + _output, 'wb')
+    output = open(_basedir + "/" + _output, 'w')
 
     for line in stripped.split("\n"):
         if listing.search(line):
-            print "main: listingtable of",
+            print ("main: listingtable of", end="")
             input_file = listing.search(line).groups()[0]
             filetype = listing.search(line).groups()[1]
-            print filetype
+            print (filetype)
             convert = f2l(input_file, filetype, __mode[0], __mode[1])
             line = listing.sub(line, convert)
         if _rotimg.search(line):
-            print "main: rotate image of",
+            print ("main: rotate image of", end="")
             input_file = _rotimg.search(line).groups()[0]
             caption = _rotimg.search(line).groups()[1]
             angle = _rotimg.search(line).groups()[2]
             others = _rotimg.search(line).groups()[3]
-            print input_file, angle
+            print (input_file, angle)
             rotatedcaption = rotatepic(input_file, caption, angle, others)
             # print rotatedcaption
             line = listing.sub(line, rotatedcaption)
@@ -120,5 +120,6 @@ if __name__ == '__main__':
                 caption = tblcaption.search(line).groups()[2]
                 link = tblcaption.search(line).groups()[4]
                 line = "TC \"[@" + link + "] " + caption + "\" `\l` 5\n\n" + line
-                print link
-        output.write(line + "\n")
+                print (link)
+        output.write(line)
+        output.write("\n")

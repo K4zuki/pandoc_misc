@@ -1,4 +1,4 @@
-#!/usr/bin/env python27
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -41,7 +41,7 @@ def rotatepic(filename, caption="", angle=0, others=""):
         if not os.path.exists(filename):
             tmp.save(filename)
     except:
-        print sys.exc_info()
+        print (sys.exc_info())
     finally:
         return "![%s](%s){%s}" % (caption, filename, others)
 

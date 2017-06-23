@@ -1,4 +1,4 @@
-#!/usr/bin/env python27
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # thanks to http://www.hiroom2.com/2016/04/07/pythonで全角文字を含む文字列の幅を取得する/
@@ -66,8 +66,7 @@ with open(_output, 'w') as _outfile:
         widthlist.append([])
         for j in range(height):  # y
             # list up width of (x=i, y=0~(j-1))
-            widthlist[i].append(get_string_width(
-                lst[j][i].decode(sys.stdin.encoding)))
+            widthlist[i].append(get_string_width(lst[j][i]))
             # print len(lst[j][i])
             # print get_string_width(lst[j][i].decode(sys.stdin.encoding))
             # print len(lst[j][i].decode(sys.stdin.encoding))
@@ -91,11 +90,10 @@ with open(_output, 'w') as _outfile:
     for i in range(width):  # x
         for j in range(height):  # y
             # print "%d" %(maxwidthlist[i] - len(lst[j][i])),
-            str = ""
-            for s in range(maxwidthlist[i] - get_string_width(
-                    lst[j][i].decode(sys.stdin.encoding)) + 1):
-                str += " "
-            lst[j][i] = lst[j][i] + str
+            lst[j][i] = lst[j][i].ljust(maxwidthlist[i] - get_string_width(lst[j][i]) + 1)
+            # for s in range():
+            #     str += " "
+            # lst[j][i] =  + str
     #        print lst[j][i],
     #    print "|"
 
