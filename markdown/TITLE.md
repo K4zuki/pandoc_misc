@@ -38,6 +38,22 @@ listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 front: images/front-image.png
 ---
 
+# 基本的ディレクトリ構成
+
+```
+project root
+|-- markdown (markdown原稿)
+|   |-- TITLE.md (必ず必要)
+|   `-- other.md
+`-- data
+    |-- bitfields
+    |   `-- bit.yaml (bitfield形式)
+    |-- waves
+    |   `-- wave.yaml (wavedrom形式)
+    `-- images
+        `-- front-image.png (表紙絵・原稿ファイル内でファイル名を指定できる)
+```
+
 # 使用例 {.unnumbered}
 `$ this is a code`{.sh}
 
@@ -57,19 +73,29 @@ ThisIsAnother(){
 <#include "source.md">
 
 # 必要なもの
-## GNU Make
+## pandoc
+汎用Markdownコンバータ
 
-- 全体のコンパイルに必要
+### インストール
+- Mac
+  - `$ brew install pandoc pandoc-crossref`{.sh}
+- Ubuntu
+  - aptで入るのは1.16でだいぶ古いのでpandocのGitHubサイトからdebファイルを落としてくる
+    - `$ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb`
+    - `$ dpkg -i pandoc-1.19.2.1-1-amd64.deb`
+
+## GNU Make
+全体のコンパイルに必要
 
 ### syntax
 #### 生成物を消去
-`$ make clean`
+`$ make clean`{.sh}
 
 #### pandoc(HTML出力)
-`$ make html`
+`$ make html`{.sh}
 
-#### XeLaTeX(PDF出力)
-`$ make pdf`
+#### pandoc + XeLaTeX(PDF出力)
+`$ make pdf`{.sh}
 
 ## Python _3_
 
@@ -78,13 +104,15 @@ ThisIsAnother(){
 
 ### インストール
 - Mac
-    - `$ brew install python3`
+    - `$ brew install python3`{.sh}
 - Linux
-    - `$ sudo apt-get install python3`
+    - `$ sudo apt-get install python3 python3-pip`{.sh}
+      - このpip3はパーミッションエラーを引き起こすようなのでアップグレードするべきではない
+      - もしくはプレフィックス付きでアップデートしなければならない（けどやり方は知らない）
 
 ### ワンライナーYAML - JSON コンバータ {#yaml2json}
 
-- `$ pip3 install pyyaml`
+- `$ pip3 install pyyaml`{.sh}
 
 Makefileの中に直接記述
 
@@ -136,6 +164,8 @@ python3 $(PYWAVEOPTS) < $< > $@
 
 `data/table.csv`{.listingtable .csv}
 
+\\newpage
+
 ```markdown
 +-----+------+---------+--------------------------+
 |this |is    |a table  |multi\
@@ -154,12 +184,15 @@ multiline |
 
 ### pantable
 
-自作フィルタは廃止して[pantable](https://github.com/ickc/pantable)フィルタを使う
+自作フィルタは廃止して _pantable_ フィルタを使う
+
+<https://github.com/ickc/pantable>
 
 - install
-    - `$ pip3 install pantable`
+    - `$ pip3 install pantable`{.sh}
 - syntax
-```yaml
+`````markdown
+```table
 ---
 # yaml front matter
 caption: '*Awesome* **Markdown** Table'
@@ -169,6 +202,7 @@ markdown: True # inline markdown
 include: "data/table.csv" # eternal file
 ---
 ```
+`````
 - csv file
     - see @lst:table_csv
 - result
@@ -179,26 +213,33 @@ caption: '*Awesome* **Markdown** Table'
 alignment: RCDL
 table-width: 2/3
 markdown: True
-include: "../data/table.csv"
+include: "data/table.csv"
 ---
 ```
 ## Node.js と npm
 
 更新頻度高すぎ\&\&ワケワカラン過ぎてあんまり好きじゃない。
-`6.x`がLTSらしいので当面6系を使用
+偶数バージョンがLTSらしいので当面Macは**6系**を使用。Ubuntu16.04は**4系**のLTSが入る
+
+`npm install`は`-g`なしだと現在のディレクトリにインストールしちゃうオモシロ仕様なのでつけるのを忘れずに
 
 ### インストール
-
 - Mac
-    - `$ brew install nodebrew`
-    - `$ nodebrew use v6.5.0`
-    - `~/.nodebrew/current/bin/{node,npm}`
+```
+$ brew install nodebrew
+$ nodebrew use v6.5.0
+~/.nodebrew/current/bin/{node,npm}
+```
 - Ubuntu
-    - **TBC**
+    - `$ sudo apt-get install nodejs-legacy npm`{.sh}
 
 ### wavedrom
 #### インストール
-`$ npm --install -g wavedrom-cli`
+
+- Mac
+  - `$ npm install -g wavedrom-cli`{.sh}
+- Ubuntu
+  - `$ sudo npm install -g wavedrom-cli`{.sh}
 
 #### 使用例
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
@@ -206,10 +247,10 @@ include: "../data/table.csv"
 `data/waves/wave.yaml`{.listingtable .yaml}
 
 ```sh
-$ python -c
+$ python -c \\
   'import sys, yaml, json; json.dump(yaml.load(sys.stdin),
   sys.stdout, indent=4)' < data/waves/wave.yaml > Out/wave.wavejson
-$ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
+$ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom \\
   -i Out/wave.wavejson -p images/waves/wave.png
 ```
 
@@ -217,13 +258,14 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 #### インストール
 
 - bit-field
-  - `$ npm install -g bit-field`
+  - `$ npm install -g bit-field`{.sh}
+  - `$ sudo npm install -g bit-field`{.sh}
 
 - librsvg
   - Mac
-    - `$ brew install librsvg`
+    - `$ brew install librsvg`{.sh}
   - Ubuntu
-    - **TBC**
+    - `$ sudo apt-get install librsvg2-bin`{.sh}
 
 #### 使用例
 
@@ -235,8 +277,33 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 `data/bitfields/bit.yaml`{.listingtable .yaml}
 
 ### mermaid-filter
+<https://github.com/raghur/mermaid-filter>
+
 #### インストール
-`$ npm install -g raghur/mermaid-filter`
+- `$ npm install -g mermaid raghur/mermaid-filter`
+- `$ sudo npm install -g mermaid raghur/mermaid-filter`
+
+#### syntax
+```markdown
+~~~{.mermaid loc=images}
+sequenceDiagram
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+~~~
+```
+#### オプション(リポジトリREADMEより)
+
+> You have a couple of formatting options via attributes of the fenced code block to control the rendering
+>
+> - Image Format - Use ```{.mermaid format=svg} Default is png
+> - Width - Use ```{.mermaid width=400} default with is 500
+> - Save path - Use ```{.mermaid loc=img} default loc=inline which will encode the image in a data uri scheme.
+>     - Possible values for loc
+>         - loc=inline - default; encode image to data uri on img tag.
+>             - For widest compatibility, use png (default)
+>             - SVG has trouble on IE11
+>         - loc=imgur - upload png to imgur and link to it.
+>         - loc=\\<anythingelse\\> - treat as folder name to place images into
 
 ## GPP (Generic Preprocessor) 汎用プリプロセッサ
 ### インストール
@@ -251,24 +318,8 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom
 
 `＜#include "source.md"＞` で外部ファイル読み込み(`-H` オプション)
 
-HTMLのコメントが使えるように`+c "<!-- -->"`オプションを使用
+HTMLのコメントが使えるように`+c "＜!--" "--＞"`オプションを使用
 
 ### options
 
-- `gpp -H +c "＜!-- --＞"`
-
-# 基本的ディレクトリ構成
-
-```
-project root
-|-- markdown (markdown原稿)
-|   |-- TITLE.md (必ず必要)
-|   `-- other.md
-`-- data
-    |-- bitfields
-    |   `-- bit.yaml (bitfield形式)
-    |-- waves
-    |   `-- wave.yaml (wavedrom形式)
-    `-- images
-        `-- front-image.png (表紙絵・原稿ファイル内でファイル名を指定できる)
-```
+- `gpp -H +c "＜!--" "--＞"`{.sh}
