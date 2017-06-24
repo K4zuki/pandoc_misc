@@ -18,6 +18,7 @@ PANTABLE = /usr/local/bin/pantable
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
+MFILTER = /usr/local/bin/mermaid-filter
 GPP = /usr/bin/gpp
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
@@ -41,7 +42,7 @@ SVN=
 SVNDIR=
 REPO= ${PWD##*/}
 
-PANFLAGS= --filter=$(PCROSSREF) --no-tex-ligatures
+PANFLAGS= --filter=$(PCROSSREF)
 PANFLAGS += --read=markdown+east_asian_line_breaks
 ifneq ($(OS),Windows_NT)
 PANFLAGS += --filter=$(PANTABLE)
