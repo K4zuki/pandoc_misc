@@ -46,7 +46,7 @@ _outfile = parser.outfile
 
 file_contents = open(_infile, "r").read()
 _yaml = re.compile("---[\s\S]*?\.\.\.")
-_yaml = _yaml.findall(file_contents)[0]
+_yaml = _yaml.findall(file_contents)
 data = yaml.load(_yaml)
 
 import sys
@@ -55,8 +55,8 @@ reload(sys)
 # デフォルトの文字コードを変更する.
 sys.setdefaultencoding('utf-8')
 # デフォルトの文字コードを出力する.
-print 'defaultencoding:', sys.getdefaultencoding()
-print sys.stdout.encoding
+print ('defaultencoding:', sys.getdefaultencoding())
+print (sys.stdout.encoding)
 # import pprint
 # pprint.pprint(data)
 
@@ -135,34 +135,34 @@ except:
 
 # for line in _yaml:
 if _comments:
-    print unicode(_comments)
+    print (unicode(_comments))
     docu.core_properties.comments = _comments
 if _keywords:
     print (_keywords)
     docu.core_properties.keywords = _keywords
 if _category:
-    print _category
+    print (_category)
     docu.core_properties.category = _category
 if _subject:
-    print _subject
+    print (_subject)
     docu.core_properties.subject = _subject
 if _content_status:
-    print _status
+    print (_status)
     docu.core_properties.content_status = _status
 if _author:
-    print _author
+    print (_author)
     docu.core_properties.author = _author
 if _title:
-    print _title
+    print (_title)
     docu.core_properties.title = _title
 if _revision:
-    print _revision
+    print (_revision)
     docu.core_properties.revision = int(_revision)
 if _version:
-    print _version
+    print (_version)
     docu.core_properties.version = _version
 if _created:
-    print _created
+    print (_created)
     docu.core_properties.created = _created
 
 docu.save(_outfile)
