@@ -44,7 +44,7 @@ front: images/front-image.png
 ```
 project root
 |-- markdown (markdown原稿)
-|   |-- TITLE.md (必ず必要)
+|   |-- TITLE.md (常に必要)
 |   `-- other.md
 `-- data
     |-- bitfields
@@ -65,21 +65,20 @@ ThisIsAnother(){
 ```
 ![WaveDrom画像](images/waves/wave.png)
 
-`images/waves/wave.png`{.rotate .caption="任意角度（90度）で回転させたWaveDrom画像" .angle=90}{}
-
-`images/waves/wave.png`{.rotate .caption="任意角度（45度）で回転させたWaveDrom画像" .angle=45}{}
-
+<!-- `images/waves/wave.png`{.rotate .caption="任意角度（90度）で回転させたWaveDrom画像" .angle=90}{} -->
+```rotate
+source: images/waves/wave.png
+angle: 90
+# title: 'Alt title'
+caption: 任意角度（90度）で回転させたWaveDrom画像
+---
+```
 ```rotate
 source: images/waves/wave.png
 angle: 45
 # title: 'Alt title'
-caption: "*Awsome* image title"
-width: 80%
-height: 50%
+caption: 任意角度（45度）で回転させたWaveDrom画像
 ---
-*Awsome*
-**_image_**
-_title_
 ```
 
 ![bit-field画像](images/bitfields/bit.png)
@@ -143,26 +142,93 @@ PYWAVEOPTS += 'import sys, yaml, json; \
 python3 $(PYWAVEOPTS) < $< > $@
 ```
 
+### pantable
+CSVファイルをpandocのgrid tableに変換して取り込む。以前は自作スクリプトを使用していたが廃止。
+
+<https://github.com/ickc/pantable>
+
+#### インストール
+```sh
+$ pip3 install pantable
+```
+
+#### 書式
+`table`クラスのコードブロック内にYAMLヘッダを記述する。外部ファイルをインポートすることも直書きもできる。
+
+`````markdown
+```table
+# yaml front matter
+caption: '*Awesome* **Markdown** Table'
+alignment: RCDL # Right, Center, Default, Left
+table-width: 2/3 # default is 1.0 * page width
+markdown: True # inline markdown
+include: "data/table.csv" # eternal file
+---
+```
+`````
+- csv file
+
+`data/table.csv`{.listingtable .csv}
+
+- result
+```table
+---
+# yaml front matter
+caption: '*Awesome* **Markdown** Table'
+alignment: RCDL
+table-width: 2/3
+markdown: True
+include: "data/table.csv"
+---
+```
+
+### rotateimg.py(自作フィルタ)
+`pantable`と同様の書式で画像を任意角度で回転する。
+内部でPillowライブラリを利用している。
+
+#### インストール
+```sh
+$ pip3 install pillow
+```
+
+### 書式
+`````markdown
+```rotate
+source: images/waves/wave.png
+angle: 45
+# title: 'Alt title'
+caption: 任意角度（45度）で回転させたWaveDrom画像
+attr:
+#  width: 20%
+#  height: 50%
+---
+```
+`````
+```rotate
+source: images/waves/wave.png
+angle: 45
+# title: 'Alt title'
+caption: 任意角度（45度）で回転させたWaveDrom画像
+attr:
+#  width: 20%
+#  height: 50%
+---
+```
+
 ### include.py(自作フィルタ)
 
     `path/to/filename.file`{command}
 
 の書式で各種ファイルをインポートするためのpandoc前段フィルタ。
-内部でPillowライブラリを利用している
-
-#### インストール
-
-- `$ pip3 install pillow`
-
-#### 画像を任意回転して貼り付け
 
 <!--
+#### 画像を任意回転して貼り付け
+
 | type            | command            |
 |-----------------|--------------------|
 | images          | .rotate            |
 | `filename.file` | .caption="caption" |
 |                 | .angle=\\<angle\\> |
--->
 
 ```table
 ---
@@ -183,6 +249,7 @@ type,command
 変換後の出力：`![ caption ]( filename_r<angle>.file ){ }`
 
 ＊例外的に画像リンクのオプション(`width=80%`とか)を使える
+-->
 
 #### ソースコードなどをリストとして表にする
 
@@ -191,67 +258,6 @@ type,command
 | type         | command                        |
 |--------------|--------------------------------|
 | source codes | .listingtable .\\<extention\\> |
-
-#### ~~CSVファイルをmarkdownのテーブルに変換してコピペ取り込み~~後述のフィルタで置き換え
-
-| type                          | command  |
-|-------------------------------|----------|
-| pre-converted csv table`.tmd` | .include |
-
-`data/table.csv`{.listingtable .csv}
-
-\\newpage
-
-```markdown
-+-----+------+---------+--------------------------+
-|this |is    |a table  |multi\
-line\
-title      |
-+=====+======+=========+==========================+
-|to   |show  |an       |example                   |
-+-----+------+---------+--------------------------+
-|of   |table |markdown |importer\
-of\
-multiline |
-+-----+------+---------+--------------------------+
-```
-
-<!-- `Out/table.tmd`{.include} -->
-
-### pantable
-
-自作フィルタは廃止して _pantable_ フィルタを使う
-
-<https://github.com/ickc/pantable>
-
-- install
-    - `$ pip3 install pantable`{.sh}
-- syntax
-`````markdown
-```table
----
-# yaml front matter
-caption: '*Awesome* **Markdown** Table'
-alignment: RCDL # Right, Center, Default, Left
-table-width: 2/3 # default is 1.0 * page width
-markdown: True # inline markdown
-include: "data/table.csv" # eternal file
----
-```
-`````
-- csv file
-    - see @lst:table_csv
-- result
-```table
----
-# yaml front matter
-caption: '*Awesome* **Markdown** Table'
-alignment: RCDL
-table-width: 2/3
-markdown: True
-include: "data/table.csv"
----
-```
 
 ## Node.js と npm
 
@@ -276,11 +282,11 @@ $ sudo apt-get install nodejs-legacy npm
 #### インストール
 
 - Mac
-```
+```sh
 $ npm install -g wavedrom-cli
 ```
 - Ubuntu
-```
+```sh
 $ sudo npm install -g wavedrom-cli
 ```
 #### 使用例
@@ -305,11 +311,11 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom \\
 
 - librsvg
   - Mac
-```
+```sh
 $ brew install librsvg
 ```
   - Ubuntu
-```
+```sh
 $ sudo apt-get install librsvg2-bin
 ```
 
@@ -317,8 +323,10 @@ $ sudo apt-get install librsvg2-bin
 
 `$ make bitfield` → レジスタ構成画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
-`$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg`
-`rsvg-convert $<.svg --format=png --output=$@`
+```makefile
+$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
+rsvg-convert $<.svg --format=png --output=$@
+```
 
 `data/bitfields/bit.yaml`{.listingtable .yaml}
 
@@ -326,6 +334,7 @@ $ sudo apt-get install librsvg2-bin
 <https://github.com/raghur/mermaid-filter>
 
 #### インストール
+
 - `$ npm install -g mermaid raghur/mermaid-filter`
 - `$ sudo npm install -g mermaid raghur/mermaid-filter`
 
@@ -352,6 +361,13 @@ sequenceDiagram
 >         - loc=\\<anythingelse\\> - treat as folder name to place images into
 
 ## GPP (Generic Preprocessor) 汎用プリプロセッサ
+C言語などの`#include "stdio.h"`{.c}と同様のことができる。そのままではヘッダ記述を誤解されるので
+HTML形式を使用する。
+
+Windowsでの文字コード処理に問題がある（何しても文字化けする）[^1]。
+
+[^1]: Windows7で遭遇。Windows10では未テスト。WSLあるから実質Ubuntuだしね
+
 ### インストール
 
 - Ubuntu - `$ apt-get install gpp`{.sh}
