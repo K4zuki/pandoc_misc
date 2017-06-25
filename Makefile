@@ -33,7 +33,7 @@ INPUT:= TITLE.md
 TARGET = TARGET
 
 CSV:= $(shell cd $(DATADIR); ls *.csv)
-TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
+# TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
 
 WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c
@@ -50,20 +50,6 @@ BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
-
-PANFLAGS += --toc
-PANFLAGS += --listings
-PANFLAGS += --number-sections --highlight-style=pygments
-PANFLAGS += -M localfontdir=$(FONTDIR)
-PANFLAGS += -M css=$(MISC)/github_css/github.css
-PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
-PANFLAGS += -M tables=true
-
-GPPFLAGS = -H +c "<!--" "-->"
-GPPFLAGS += -I$(MDDIR)
-GPPFLAGS += -I$(DATADIR)
-GPPFLAGS += -I$(TARGETDIR)
-GPPFLAGS += -Ipanflute
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
