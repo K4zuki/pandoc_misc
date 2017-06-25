@@ -92,11 +92,15 @@ _title_
 
 ### インストール
 - Mac
-  - `$ brew install pandoc pandoc-crossref`{.sh}
+```sh
+$ brew install pandoc pandoc-crossref
+```
 - Ubuntu
-  - aptで入るのは1.16でだいぶ古いのでpandocのGitHubサイトからdebファイルを落としてくる
-    - `$ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb`
-    - `$ dpkg -i pandoc-1.19.2.1-1-amd64.deb`
+    - aptで入るのは1.16でだいぶ古いのでpandocのGitHubサイトからdebファイルを落としてくる
+```sh
+$ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
+$ dpkg -i pandoc-1.19.2.1-1-amd64.deb
+```
 
 ## GNU Make
 全体のコンパイルに必要
@@ -121,8 +125,8 @@ _title_
     - `$ brew install python3`{.sh}
 - Linux
     - `$ sudo apt-get install python3 python3-pip`{.sh}
-      - このpip3はパーミッションエラーを引き起こすようなのでアップグレードするべきではない
-      - もしくはプレフィックス付きでアップデートしなければならない（けどやり方は知らない）
+        - このpip3はパーミッションエラーを引き起こすようなのでアップグレードするべきではない
+        - もしくはプレフィックス付きでアップデートしなければならない（けどやり方は知らない）
 
 ### ワンライナーYAML - JSON コンバータ {#yaml2json}
 
@@ -143,7 +147,7 @@ python3 $(PYWAVEOPTS) < $< > $@
 
     `path/to/filename.file`{command}
 
-の書式で各種ファイルをインポートするためのpandoc前段フィルタ
+の書式で各種ファイルをインポートするためのpandoc前段フィルタ。
 内部でPillowライブラリを利用している
 
 #### インストール
@@ -170,7 +174,7 @@ markdown: True # inline markdown
 # include:
 ---
 type,command
-"images
+"images\\
 `filename.file`",".rotate\\
 .caption=\\'caption\\'\\
 .angle=\\<angle\\>"
@@ -264,16 +268,21 @@ $ nodebrew use v6.5.0
 ~/.nodebrew/current/bin/{node,npm}
 ```
 - Ubuntu
-    - `$ sudo apt-get install nodejs-legacy npm`{.sh}
+```sh
+$ sudo apt-get install nodejs-legacy npm
+```
 
 ### wavedrom
 #### インストール
 
 - Mac
-  - `$ npm install -g wavedrom-cli`{.sh}
+```
+$ npm install -g wavedrom-cli
+```
 - Ubuntu
-  - `$ sudo npm install -g wavedrom-cli`{.sh}
-
+```
+$ sudo npm install -g wavedrom-cli
+```
 #### 使用例
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
@@ -296,9 +305,13 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom \\
 
 - librsvg
   - Mac
-    - `$ brew install librsvg`{.sh}
+```
+$ brew install librsvg
+```
   - Ubuntu
-    - `$ sudo apt-get install librsvg2-bin`{.sh}
+```
+$ sudo apt-get install librsvg2-bin
+```
 
 #### 使用例
 
