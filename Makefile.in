@@ -42,14 +42,17 @@ SVN=
 SVNDIR=
 REPO= ${PWD##*/}
 
-PANFLAGS= --filter=$(PCROSSREF)
-PANFLAGS += --read=markdown+east_asian_line_breaks
+PANFLAGS = --read=markdown+east_asian_line_breaks
 ifneq ($(OS),Windows_NT)
+PANFLAGS += --filter=panflute/rotateimg.py
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(MFILTER)
 endif
-# PANFLAGS += --filter=$(MISC)/panflute/include.py
+PANFLAGS += --filter=$(PCROSSREF)
 
+###  for debug  ###
+# PANFLAGS += --filter=$(MISC)/panflute/rotate.py
+### ### ### ### ###
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
 
 PYTHON= python3
