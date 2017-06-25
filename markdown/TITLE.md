@@ -36,6 +36,7 @@ listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 
 front: images/front-image.png
+# include: [markdown, images, data, Out]
 ---
 
 # 基本的ディレクトリ構成
@@ -67,6 +68,19 @@ ThisIsAnother(){
 `images/waves/wave.png`{.rotate .caption="任意角度（90度）で回転させたWaveDrom画像" .angle=90}{}
 
 `images/waves/wave.png`{.rotate .caption="任意角度（45度）で回転させたWaveDrom画像" .angle=45}{}
+
+```rotate
+source: images/waves/wave.png
+angle: 45
+# title: 'Alt title'
+caption: "*Awsome* image title"
+width: 80%
+height: 50%
+---
+*Awsome*
+**_image_**
+_title_
+```
 
 ![bit-field画像](images/bitfields/bit.png)
 
@@ -138,11 +152,29 @@ python3 $(PYWAVEOPTS) < $< > $@
 
 #### 画像を任意回転して貼り付け
 
+<!--
 | type            | command            |
 |-----------------|--------------------|
 | images          | .rotate            |
 | `filename.file` | .caption="caption" |
-|                 | .angle=\<angle\>   |
+|                 | .angle=\\<angle\\> |
+-->
+
+```table
+---
+# yaml front matter
+# caption:
+alignment: DD
+# table-width:
+markdown: True # inline markdown
+# include:
+---
+type,command
+"images
+`filename.file`",".rotate\\
+.caption=\\'caption\\'\\
+.angle=\\<angle\\>"
+```
 
 変換後の出力：`![ caption ]( filename_r<angle>.file ){ }`
 
@@ -216,6 +248,7 @@ markdown: True
 include: "data/table.csv"
 ---
 ```
+
 ## Node.js と npm
 
 更新頻度高すぎ\&\&ワケワカラン過ぎてあんまり好きじゃない。
@@ -225,7 +258,7 @@ include: "data/table.csv"
 
 ### インストール
 - Mac
-```
+```sh
 $ brew install nodebrew
 $ nodebrew use v6.5.0
 ~/.nodebrew/current/bin/{node,npm}
