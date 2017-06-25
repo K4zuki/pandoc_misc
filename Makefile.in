@@ -43,11 +43,9 @@ SVNDIR=
 REPO= ${PWD##*/}
 
 PANFLAGS = --read=markdown+east_asian_line_breaks
-ifneq ($(OS),Windows_NT)
 PANFLAGS += --filter=panflute/rotateimg.py
-PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(MFILTER)
-endif
+PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
 
 ###  for debug  ###
