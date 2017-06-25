@@ -12,65 +12,55 @@ def file2listingtable(file="Makefile",
     _file = file
     _basename = os.path.basename(_file)
     _type = type
-    _docx = docx
-    _tex = tex
+    isDocx = docx
+    isTex = tex
 
     _label = _basename.lower().replace(".", "_")
     _label = _label.replace("/", "_")
-    _link = ""
-    if(_docx):
-        _link = "TC \"[@lst:" + _label + "] " + _basename + "\" `\l` 6\n\n"
+    anchor = "" if not isDocx else 'TC "[@lst:%s] %s" `\l` 6\n\n' % (_label, _basename)
+    # print (anchor)
+    # print (_basename)
 
-    # print _link
-    if (_tex):
-        _file_title = _basename.replace("_", "\\\\\\_")
-    else:
-        _file_title = _basename
+    _file_title = _basename if not isTex else _basename.replace("_", "\\\\\\_")
+    # print ("_file_title", _file_title)
 
-    _list = ["Listing: %s %s" % (_file_title, _link),
+    _list = ["Listing: %s %s" % (_file_title, anchor),
              "```{#lst:%s %s}" % (_label, _type),
              "```"]
     # _list = _list.split("\n")
-    # print _list
+    # print (_list)
 
     widthlist = [80]
-    # for i in range(len(_list)):
-    for index, value in enumerate(_list):
-        # print _list[i]
-        width = len(value)
-        widthlist.append(width)
+    widthlist.extend([len(value) for value in _list])
+    # print (widthlist)
 
     result = []
     try:
         with open(_file, "r") as read:
             _read = list(read)
-        # print _read
+        # print (_read)
 
         height = len(_read)  # number of lines in list
-        # print height
+        # print (height)
 
-        for i in range(height):
-            swap = _read[i].rstrip('\n').replace("\t", "    ")
+        for content in _read:
+            swap = content.strip("\n").replace("\t", "    ")
             width = len(swap)
             widthlist.append(width)
 
         _maxwidth = max(widthlist)
-        # print _maxwidth
+        # print (_maxwidth)
 
         hline = "+" + "".ljust(_maxwidth, "-") + "+"
-        # print hline
+        # print (hline)
 
         headers = []
         for statement in _list:
-            # print statement
+            # print (statement)
             header = "|" + statement.ljust(_maxwidth) + "|"
             headers.append(header)
-        # for i in range(len(_list)):
-        #     # print _list[i]
-        #     header = "|" + _list[i].ljust(_maxwidth) + "|"
-        #     headers.append(header)
 
-        if _tex:
+        if isTex:
             _dummyhead = '```{%s .numberLines numbers="left"}' % (_type)
             _dummytail = "```"
         else:
@@ -82,7 +72,7 @@ def file2listingtable(file="Makefile",
         for i in range(height):
             swap = _read[i].rstrip('\n').replace("\t", "    ")
             width = len(swap)
-            if(_tex):
+            if(isTex):
                 lines.append(swap)
             else:
                 line = "|" + swap.ljust(_maxwidth) + "|"
@@ -93,12 +83,12 @@ def file2listingtable(file="Makefile",
         result.append(hline)
         result.extend(headers)
         result.append(hline)
-        if(_tex):
+        if(isTex):
             result.append("")
         result.append(_dummyhead)
         result.extend(lines)
         result.append(_dummytail)
-        if not _tex:
+        if not isTex:
             result.append(hline)
         # print "\n".join(result)
     except:
@@ -135,6 +125,5 @@ if __name__ == '__main__':
     _type = parser.args.type
 
     hoge = file2listingtable(_file, _type, docx=False, tex=False)
-    output = open(_output, "wb")
-    output.write(hoge)
-    output.close()
+    with open(_output, "w") as output:
+        output.write(hoge)
