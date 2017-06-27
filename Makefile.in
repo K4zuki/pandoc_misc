@@ -44,6 +44,7 @@ REPO= ${PWD##*/}
 
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --filter=$(MISC)/panflute/rotateimg.py
+PANFLAGS += --filter=$(MISC)/panflute/include.py
 PANFLAGS += --filter=$(MFILTER)
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
