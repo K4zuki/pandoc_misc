@@ -36,7 +36,7 @@ listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 
 front: images/front-image.png
-# include: [markdown, images, data, Out]
+include: [markdown, images, data, Out]
 ...
 
 # 基本的ディレクトリ構成
