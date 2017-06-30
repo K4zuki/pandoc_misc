@@ -13,8 +13,8 @@ created:
 
 documentclass: book
 papersize: b5paper
-mainfont: SourceCodePro-Medium
-sansfont: SourceCodePro-Medium
+mainfont: RictyDiminished-Regular
+sansfont: RictyDiminished-Regular
 monofont: SourceCodePro-Medium
 mainlang: Japanese
 CJKoptions: BoldFont=RictyDiminished-Bold,
@@ -129,6 +129,10 @@ $ dpkg -i pandoc-1.19.2.1-1-amd64.deb
 
 ### ワンライナーYAML - JSON コンバータ {#yaml2json}
 
+~~一部~~殆どのJSライブラリが _当然のように_ JSONを利用するが、JSONはバイナリでもないのに
+人間に読めない形式なので、YAMLでデータを作りそれをワンライナーでJSONに変換する前処理をして
+それらのライブラリに渡す。みんなしあわせ
+
 - `$ pip3 install pyyaml`{.sh}
 
 Makefileの中に直接記述
@@ -168,7 +172,12 @@ include: "data/table.csv" # eternal file
 `````
 - csv file
 
-`data/table.csv`{.listingtable .csv}
+```listingtable
+source: data/table.csv
+class: csv
+tex: True
+---
+```
 
 - result
 ```table
@@ -191,7 +200,7 @@ include: "data/table.csv"
 $ pip3 install pillow
 ```
 
-### 書式
+#### 書式
 `````markdown
 ```rotate
 source: images/waves/wave.png
@@ -292,7 +301,12 @@ $ sudo npm install -g wavedrom-cli
 #### 使用例
 `$ make wavedrom` → 波形画像をYAMLから[コンバータ](#yaml2json)を通して生成
 
-`data/waves/wave.yaml`{.listingtable .yaml}
+```listingtable
+source: data/waves/wave.yaml
+class: yaml
+tex: True
+---
+```
 
 ```sh
 $ python -c \\
@@ -306,8 +320,8 @@ $ phantomjs /Users/yamamoto/.nodebrew/current/bin/wavedrom \\
 #### インストール
 
 - bit-field
-  - `$ npm install -g bit-field`{.sh}
-  - `$ sudo npm install -g bit-field`{.sh}
+    - `$ npm install -g bit-field`{.sh}
+    - `$ sudo npm install -g bit-field`{.sh}
 
 - librsvg
   - Mac
@@ -328,7 +342,13 @@ $(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
 rsvg-convert $<.svg --format=png --output=$@
 ```
 
-`data/bitfields/bit.yaml`{.listingtable .yaml}
+```listingtable
+source: data/bitfields/bit.yaml
+class: yaml
+tex: True
+---
+```
+
 
 ### mermaid-filter
 <https://github.com/raghur/mermaid-filter>
