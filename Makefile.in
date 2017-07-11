@@ -10,11 +10,13 @@ WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 PANTABLE = C:/Python27/Scripts/pantable.exe
 RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
 GPP =
+PYTHON= $(HOME)/AppData/Local/Programs/Python/Python36/python.exe
 else
 CABAL = $(HOME)/.cabal
 EXE =
 RSVG = rsvg-convert
 PANTABLE = /usr/local/bin/pantable
+PYTHON= python3
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
@@ -67,7 +69,7 @@ GPPFLAGS += -Ipanflute
 ### ### ### ### ###
 # +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
 
-PYTHON= python3
+# PYTHON= python3
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
