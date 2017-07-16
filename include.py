@@ -17,7 +17,7 @@ def include(file, basename="./", mode="none"):
     # regex filter to find out listing statement
     listing = re.compile("`([^`]+)`\{.listingtable\ (\.[^`\.]+)}")
     # regex filter to remove markdown comment
-    stripped = re.sub("<!--[\s\S]*?-->", "", open(file, "rb").read())
+    stripped = re.sub("<!--[\s\S]*?-->", "", open(file, "r").read())
 
     _mode = modesel[mode.upper()]
     # print _mode
@@ -26,9 +26,9 @@ def include(file, basename="./", mode="none"):
 
     for line in stripped.split("\n"):
         if _include.search(line):
-            print file + ": include",
+            print (file + ": include",)
             input_file = _include.search(line).groups()[0]
-            print input_file
+            print (input_file)
             # file_contents = open(input_file, "rb").read()
             line = _include.sub(line,
                                 include(basename + input_file, mode=mode))
@@ -111,9 +111,9 @@ if __name__ == '__main__':
 
     for line in stripped.split("\n"):
         if _include.search(line):
-            print "main: include",
+            print ("main: include",)
             input_file = _include.search(line).groups()[0]
-            print input_file
+            print (input_file)
             line = _include.sub(line, include(input_file, _basedir, _mode))
         if listing.search(line):
             print ("main: listingtable of", end="")
