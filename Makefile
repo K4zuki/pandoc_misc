@@ -93,7 +93,11 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 
 filtered: $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG)
+ifneq ($(OS),Windows_NT)
 	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
+else
+	$(GPP) $(GPPFLAGS) $< > $@
+endif
 
 # tables: $(TABLES)
 # $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
@@ -104,14 +108,18 @@ $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
 ifneq ($(OS),Windows_NT)
 	phantomjs $(WAVEDROM) -i $< -p $@
 else
-	touch $@
+	cp $(IMAGEDIR)/dummy.png $@
 endif
 
 bitfield: $(BITDIR) $(BITPNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
 	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
+ifneq ($(OS),Windows_NT)
 	$(RSVG) $<.svg --format=png --output=$@
+else
+	cp $(IMAGEDIR)/dummy.png $@
+endif
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
 $(TARGETDIR)/%.wavejson: $(DATADIR)/$(WAVEDIR)/%.yaml

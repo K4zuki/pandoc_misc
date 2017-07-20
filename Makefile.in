@@ -9,8 +9,10 @@ WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 # BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
 PANTABLE = C:/Python27/Scripts/pantable.exe
 RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
-GPP =
+GPP = $(HOME)/bin/gpp
 PYTHON= $(HOME)/AppData/Local/Programs/Python/Python36/python.exe
+FONTDIR = "ExternalLocation = /c"
+MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter
 else
 CABAL = $(HOME)/.cabal
 EXE =
@@ -53,12 +55,15 @@ PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
+ifneq ($(OS),Windows_NT)
 PANFLAGS += -M localfontdir=$(FONTDIR)
+endif
 PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
 
-GPPFLAGS = -H +c "<!--" "-->"
+# GPPFLAGS = -H +c "<!--" "-->"
+GPPFLAGS = -H
 GPPFLAGS += -I$(MDDIR)
 GPPFLAGS += -I$(DATADIR)
 GPPFLAGS += -I$(TARGETDIR)
