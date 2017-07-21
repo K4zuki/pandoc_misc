@@ -40,9 +40,17 @@ _yaml = _yaml.findall(file_contents)[0]
 data = yaml.load(_yaml)
 
 docu = docx.Document(_outfile)
-keys = ['reporter', 'dnumber', 'project', 'rep_date', 'revision', 'author',
-        'title', 'version', 'created']
-# , 'identifier', 'language', 'last_modified_by']
+"""this does not work
+keys = ['reporter',
+        'dnumber',
+        'project',
+        'rep_date',
+        'revision',
+        'author',
+        'title',
+        'version',
+        'created']
+
 properties = [docu.core_properties.comments,  # reporter
               docu.core_properties.keywords,  # dnumber
               docu.core_properties.category,  # project
@@ -51,14 +59,32 @@ properties = [docu.core_properties.comments,  # reporter
               docu.core_properties.author,
               docu.core_properties.title,
               docu.core_properties.version,
-              docu.core_properties.created,
+              docu.core_properties.created
               ]
-# docu.core_properties.revision
-# 'revision' is exception
-for p, k in zip(properties, keys):
-    p = str(data[k]) if k in data else None
-    print(k, p)
+for prop, key in zip(properties, keys):
+    if key in data:
+        prop = data[key]
+        print(key)
 docu.core_properties.revision = int(data['revision']) if 'revision' in data else 1
-properties.append(docu.core_properties.revision)
+"""
+"""this work"""
+if 'reporter' in data:
+    docu.core_properties.comments = data['reporter']
+if 'dnumber' in data:
+    docu.core_properties.keywords = data['dnumber']
+if 'project' in data:
+    docu.core_properties.category = data['project']
+if 'rep_date' in data:
+    docu.core_properties.subject = data['rep_date']
+if 'revision' in data:
+    docu.core_properties.content_status = data['revision']
+if 'author' in data:
+    docu.core_properties.author = data['author']
+if 'title' in data:
+    docu.core_properties.title = data['title']
+if 'version' in data:
+    docu.core_properties.version = data['version']
+if 'created' in data:
+    docu.core_properties.created = data['created']
 
 docu.save(_outfile)

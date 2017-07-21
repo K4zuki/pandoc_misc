@@ -9,7 +9,7 @@ year: 出版年
 publisher: 出版社で印刷製本
 docrevision: "1.0"
 short-hash: (git short hash)
-created:
+# created:
 
 documentclass: book
 papersize: b5paper
@@ -25,6 +25,7 @@ CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
 geometry: top=30truemm,bottom=30truemm,left=20truemm,right=20truemm
 
+keywords: "Rep Orter"
 reporter: "Rep Orter"
 dnumber: DA9999
 project: TestChip
