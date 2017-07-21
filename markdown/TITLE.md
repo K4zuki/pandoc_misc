@@ -9,7 +9,7 @@ year: 出版年
 publisher: 出版社で印刷製本
 docrevision: "1.0"
 short-hash: (git short hash)
-created:
+# created:
 
 documentclass: book
 papersize: b5paper
@@ -24,7 +24,14 @@ CJKmainfont: RictyDiminished-Regular
 CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
 geometry: top=30truemm,bottom=30truemm,left=20truemm,right=20truemm
-keywords: keyword
+
+keywords: "Rep Orter"
+reporter: "Rep Orter"
+dnumber: DA9999
+project: TestChip
+rep_date: 21-Jul-2017
+revision: 1
+
 secPrefix: Chapter
 linkcolor: black
 urlcolor: black
@@ -365,7 +372,8 @@ Windowsでの文字コード処理に問題がある（何しても文字化け�
     - 日本語ファイル使える
 - Mac - `$ brew install gpp`{.sh}
     - 日本語ファイル使える
-- Windows - **日本語ファイル化ける**
+- Windows - https://github.com/makc/gpp.2.24-windows からコンパイル済バイナリを入手
+    - 日本語ファイル使える
 
 ### syntax
 
