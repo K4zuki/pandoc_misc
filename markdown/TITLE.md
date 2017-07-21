@@ -37,7 +37,7 @@ listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 
 front: images/front-image.png
 include: [markdown, images, data, Out]
-...
+---
 
 # 基本的ディレクトリ構成
 
@@ -130,7 +130,7 @@ $ dpkg -i pandoc-1.19.2.1-1-amd64.deb
 ### ワンライナーYAML - JSON コンバータ {#yaml2json}
 
 ~~一部~~殆どのJSライブラリが _当然のように_ JSONを利用するが、JSONはバイナリでもないのに
-人間に読めない形式なので、YAMLでデータを作りそれをワンライナーでJSONに変換する前処理をして
+人間に読めない形式なのでYAMLでデータを作り、それをワンライナーでJSONに変換する前処理をして、
 それらのライブラリに渡す。みんなしあわせ
 
 - `$ pip3 install pyyaml`{.sh}
@@ -159,8 +159,9 @@ $ pip3 install pantable
 #### 書式
 `table`クラスのコードブロック内にYAMLヘッダを記述する。外部ファイルをインポートすることも直書きもできる。
 
-`````markdown
+~~~~~markdown
 ```table
+---
 # yaml front matter
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL # Right, Center, Default, Left
@@ -169,7 +170,7 @@ markdown: True # inline markdown
 include: "data/table.csv" # eternal file
 ---
 ```
-`````
+~~~~~
 - csv file
 
 ```listingtable
@@ -201,7 +202,7 @@ $ pip3 install pillow
 ```
 
 #### 書式
-`````markdown
+~~~~~markdown
 ```rotate
 source: images/waves/wave.png
 angle: 45
@@ -212,7 +213,7 @@ attr:
 #  height: 50%
 ---
 ```
-`````
+~~~~~
 ```rotate
 source: images/waves/wave.png
 angle: 45
@@ -230,43 +231,13 @@ attr:
 
 の書式で各種ファイルをインポートするためのpandoc前段フィルタ。
 
-<!--
-#### 画像を任意回転して貼り付け
-
-| type            | command            |
-|-----------------|--------------------|
-| images          | .rotate            |
-| `filename.file` | .caption="caption" |
-|                 | .angle=\\<angle\\> |
-
-```table
----
-# yaml front matter
-# caption:
-alignment: DD
-# table-width:
-markdown: True # inline markdown
-# include:
----
-type,command
-"images\\
-`filename.file`",".rotate\\
-.caption=\\'caption\\'\\
-.angle=\\<angle\\>"
-```
-
-変換後の出力：`![ caption ]( filename_r<angle>.file ){ }`
-
-＊例外的に画像リンクのオプション(`width=80%`とか)を使える
--->
-
 #### ソースコードなどをリストとして表にする
 
-\\<extention\\>に合わせたマークアップが施される
+`<extention>`に合わせたマークアップが施される
 
 | type         | command                        |
 |--------------|--------------------------------|
-| source codes | .listingtable .\\<extention\\> |
+| source codes | `.listingtable .<extention>` |
 
 ## Node.js と npm
 
