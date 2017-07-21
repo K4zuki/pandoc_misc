@@ -24,7 +24,13 @@ CJKmainfont: RictyDiminished-Regular
 CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
 geometry: top=30truemm,bottom=30truemm,left=20truemm,right=20truemm
-keywords: keyword
+
+reporter: "Rep Orter"
+dnumber: DA9999
+project: TestChip
+rep_date: 21-Jul-2017
+revision: 1
+
 secPrefix: Chapter
 linkcolor: black
 urlcolor: black
