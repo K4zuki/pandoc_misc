@@ -40,7 +40,7 @@ PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
 
-REFERENCE= $(MISC)/../150.docx
+REFERENCE= $(MISC)/ref.docx
 
 SVN=
 SVNDIR=
