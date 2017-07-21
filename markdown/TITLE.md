@@ -394,7 +394,8 @@ Windowsでの文字コード処理に問題がある（何しても文字化け�
     - 日本語ファイル使える
 - Mac - `$ brew install gpp`{.sh}
     - 日本語ファイル使える
-- Windows - **日本語ファイル化ける**
+- Windows - https://github.com/makc/gpp.2.24-windows からコンパイル済バイナリを入手
+    - 日本語ファイル使える
 
 ### syntax
 

@@ -61,9 +61,8 @@ help:
 	@echo $(REQ)"\033[0m"
 
 docx: $(DOCX)
-$(DOCX): $(TARGETDIR)/$(TARGET).tex
-	$(PANDOC) --reference-docx=$(REFERENCE) $(TARGETDIR)/$(TARGET).tex -o $(DOCX); \
-	# $(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
+$(DOCX): $(FILTERED)
+	$(PANDOC) $(PANFLAGS) --reference-docx=$(REFERENCE) $(FILTERED) -o $(DOCX);
 
 html: $(HTML)
 $(HTML): $(TARGETDIR)/$(INPUT)
