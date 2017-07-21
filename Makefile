@@ -62,7 +62,8 @@ help:
 
 docx: $(DOCX)
 $(DOCX): $(FILTERED)
-	$(PANDOC) $(PANFLAGS) --reference-docx=$(REFERENCE) $(FILTERED) -o $(DOCX);
+	$(PANDOC) $(PANFLAGS) --reference-docx=$(REFERENCE) $(FILTERED) -o $(DOCX); \
+	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
 $(HTML): $(TARGETDIR)/$(INPUT)

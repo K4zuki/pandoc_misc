@@ -6,6 +6,7 @@ import docx
 import datetime
 import argparse
 import yaml
+import importlib
 
 monthname = {
     "01": "Jan",
@@ -21,6 +22,7 @@ monthname = {
     "11": "Nov",
     "12": "Dec",
 }
+
 compiler = {
     "unicode": " *([^`\n]+)",
     "datetime": " *([\s\S]*)(000[1-9]|[1-9]\d\d\d)-(0[1-9]|\
@@ -44,24 +46,12 @@ parser = MyParser()
 _infile = parser.infile
 _outfile = parser.outfile
 
-file_contents = open(_infile, "r").read()
+file_contents = open(_infile, "r",  encoding="utf8").read()
 _yaml = re.compile("---[\s\S]*?\.\.\.")
-_yaml = _yaml.findall(file_contents)
+_yaml = _yaml.findall(file_contents)[0]
 data = yaml.load(_yaml)
 
-import sys
-# sysモジュールをリロードする
-reload(sys)
-# デフォルトの文字コードを変更する.
-sys.setdefaultencoding('utf-8')
-# デフォルトの文字コードを出力する.
-print ('defaultencoding:', sys.getdefaultencoding())
-print (sys.stdout.encoding)
-# import pprint
-# pprint.pprint(data)
-
 docu = docx.Document(_outfile)
-
 try:
     _comments = data['comments']
 except:
