@@ -7,12 +7,12 @@ CABAL = $(HOME)/AppData/Roaming/cabal
 EXE:=.exe
 WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 # BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
-PANTABLE = C:/Python27/Scripts/pantable.exe
+PANTABLE = $(HOME)/AppData/Local/Programs/Python/Python36/Scripts/pantable.exe
 RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
 GPP = $(HOME)/bin/gpp
 PYTHON= $(HOME)/AppData/Local/Programs/Python/Python36/python.exe
 FONTDIR = "ExternalLocation = /c"
-MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter
+MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter.cmd
 else
 CABAL = $(HOME)/.cabal
 EXE =
