@@ -25,7 +25,6 @@ CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
 geometry: top=30truemm,bottom=30truemm,left=20truemm,right=20truemm
 
-keywords: "Rep Orter"
 reporter: "Rep Orter"
 dnumber: DA9999
 project: TestChip
@@ -44,8 +43,9 @@ listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 
 front: images/front-image.png
 include: [markdown, images, data, Out]
+...
 ---
-
+---
 # 基本的ディレクトリ構成
 
 ```
@@ -361,10 +361,6 @@ sequenceDiagram
 ## GPP (Generic Preprocessor) 汎用プリプロセッサ
 C言語などの`#include "stdio.h"`{.c}と同様のことができる。そのままではヘッダ記述を誤解されるので
 HTML形式を使用する。
-
-Windowsでの文字コード処理に問題がある（何しても文字化けする）[^1]。
-
-[^1]: Windows7で遭遇。Windows10では未テスト。WSLあるから実質Ubuntuだしね
 
 ### インストール
 
