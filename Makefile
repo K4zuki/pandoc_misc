@@ -80,7 +80,8 @@ linking: $(TARGETDIR)/$(IMAGEDIR)
 $(TARGETDIR)/$(IMAGEDIR):
 	rm -f $(TARGETDIR)/$(IMAGEDIR); \
 	cd $(TARGETDIR);\
-	ln -s ../$(IMAGEDIR)
+	ln -s ../$(IMAGEDIR);\
+	ln -s ../pd-images
 
 tex: $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
