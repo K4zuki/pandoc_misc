@@ -24,21 +24,20 @@ WAVEDROM = /usr/local/bin/wavedrom
 PANTABLE = /usr/local/bin/pantable
 RSVG = rsvg-convert
 PYTHON = python3
+IMAGINE = /usr/local/bin/pandoc-imagine
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 GPP = /usr/bin/gpp
-# MFILTER = /usr/local/bin/mermaid-filter
-# PUML =
-# PUMLFILTER =
-IMAGINE =
+MFILTER = /usr/local/bin/mermaid-filter
+PUML = $(HOME)/bin/plantuml
+PUMLFILTER = /usr/local/bin/pandoc-plantuml-filter
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 GPP = /usr/local/bin/gpp
-# MFILTER = $(HOME)/.nodebrew/current/bin/mermaid-filter
-# PUML = /usr/local/bin/plantuml
-# PUMLFILTER = $(HOME)/.nodebrew/current/bin/pandoc-plantuml-filter
-IMAGINE = /usr/local/bin/pandoc-imagine
+MFILTER = $(HOME)/.nodebrew/current/bin/mermaid-filter
+PUML = /usr/local/bin/plantuml
+PUMLFILTER = $(HOME)/.nodebrew/current/bin/pandoc-plantuml-filter
 endif
 endif
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
