@@ -75,4 +75,14 @@ GPPFLAGS += -Ipanflute
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
+
+###  default directories set; otherwise images/ directory cleaned by make-clean
+MDDIR= markdown
+DATADIR:= data
+TARGETDIR:= Out
+IMAGEDIR:= images
+WAVEDIR:= waves
+BITDIR:= bitfields
+BIT16DIR:= bitfield16
+MFILTDIR:= mermaid-filter
 IMAGINEDIR:= pd-images
