@@ -13,9 +13,6 @@ GPP = $(HOME)/bin/gpp
 PYTHON= python3.exe
 FONTDIR = "ExternalLocation = /c"
 GPP = $(HOME)/bin/gpp
-# MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter.cmd
-# PUML =
-# PUMLFILTER =
 IMAGINE = pandoc-imagine.exe
 else
 # UNIX common #
@@ -29,16 +26,10 @@ IMAGINE = /usr/local/bin/pandoc-imagine
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 GPP = /usr/bin/gpp
-MFILTER = /usr/local/bin/mermaid-filter
-PUML = $(HOME)/bin/plantuml
-PUMLFILTER = /usr/local/bin/pandoc-plantuml-filter
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 GPP = /usr/local/bin/gpp
-MFILTER = $(HOME)/.nodebrew/current/bin/mermaid-filter
-PUML = /usr/local/bin/plantuml
-PUMLFILTER = $(HOME)/.nodebrew/current/bin/pandoc-plantuml-filter
 endif
 endif
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
@@ -56,10 +47,8 @@ REPO= ${PWD##*/}
 
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --filter=$(MISC)/panflute/rotateimg.py
-# PANFLAGS += --filter=$(MFILTER)
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
-# PANFLAGS += --filter=$(PUMLFILTER)
 PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --toc
 PANFLAGS += --listings
@@ -86,3 +75,4 @@ GPPFLAGS += -Ipanflute
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
+IMAGINEDIR:= pd-images
