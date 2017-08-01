@@ -22,18 +22,7 @@ REQ += 'rsvg-convert(via librsvg)'
 REQ += '\033[0m'
 REQ += 'to convert SVG to PNG\n\033[0m'
 
-# MDDIR:= markdown
-# DATADIR:= data
-# TARGETDIR:= Out
-# IMAGEDIR:= images
-# WAVEDIR:= waves
-# BITDIR:= bitfields
-
-# INPUT:= TITLE.md
-# TARGET = TARGET
-
 CSV:= $(shell cd $(DATADIR); ls *.csv)
-# TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
 
 WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c

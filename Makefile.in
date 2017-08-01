@@ -32,9 +32,10 @@ WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 GPP = /usr/local/bin/gpp
 endif
 endif
+
+### constant over OSes
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
 PANDOC= $(CABAL)/bin/pandoc$(EXE)
-
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
@@ -43,10 +44,15 @@ REFERENCE= $(MISC)/ref.docx
 
 SVN=
 SVNDIR=
-REPO= ${PWD##*/}
 
+CSV2TABLE= $(MISC)/csv2mdtable.py
+FILTER= $(MISC)/include.py
+DOCXPWRTR:= $(MISC)/docxPropertywriter.py
+
+### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --filter=$(MISC)/panflute/rotateimg.py
+PANFLAGS += --filter=$(MISC)/panflute/include.py
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --filter=$(IMAGINE)
@@ -60,21 +66,16 @@ PANFLAGS += -M localfontdir=$(FONTDIR)
 PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
+###  for debug  ###
+# PANFLAGS += --filter=$(MISC)/panflute/rotate.py
+### ### ### ### ###
 
+### GPP flags
 GPPFLAGS = -H +c "<!--" "-->"
 GPPFLAGS += -I$(MDDIR)
 GPPFLAGS += -I$(DATADIR)
 GPPFLAGS += -I$(TARGETDIR)
 GPPFLAGS += -Ipanflute
-
-###  for debug  ###
-# PANFLAGS += --filter=$(MISC)/panflute/rotate.py
-### ### ### ### ###
-# +implicit_figures+inline_code_attributes+header_attributes+escaped_line_breaks
-
-CSV2TABLE= $(MISC)/csv2mdtable.py
-FILTER= $(MISC)/include.py
-DOCXPWRTR:= $(MISC)/docxPropertywriter.py
 
 ###  default directories set; otherwise images/ directory cleaned by make-clean
 MDDIR= markdown
@@ -86,3 +87,7 @@ BITDIR:= bitfields
 BIT16DIR:= bitfield16
 MFILTDIR:= mermaid-filter
 IMAGINEDIR:= pd-images
+
+### default source and target file names
+INPUT:= TITLE.md
+TARGET:= TARGET
