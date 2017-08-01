@@ -62,7 +62,7 @@ $(HTML): $(TARGETDIR)/$(INPUT)
 	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
 		$(FILTERED) -o $(HTML)
 
-pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(TARGET).tex
+pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR) $(TARGETDIR)/$(TARGET).tex
 	cd $(TARGETDIR);\
 	xelatex --no-pdf $(TARGET).tex; \
 	xelatex $(TARGET).tex
