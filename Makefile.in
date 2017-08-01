@@ -16,7 +16,7 @@ GPP = $(HOME)/bin/gpp
 # MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter.cmd
 # PUML =
 # PUMLFILTER =
-IMAGINE =
+IMAGINE = pandoc-imagine.exe
 else
 # UNIX common #
 CABAL = $(HOME)/.cabal
