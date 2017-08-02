@@ -13,7 +13,10 @@ GPP = $(HOME)/bin/gpp
 PYTHON= python3.exe
 FONTDIR = "ExternalLocation = /c"
 GPP = $(HOME)/bin/gpp
-IMAGINE = pandoc-imagine.exe
+# MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter.cmd
+# PUML =
+# PUMLFILTER =
+IMAGINE = /c/Program\ Files/Python36/Scripts/pandoc-imagine.exe
 else
 # UNIX common #
 CABAL = $(HOME)/.cabal

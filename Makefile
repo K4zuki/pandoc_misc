@@ -26,8 +26,10 @@ CSV:= $(shell cd $(DATADIR); ls *.csv)
 
 WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c
-PYWAVEOPTS += 'import sys, yaml, json; \
-							json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
+PYWAVEOPTS += 'import sys, yaml, json, io;\
+						sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"); \
+						json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
+
 WAVEJSON:= $(WAVEYAML:%.yaml=$(TARGETDIR)/%.wavejson)
 WAVEPNG:= $(WAVEYAML:%.yaml=$(IMAGEDIR)/$(WAVEDIR)/%.png)
 
@@ -105,7 +107,7 @@ $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
 ifneq ($(OS),Windows_NT)
 	phantomjs $(WAVEDROM) -i $< -p $@
 else
-	cp $(IMAGEDIR)/dummy.png $@
+	cp $(MISC)/$(IMAGEDIR)/dummy.png $@
 endif
 
 bitfield: $(BITDIR) $(BITPNG) $(BIT16PNG)
@@ -115,7 +117,7 @@ $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 ifneq ($(OS),Windows_NT)
 	$(RSVG) $<.svg --format=png --output=$@
 else
-	cp $(IMAGEDIR)/dummy.png $@
+	cp $(MISC)/$(IMAGEDIR)/dummy.png $@
 endif
 
 $(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
