@@ -117,7 +117,7 @@ $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 ifneq ($(OS),Windows_NT)
 	$(RSVG) $<.svg --format=png --output=$@
 else
-	cp $(MISC)/$(IMAGEDIR)/dummy.png $@
+	$(RSVG) $<.svg --output $@
 endif
 
 $(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
@@ -126,7 +126,7 @@ $(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
 ifneq ($(OS),Windows_NT)
 	$(RSVG) $<.svg --format=png --output=$@
 else
-	cp $(IMAGEDIR)/dummy.png $@
+	$(RSVG) $<.svg --output $@
 endif
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON) $(BIT16JSON)

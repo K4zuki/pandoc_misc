@@ -8,7 +8,7 @@ EXE:=.exe
 WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 # BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
 PANTABLE = /c/Program\ Files/Python36/Scripts/pantable.exe
-RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
+RSVG = $(HOME)/AppData/Roaming/npm/svg2png
 GPP = $(HOME)/bin/gpp
 PYTHON= python3.exe
 FONTDIR = "ExternalLocation = /c"
