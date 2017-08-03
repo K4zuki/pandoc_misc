@@ -51,6 +51,7 @@ SVNDIR=
 CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
+IMAGINEDIR:= pd-images
 
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
@@ -89,7 +90,7 @@ WAVEDIR:= waves
 BITDIR:= bitfields
 BIT16DIR:= bitfield16
 MFILTDIR:= mermaid-filter
-IMAGINEDIR:= pd-images
+PREFIX= local
 
 ### default source and target file names
 INPUT:= TITLE.md
