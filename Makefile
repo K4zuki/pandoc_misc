@@ -143,16 +143,16 @@ $(TARGETDIR)/%.bit16json: $(DATADIR)/$(BIT16DIR)/%.yaml
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
 init:
-	@echo "mkdir -p" $(PREFIX)/
-	@echo "cp Makefile.txt" $(PREFIX)/
-	@echo "mkdir -p" $(PREFIX)/$(TARGETDIR)
-	@echo "mkdir -p" $(PREFIX)/$(DATADIR)
-	@echo "mkdir -p" $(PREFIX)/$(MDDIR)
-	@echo "mkdir -p" $(PREFIX)/$(IMAGEDIR)
-	@echo "mkdir -p" $(PREFIX)/$(IMAGEDIR)/$(WAVEDIR)
-	@echo "mkdir -p" $(PREFIX)/$(IMAGEDIR)/$(BITDIR)
-	@echo "mkdir -p" $(PREFIX)/$(IMAGEDIR)/$(BIT16DIR)
-	@echo "mkdir -p" $(PREFIX)/$(IMAGEDIR)/$(MFILTDIR)
+	mkdir -p $(PREFIX)/
+	cp Makefile.txt $(PREFIX)/
+	mkdir -p $(PREFIX)/$(TARGETDIR)
+	mkdir -p $(PREFIX)/$(DATADIR)
+	mkdir -p $(PREFIX)/$(MDDIR)
+	mkdir -p $(PREFIX)/$(IMAGEDIR)
+	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(WAVEDIR)
+	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(BITDIR)
+	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(BIT16DIR)
+	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(MFILTDIR)
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)

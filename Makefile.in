@@ -90,7 +90,7 @@ WAVEDIR:= waves
 BITDIR:= bitfields
 BIT16DIR:= bitfield16
 MFILTDIR:= mermaid-filter
-PREFIX= local
+PREFIX= .
 
 ### default source and target file names
 INPUT:= TITLE.md
