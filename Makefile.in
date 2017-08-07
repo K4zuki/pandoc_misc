@@ -29,10 +29,12 @@ IMAGINE = /usr/local/bin/pandoc-imagine
 ifeq ($(shell uname),Linux)
 FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 GPP = /usr/bin/gpp
+CSV2TABLE= csv2table
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 GPP = /usr/local/bin/gpp
+CSV2TABLE= /usr/local/bin/csv2table
 endif
 endif
 
@@ -48,7 +50,6 @@ REFERENCE= $(MISC)/ref.docx
 SVN=
 SVNDIR=
 
-CSV2TABLE= $(MISC)/csv2mdtable.py
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
 IMAGINEDIR:= pd-images

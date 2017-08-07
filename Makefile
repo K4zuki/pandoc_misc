@@ -23,6 +23,7 @@ REQ += '\033[0m'
 REQ += 'to convert SVG to PNG\n\033[0m'
 
 CSV:= $(shell cd $(DATADIR); ls *.csv)
+TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.table.md)
 
 WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c
@@ -91,16 +92,17 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 # 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG) $(MFILTDIR)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG) $(MFILTDIR) $(TABLES)
 ifneq ($(OS),Windows_NT)
 	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 else
 	$(GPP) $(GPPFLAGS) $< > $@
 endif
 
-# tables: $(TABLES)
-# $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
-# 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
+tables: $(TABLES)
+	echo $(TABLES)
+$(TARGETDIR)/%.table.md: $(DATADIR)/%.csv
+	$(CSV2TABLE) $< $@
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
