@@ -127,6 +127,7 @@ $endif$
 
 $if(listings)$
 \usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
 \lstset{% general command to set parameter(s)
 basicstyle=\small, % print whole listing small
 keywordstyle=\color{black}\bfseries,
@@ -155,6 +156,8 @@ $endif$
 
 $if(tables)$
 \usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
 $endif$
 
 $if(graphics)$
