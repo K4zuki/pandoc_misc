@@ -39,7 +39,9 @@ endif
 
 ### constant over OSes
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
-PANDOC= $(CABAL)/bin/pandoc$(EXE)
+# PANDOC= $(CABAL)/bin/pandoc$(EXE)
+# be9957bd https://github.com/pandoc-extras/pandoc-nightly/releases/latest
+PANDOC= $(HOME)/bin/pandoc
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
