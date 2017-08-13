@@ -128,18 +128,19 @@ $endif$
 $if(listings)$
 \usepackage{listings}
 \newcommand{\passthrough}[1]{#1}
-\lstset{% general command to set parameter(s)
-basicstyle=\small, % print whole listing small
-keywordstyle=\color{black}\bfseries,
-ndkeywordstyle={\small},%
-identifierstyle={\small},%
-commentstyle={\small\itshape},%
-stringstyle=\ttfamily, % typewriter type for strings
-showstringspaces=false, % no special string spaces$endif$
-frame={tb},
-breaklines=true,
-numberstyle={\scriptsize},%
-}
+% \lstset{% general command to set parameter(s)
+% basicstyle=\small, % print whole listing small
+% keywordstyle=\color{black}\bfseries,
+% ndkeywordstyle={\small},%
+% identifierstyle={\small},%
+% commentstyle={\small\itshape},%
+% stringstyle=\ttfamily, % typewriter type for strings
+% showstringspaces=false, % no special string spaces$endif$
+% frame={tb},
+% breaklines=true,
+% numberstyle={\scriptsize},%
+% }
+
 
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
