@@ -17,6 +17,7 @@ GPP = $(HOME)/bin/gpp
 # PUML =
 # PUMLFILTER =
 IMAGINE = /c/Program\ Files/Python36/Scripts/pandoc-imagine.exe
+CSV2TABLE= '/c/Program\ Files/Python36/Scripts/csv2table.exe'
 else
 # UNIX common #
 CABAL = $(HOME)/.cabal
