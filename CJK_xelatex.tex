@@ -169,6 +169,7 @@ $if(listings)$
 \usepackage{listings}
 \newcommand{\passthrough}[1]{#1}
 % \lstset{% general command to set parameter(s)
+% backgroundcolor=\color{listing-background},
 % basicstyle=\small, % print whole listing small
 % keywordstyle=\color{black}\bfseries,
 % ndkeywordstyle={\small},%
@@ -190,14 +191,14 @@ $if(listings)$
 % listing colors
 %
 \definecolor{listing-background}{rgb}{0.97,0.97,0.97}
-\definecolor{listing-rule}{HTML}{B3B2B3}
-\definecolor{listing-numbers}{HTML}{B3B2B3}
+\definecolor{listing-rule}{HTML}{000000}
+\definecolor{listing-numbers}{HTML}{000000}
 \definecolor{listing-text-color}{HTML}{000000}
-\definecolor{listing-keyword}{HTML}{435489}
-\definecolor{listing-identifier}{HTML}{435489}
-\definecolor{listing-string}{HTML}{00999a}
-\definecolor{listing-comment}{HTML}{8e8e8e}
-\definecolor{listing-javadoc-comment}{HTML}{006CA9}
+\definecolor{listing-keyword}{HTML}{000000}
+\definecolor{listing-identifier}{HTML}{000000}
+\definecolor{listing-string}{HTML}{000000}
+\definecolor{listing-comment}{rgb}{0.4,0.4,0.4}
+\definecolor{listing-javadoc-comment}{rgb}{0.4,0.4,0.4}
 
 %
 % https://github.com/Wandmalfarbe/pandoc-latex-template
@@ -534,7 +535,7 @@ $if(title)$
 
 \thispagestyle{empty}
 % \checkoddpage\ifoddpage{}\else\blankpage\fi
-\thispagestyle{empty} \vspace*{95ex}
+\thispagestyle{empty} \vspace*{80ex}
 
 \begin{longtable}[]{@{}c@{}}
 \toprule
