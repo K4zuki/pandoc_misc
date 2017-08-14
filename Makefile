@@ -84,7 +84,7 @@ $(TARGETDIR)/$(IMAGINEDIR):
 
 tex: $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
-	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
+	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) \
 		$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
 
 # merge: filtered $(TARGETDIR)/$(TARGET).md

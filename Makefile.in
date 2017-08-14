@@ -55,6 +55,27 @@ FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
 IMAGINEDIR:= pd-images
 
+TEXTEMPLATE = $(MISC)/CJK_xelatex.tex
+# TEXTEMPLATE = $(MISC)/../pandoc-latex-template/eisvogel.latex
+TEXFLAGS = --template=$(TEXTEMPLATE)
+TEXFLAGS += --latex-engine=xelatex
+TEXFONTFLAGS = -M documentclass=book
+TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
+TEXFONTFLAGS += -M fontsize=10
+TEXFONTFLAGS += -M papersize=b5paper
+TEXFONTFLAGS += -M mainfont=RictyDiminished-Regular
+TEXFONTFLAGS += -M sansfont=RictyDiminished-Regular
+TEXFONTFLAGS += -M monofont=RictyDiminished-Regular
+TEXFONTFLAGS += -M mainlang=Japanese
+TEXFONTFLAGS += -M CJKoptions='BoldFont=RictyDiminished-Bold, \
+	ItalicFont=RictyDiminished-Oblique, \
+	BoldItalicFont=RictyDiminished-BoldOblique'
+TEXFONTFLAGS += -M CJKmainfont=RictyDiminished-Regular
+TEXFONTFLAGS += -M CJKsansfont=RictyDiminished-Regular
+TEXFONTFLAGS += -M CJKmonofont=RictyDiminished-Regular
+TEXFONTFLAGS += -M geometry='top=30truemm,bottom=30truemm,left=20truemm,right=20truemm'
+
+# TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --filter=$(MISC)/panflute/rotateimg.py
@@ -65,10 +86,6 @@ PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
-ifneq ($(OS),Windows_NT)
-PANFLAGS += -M localfontdir=$(FONTDIR)
-endif
-PANFLAGS += -M localfontdir=$(FONTDIR)
 PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
