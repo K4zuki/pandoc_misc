@@ -61,10 +61,10 @@ TEXFLAGS = --template=$(TEXTEMPLATE)
 TEXFLAGS += --latex-engine=xelatex
 TEXFONTFLAGS = -M documentclass=book
 TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
-TEXFONTFLAGS += -M fontsize=10
+TEXFONTFLAGS += -M fontsize=11
 TEXFONTFLAGS += -M papersize=b5paper
-TEXFONTFLAGS += -M mainfont=RictyDiminished-Regular
-TEXFONTFLAGS += -M sansfont=RictyDiminished-Regular
+TEXFONTFLAGS += -M mainfont=SourceSansPro-Regular
+TEXFONTFLAGS += -M sansfont=SourceSansPro-Regular
 TEXFONTFLAGS += -M monofont=RictyDiminished-Regular
 TEXFONTFLAGS += -M mainlang=Japanese
 TEXFONTFLAGS += -M CJKoptions='BoldFont=RictyDiminished-Bold, \
