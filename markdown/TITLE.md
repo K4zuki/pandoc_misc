@@ -48,36 +48,6 @@ project root
         `-- front-image.png (表紙絵・原稿ファイル内でファイル名を指定できる)
 ```
 
-# 使用例 {.unnumbered}
-`$ this is a code`{.sh}
-
-```cpp
-ThisIsAnother(){
-  code_block();
-}
-```
-![WaveDrom画像](images/waves/wave.png)
-
-<!-- `images/waves/wave.png`{.rotate .caption="任意角度（90度）で回転させたWaveDrom画像" .angle=90}{} -->
-```rotate
-source: images/waves/wave.png
-angle: 90
-# title: 'Alt title'
-caption: 任意角度（90度）で回転させたWaveDrom画像
----
-```
-```rotate
-source: images/waves/wave.png
-angle: 45
-# title: 'Alt title'
-caption: 任意角度（45度）で回転させたWaveDrom画像
----
-```
-
-![bit-field画像](images/bitfields/bit.png)
-
-<#include "source.md">
-
 # 必要なもの
 ## pandoc
 汎用Markdownコンバータ
@@ -365,6 +335,36 @@ HTMLのコメントが使えるように`+c "＜!--" "--＞"`オプションを�
 
 ### options
 
-- ```sh
-  gpp -H +c "＜!--" "--＞"
-  ```
+```sh
+gpp -H +c "＜!--" "--＞"
+```
+
+# 使用例 {.unnumbered}
+`$ this is a code`{.sh}
+
+```cpp
+ThisIsAnother(){
+  code_block();
+}
+```
+![WaveDrom画像](images/waves/wave.png)
+
+<!-- `images/waves/wave.png`{.rotate .caption="任意角度（90度）で回転させたWaveDrom画像" .angle=90}{} -->
+```rotate
+source: images/waves/wave.png
+angle: 90
+# title: 'Alt title'
+caption: 任意角度（90度）で回転させたWaveDrom画像
+---
+```
+```rotate
+source: images/waves/wave.png
+angle: 45
+# title: 'Alt title'
+caption: 任意角度（45度）で回転させたWaveDrom画像
+---
+```
+
+![bit-field画像](images/bitfields/bit.png)
+
+<#include "source.md">
