@@ -8,21 +8,9 @@ comiket: コミケ
 year: 出版年
 publisher: 出版社で印刷製本
 docrevision: "1.0"
-short-hash: (git short hash)
+# short-hash: (git short hash)
 
 documentclass: book
-papersize: b5paper
-mainfont: RictyDiminished-Regular
-sansfont: RictyDiminished-Regular
-monofont: SourceCodePro-Medium
-mainlang: Japanese
-CJKoptions: BoldFont=RictyDiminished-Bold,
-  ItalicFont=RictyDiminished-Oblique,
-  BoldItalicFont=RictyDiminished-BoldOblique
-CJKmainfont: RictyDiminished-Regular
-CJKsansfont: RictyDiminished-Regular
-CJKmonofont: RictyDiminished-Regular
-geometry: top=30truemm,bottom=30truemm,left=20truemm,right=20truemm
 
 reporter: "Rep Orter"
 dnumber: DA9999
@@ -43,8 +31,7 @@ listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 front: images/front-image.png
 include: [markdown, images, data, Out]
 ...
----
----
+
 # 基本的ディレクトリ構成
 
 ```
@@ -358,7 +345,7 @@ sequenceDiagram
 >         - loc=\\<anythingelse\\> - treat as folder name to place images into
 
 ## GPP (Generic Preprocessor) 汎用プリプロセッサ
-C言語などの`#include "stdio.h"`{.c}と同様のことができる。そのままではヘッダ記述を誤解されるので
+C言語などの`＃include "stdio.h"`{.c}と同様のことができる。そのままではヘッダ記述を誤解されるので
 HTML形式を使用する。
 
 ### インストール
@@ -372,7 +359,7 @@ HTML形式を使用する。
 
 ### syntax
 
-`＜#include "source.md"＞` で外部ファイル読み込み(`-H` オプション)
+`＜＃include "source.md"＞` で外部ファイル読み込み(`-H` オプション)
 
 HTMLのコメントが使えるように`+c "＜!--" "--＞"`オプションを使用
 
