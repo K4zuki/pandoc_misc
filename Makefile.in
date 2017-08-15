@@ -75,7 +75,10 @@ TEXFONTFLAGS += -M CJKoptions='BoldFont=RictyDiminished-Bold, \
 TEXFONTFLAGS += -M CJKmainfont=RictyDiminished-Regular
 TEXFONTFLAGS += -M CJKsansfont=RictyDiminished-Regular
 TEXFONTFLAGS += -M CJKmonofont=RictyDiminished-Regular
-TEXFONTFLAGS += -M geometry='top=30truemm,bottom=30truemm,left=20truemm,right=20truemm'
+TEXFONTFLAGS += -M geometry='top=30truemm, \
+	bottom=30truemm, \
+	left=20truemm, \
+	right=20truemm'
 
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
@@ -88,12 +91,16 @@ PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
-PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
 ###  for debug  ###
 # PANFLAGS += --filter=$(MISC)/panflute/rotate.py
 ### ### ### ### ###
+
+PANDOCXFFLAGS = --reference-doc=$(REFERENCE)
+PANHTMLFLAGS = --self-contained -thtml5
+PANHTMLFLAGS += --template=$(MISC)/github.html
+PANFHTMLLAGS += -M css=$(MISC)/github_css/github.css
 
 ### GPP flags
 GPPFLAGS = -H +c "<!--" "-->"

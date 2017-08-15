@@ -57,13 +57,12 @@ help:
 
 docx: $(DOCX)
 $(DOCX): $(FILTERED)
-	$(PANDOC) $(PANFLAGS) --reference-docx=$(REFERENCE) $(FILTERED) -o $(DOCX); \
+	$(PANDOC) $(PANFLAGS) $(PANDOCXFFLAGS) $(FILTERED) -o $(DOCX); \
 	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
 $(HTML): $(TARGETDIR)/$(INPUT)
-	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
-		$(FILTERED) -o $(HTML)
+	$(PANDOC) $(PANFLAGS) $(PANHTMLFLAGS) $(FILTERED) -o $(HTML)
 
 pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR) $(TARGETDIR)/$(TARGET).tex
 	cd $(TARGETDIR);\
