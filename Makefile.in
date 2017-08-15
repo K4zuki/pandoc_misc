@@ -100,7 +100,7 @@ PANFLAGS += -M tables=true
 PANDOCXFFLAGS = --reference-doc=$(REFERENCE)
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --template=$(MISC)/github.html
-PANFHTMLLAGS += -M css=$(MISC)/github_css/github.css
+PANHTMLFLAGS += -M css=$(MISC)/github_css/github.css
 
 ### GPP flags
 GPPFLAGS = -H +c "<!--" "-->"
