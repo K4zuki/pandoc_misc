@@ -145,7 +145,6 @@ $(TARGETDIR)/%.bit16json: $(DATADIR)/$(BIT16DIR)/%.yaml
 
 init:
 	mkdir -p $(PREFIX)/
-	cp -i Makefile.txt $(PREFIX)/Makefile
 	mkdir -p $(PREFIX)/$(TARGETDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)
 	mkdir -p $(PREFIX)/$(MDDIR)
@@ -154,6 +153,7 @@ init:
 	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(BITDIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(BIT16DIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(MFILTDIR)
+	cp -i Makefile.txt $(PREFIX)/Makefile
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
