@@ -93,6 +93,7 @@ PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
+PANFLAGS += $(MDDIR)/$(CONFIG)
 ###  for debug  ###
 # PANFLAGS += --filter=$(MISC)/panflute/rotate.py
 ### ### ### ### ###
@@ -121,5 +122,6 @@ MFILTDIR:= mermaid-filter
 PREFIX= .
 
 ### default source and target file names
+CONFIG:= config.yaml
 INPUT:= TITLE.md
 TARGET:= TARGET

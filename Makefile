@@ -112,7 +112,7 @@ else
 endif
 
 bitfield: $(BITDIR) $(BITPNG) $(BIT16PNG)
-$(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
+$(BITPNG): $(BITJSON)
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
 	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
 ifneq ($(OS),Windows_NT)
@@ -121,7 +121,7 @@ else
 	$(RSVG) $<.svg --output $@
 endif
 
-$(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
+$(BIT16PNG): $(BIT16JSON)
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 16 \
 	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
 ifneq ($(OS),Windows_NT)
@@ -149,11 +149,11 @@ init:
 	mkdir -p $(PREFIX)/$(DATADIR)
 	mkdir -p $(PREFIX)/$(MDDIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)
-	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(WAVEDIR)
-	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(BITDIR)
-	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(BIT16DIR)
-	mkdir -p $(PREFIX)/$(IMAGEDIR)/$(MFILTDIR)
-	cp -i Makefile.txt $(PREFIX)/Makefile
+	mkdir -p $(PREFIX)/$(DATADIR)/$(WAVEDIR)
+	mkdir -p $(PREFIX)/$(DATADIR)/$(BITDIR)
+	mkdir -p $(PREFIX)/$(DATADIR)/$(BIT16DIR)
+	mkdir -p $(PREFIX)/$(DATADIR)/$(MFILTDIR)
+	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
