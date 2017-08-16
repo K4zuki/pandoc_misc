@@ -154,6 +154,7 @@ init:
 	mkdir -p $(PREFIX)/$(DATADIR)/$(BIT16DIR)
 	mkdir -p $(PREFIX)/$(DATADIR)/$(MFILTDIR)
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
+	touch $(PREFIX)/$(MDDIR)/$(CONFIG)
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
