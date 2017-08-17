@@ -1,18 +1,202 @@
-# 基本的ディレクトリ構成
+# まえがき {.unnumbered}
+このドキュメントは、筆者が本を書くために構築したオレオレMarkdown-PDF変換環境
+を解説するための本です。^[このドキュメント自身もその環境で出力されました。よくあることですね]
 
+OSはUNIXを前提にします。具体的に言うとMac、Ubuntuなら16.04LTSです。
+Windows10とWSLなUbuntu^[ぐぐってね]ならUbuntu16.04のやり方が
+うまくいくかもしれませんが、Win10機を持ってないので
+あまり良いアドバイスができません。ごめんなさい。
+
+# 背景というか、どうやって変換するの？
+最終的にはシンプル３ステップで出力されます
+
+1. Markdownで原稿を書きます
+1. コンパイルします
+1. PDFが出力されます
+
+Markdownコンパイラは**Pandoc**^[マニュアルを日本語化している有志の方がいますね]と各種フィルタを使います。
+各種フィルタはあちこちから都合のいいものをかき集めてるので**_使用言語がバラバラです_**。
+Homebrewあるいはaptでインストールすれば比較的楽ちんなので気にせずに構築してきましたが、
+Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使用をおすすめします。
+プロいひとはDockerイメージとかCIとかでもっと楽にできるかもしれません。
+
+# 環境構築する
+やることはいっぱいあります。~~やっぱりDockerイメージ欲しいな()~~
+
+## インストールそしてインストールそれからインストール
+インストールしまくります。
+
+### パッケージ管理ツールのインストール
+
+#### Homebrew(Mac)
+https://brew.sh/index_ja.html
+
+全てに先んじてHomebrewのインストールをします。
+```sh
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-project root
-|-- markdown (markdown原稿)
-|   |-- TITLE.md (常に必要)
-|   `-- other.md
-`-- data
-    |-- bitfields
-    |   `-- bit.yaml (bitfield形式)
-    |-- waves
-    |   `-- wave.yaml (wavedrom形式)
-    `-- images
-        `-- front-image.png (表紙絵・原稿ファイル内でファイル名を指定できる)
+Ubuntuユーザはaptがほぼ全てやってくれるので特別にインストールするものはありません
+
+### 言語のインストール
+主に４言語使います - **Haskell・Python・NodeJS・LaTeXです**^[_もううんざりしてきた？_]。
+HaskellはPandocとpandoc-crossrefフィルタのインストールで必要です。NodeJSはフィルタと画像生成、
+Pythonはフィルタとシェルスクリプトの代わり、そしてLaTeXはPDF出力のためです。
+
+#### Haskell
+##### Mac {.unnumbered}
+```sh
+$ brew install cabal-install
 ```
+
+#### Python3
+##### Mac {.unnumbered}
+```sh
+$ brew install python3
+```
+##### Ubuntu {.unnumbered}
+```sh
+$ sudo apt-get install python3 python3-pip
+```
+
+#### Node.js
+##### Mac {.unnumbered}
+```sh
+$ brew install nodebrew
+$ nodebrew use v6.5.0
+```
+##### Ubuntu {.unnumbered}
+```sh
+$ sudo apt-get install nodejs-legacy npm
+```
+
+#### TexLive/MacTex^[https://texwiki.texjp.org/?TeX%20Live]
+##### Mac {.unnumbered}
+```sh
+$ brew cask install mactex
+```
+##### Ubuntu {.unnumbered}
+```sh
+$ sudo apt-get install texlive
+```
+
+### 各言語のパッケージのインストール
+#### Haskell
+##### Mac {.unnumbered}
+```sh
+$ cabal install pandoc-crossref
+```
+pandoc-crossrefがpandocに依存しているので自動的にインストールされます。
+
+##### Ubuntu {.unnumbered}
+aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https://github.com/jgm/pandoc/releases]
+からdebファイルを落としてきます
+```sh
+$ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
+$ dpkg -i pandoc-1.19.2.1-1-amd64.deb
+```
+
+#### Python3
+```sh
+$ (sudo -H) pip3 install pyyaml pillow
+$ (sudo -H) pip3 install pantable csv2table
+$ (sudo -H) pip3 install six pandoc-imagine
+```
+
+#### NodeJS
+```sh
+$ npm install -g bit-field wavedrom-cli
+```
+
+#### TeXLive
+```sh
+$ tlmgr install
+```
+
+### ツールのインストール
+#### Mac {.unnumbered}
+```sh
+$ brew install librsvg gpp plantuml
+```
+#### Ubuntu {.unnumbered}
+```sh
+$ sudo apt-get install librsvg2-bin gpp
+```
+### フォントのインストール
+#### Source Code Pro
+#### Source Sans Pro
+#### Ricty Diminished
+
+## ダウンロード
+### pandoc_misc
+この本の原稿が置かれたリポジトリです。`$(HOME)/.pandoc`にクローンします。
+```sh
+$ cd ~/.pandoc
+$ git clone https://github.com/K4zuki/pandoc_misc.git
+```
+
+# 本を書く
+## 原稿リポジトリの準備
+新規に原稿管理用Gitリポジトリを作りましょう。たとえば
+ホームディレクトリ直下のworkspaceディレクトリにMyBookというGitリポジトリを作ります。
+```sh
+$ mkdir -p ~/workspace/MyBook
+$ cd workspace/MyBook
+$ git init
+```
+ここでpandoc_miscディレクトリに戻り、原稿リポジトリにコンパイル環境をコピーします
+```sh
+$ cd ~/.pandoc/pandoc_misc
+$ make init PREFIX=~/workspace/MyBook
+```
+初期状態では以下のようなディレクトリ構成のはずです
+```
+~/workspace/MyBook
+|-- Makefile
+|-- Out/
+|-- images/
+|-- markdown/
+|   |-- TITLE.md
+|   `-- config.yaml
+`-- data/
+    |-- bitfields/
+    |-- bitfield16/
+    `-- waves/
+```
+
+## 原稿リポジトリの調整
+原稿のファイル名・置き場所・ディレクトリ構成は自由に配置してください。
+
+### Makefile
+タイトルファイル名、ディレクトリ名を変更した場合は、そのことをコンパイラに知らせる必要があります。
+コンパイラはタイトルページのファイル名と各種ディレクトリ名をMakefileから取得します。
+ディレクトリ名はすべてMakefileが置かれたディレクトリからの相対パスです。
+
+```table
+---
+caption: コンパイル情報
+header: True
+---
+変数名,種類,意味,初期値
+CONFIG,ファイル名,pandocのコンフィグファイル,config.yaml
+INPUT,ファイル名,タイトルファイル,TITLE.md
+TARGET,ファイル名,出力ファイル,TARGET
+MDDIR,ディレクトリ名,タイトルファイルの置き場所,markdown
+DATADIR,ディレクトリ名,データディレクトリ,data
+TARGETDIR,ディレクトリ名,出力先ディレクトリ,Out
+IMAGEDIR,ディレクトリ名,画像ファイルの置き場所,images
+WAVEDIR,ディレクトリ名,WaveDromファイルの置き場所,waves
+BITDIR,ディレクトリ名,８ビット幅Bitfieldファイルの置き場所,bitfields
+BIT16DIR,ディレクトリ名,１６ビット幅Bitfieldファイルの置き場所,bitfield16
+```
+
+## 原稿を書く
+## コンパイルする
+ここでMakefileをリポジトリに登録して最初のコミットをします。
+```sh
+$ git add Makefile
+$ git commit -m"initial commit"
+```
+この状態でmake htmlとするとOut/TARGET.htmlというファイルができあがるはずです。
 
 # 必要なもの
 ## pandoc
