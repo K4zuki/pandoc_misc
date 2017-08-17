@@ -13,8 +13,8 @@ include $(MISC)/Makefile.in
 # WAVEDIR:= waves
 # BITDIR:= bitfields
 # BIT16DIR:= bitfield16
-# MFILTDIR:= mermaid-filter
 
+# CONFIG:= config.yaml
 # INPUT:= TITLE.md
 # TARGET:= TARGET
 ##

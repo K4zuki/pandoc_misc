@@ -1,4 +1,9 @@
-include Makefile.in
+ifeq ($(OS),Windows_NT)
+HOME = C:/Users/$(USERNAME)
+endif
+PANSTYLES= $(HOME)/.pandoc
+MISC= $(PANSTYLES)/pandoc_misc
+include $(MISC)/Makefile.in
 
 REQ = 'Requirements -\n'
 REQ += '\033[92m'
@@ -152,9 +157,9 @@ init:
 	mkdir -p $(PREFIX)/$(DATADIR)/$(WAVEDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)/$(BITDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)/$(BIT16DIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(MFILTDIR)
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
 	touch $(PREFIX)/$(MDDIR)/$(CONFIG)
+	touch $(PREFIX)/$(MDDIR)/$(INPUT)
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
