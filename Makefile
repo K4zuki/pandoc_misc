@@ -99,7 +99,7 @@ else
 endif
 
 tables: $(TABLES)
-	echo $(TABLES)
+	@echo $(TABLES)
 $(TARGETDIR)/%.table.md: $(DATADIR)/%.csv
 	$(CSV2TABLE) $< $@
 
@@ -112,7 +112,7 @@ else
 endif
 
 bitfield: $(BITDIR) $(BITPNG) $(BIT16PNG)
-$(BITPNG): $(BITJSON)
+$(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
 	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
 ifneq ($(OS),Windows_NT)
@@ -121,7 +121,7 @@ else
 	$(RSVG) $<.svg --output $@
 endif
 
-$(BIT16PNG): $(BIT16JSON)
+$(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 16 \
 	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
 ifneq ($(OS),Windows_NT)
