@@ -108,8 +108,16 @@ $ (sudo) npm install -g phantomjs-prebuilt bit-field wavedrom-cli
 ```
 
 #### TeXLive
+https://github.com/zr-tex8r/BXptool
 ```sh
-$ tlmgr install
+$ sudo apt-get install xzdec texlive-lang-japanese
+$ tlmgr init-usertree
+$ tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
+$ wget -c https://github.com/zr-tex8r/BXptool/archive/v0.4.zip
+$ unzip v0.4.zip
+$ sudo mkdir -p /usr/share/texlive/texmf-dist/tex/latex/BXptool/
+$ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXptool/
+$ sudo mktexlsr
 ```
 
 ### ツールのインストール
