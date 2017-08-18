@@ -175,27 +175,54 @@ $ make init PREFIX=~/workspace/MyBook
 ## 原稿リポジトリの調整
 原稿のファイル名・置き場所・ディレクトリ構成は自由に配置してください。
 
-### Makefile
+### ファイル名・ディレクトリ名の設定(Makefile)
 タイトルファイル名、ディレクトリ名を変更した場合は、そのことをコンパイラに知らせる必要があります。
 コンパイラはタイトルページのファイル名と各種ディレクトリ名をMakefileから取得します。
 ディレクトリ名はすべてMakefileが置かれたディレクトリからの相対パスです。
 
 ```table
 ---
-caption: コンパイル情報
+caption: Makeコンパイルオプション
+width:
+  - 0.15
+  - 0.2
+  - 0.55
+  - 0.1
 header: True
 ---
 変数名,種類,意味,初期値
 CONFIG,ファイル,pandocのコンフィグファイル,config.yaml
 INPUT,ファイル,タイトルファイル,TITLE.md
 TARGET,ファイル,出力ファイル,TARGET
-MDDIR,ディレクトリ,タイトルファイルの置き場所,markdown
-DATADIR,ディレクトリ,データディレクトリ,data
-TARGETDIR,ディレクトリ,出力先ディレクトリ,Out
-IMAGEDIR,ディレクトリ,画像ファイルの置き場所,images
-WAVEDIR,ディレクトリ,WaveDromファイルの置き場所,waves
-BITDIR,ディレクトリ,８ビット幅Bitfieldファイルの置き場所,bitfields
-BIT16DIR,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,bitfield16
+MDDIR,ディレクトリ,タイトルファイルの置き場所,markdown/
+DATADIR,ディレクトリ,データディレクトリ,data/
+TARGETDIR,ディレクトリ,出力先ディレクトリ,Out/
+IMAGEDIR,ディレクトリ,画像ファイルの置き場所,images/
+WAVEDIR,ディレクトリ,WaveDromファイルの置き場所,waves/
+BITDIR,ディレクトリ,８ビット幅Bitfieldファイルの置き場所,bitfields/
+BIT16DIR,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,bitfield16/
+```
+
+### Pandocオプションの設定(config.yaml)
+Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAMLファイルから
+コンパイルオプションを取得します。
+```table
+---
+caption: Pandocコンパイルオプション
+header: True
+markdown: True
+---
+パラメータ,意味,初期値
+title,タイトル,本のタイトル
+abstract,サブタイトル,本の概要
+circle,サークル名,サークル名
+author,作者の名前,本の作者
+date,,本の出版日時
+comiket,イベント名,コミケ
+year,発行年,出版年
+publisher,印刷所,出版社で印刷製本
+docrevision,リビジョン番号,1.0
+front,表紙画像ファイル名,images/front-image.png
 ```
 
 ## 原稿を書く
