@@ -76,7 +76,7 @@ $ brew cask install mactex
 ```
 ##### Ubuntu {.unnumbered}
 ```sh
-$ sudo apt-get install texlive
+$ sudo apt-get install texlive-xetex
 ```
 
 ### 各言語のパッケージのインストール
@@ -92,7 +92,7 @@ aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https
 からdebファイルを落としてきます
 ```sh
 $ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
-$ dpkg -i pandoc-1.19.2.1-1-amd64.deb
+$ sudo dpkg -i pandoc-1.19.2.1-1-amd64.deb
 ```
 
 #### Python3
@@ -104,7 +104,7 @@ $ (sudo -H) pip3 install six pandoc-imagine
 
 #### NodeJS
 ```sh
-$ npm install -g bit-field wavedrom-cli
+$ (sudo) npm install -g phantomjs-prebuilt bit-field wavedrom-cli
 ```
 
 #### TeXLive
@@ -132,6 +132,7 @@ $ sudo apt-get install librsvg2-bin gpp
 ```sh
 $ cd ~/.pandoc
 $ git clone https://github.com/K4zuki/pandoc_misc.git
+$ git submodule update --init
 ```
 
 # 本を書く
@@ -177,16 +178,16 @@ caption: コンパイル情報
 header: True
 ---
 変数名,種類,意味,初期値
-CONFIG,ファイル名,pandocのコンフィグファイル,config.yaml
-INPUT,ファイル名,タイトルファイル,TITLE.md
-TARGET,ファイル名,出力ファイル,TARGET
-MDDIR,ディレクトリ名,タイトルファイルの置き場所,markdown
-DATADIR,ディレクトリ名,データディレクトリ,data
-TARGETDIR,ディレクトリ名,出力先ディレクトリ,Out
-IMAGEDIR,ディレクトリ名,画像ファイルの置き場所,images
-WAVEDIR,ディレクトリ名,WaveDromファイルの置き場所,waves
-BITDIR,ディレクトリ名,８ビット幅Bitfieldファイルの置き場所,bitfields
-BIT16DIR,ディレクトリ名,１６ビット幅Bitfieldファイルの置き場所,bitfield16
+CONFIG,ファイル,pandocのコンフィグファイル,config.yaml
+INPUT,ファイル,タイトルファイル,TITLE.md
+TARGET,ファイル,出力ファイル,TARGET
+MDDIR,ディレクトリ,タイトルファイルの置き場所,markdown
+DATADIR,ディレクトリ,データディレクトリ,data
+TARGETDIR,ディレクトリ,出力先ディレクトリ,Out
+IMAGEDIR,ディレクトリ,画像ファイルの置き場所,images
+WAVEDIR,ディレクトリ,WaveDromファイルの置き場所,waves
+BITDIR,ディレクトリ,８ビット幅Bitfieldファイルの置き場所,bitfields
+BIT16DIR,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,bitfield16
 ```
 
 ## 原稿を書く
