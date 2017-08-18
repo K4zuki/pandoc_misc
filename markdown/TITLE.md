@@ -211,13 +211,16 @@ Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAML�
 caption: Pandocコンパイルオプション
 header: True
 markdown: True
+width:
+  - 0.2
+  - 0.5
+  - 0.3
 ---
 パラメータ,意味,初期値
 title,タイトル,本のタイトル
 abstract,サブタイトル,本の概要
 circle,サークル名,サークル名
 author,作者の名前,本の作者
-date,,本の出版日時
 comiket,イベント名,コミケ
 year,発行年,出版年
 publisher,印刷所,出版社で印刷製本

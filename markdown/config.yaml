@@ -3,31 +3,9 @@ title: 本のタイトル
 abstract: 本の概要
 circle: サークル名
 author: 本の作者
-date: 本の出版日時
 comiket: コミケ
 year: 出版年
 publisher: 出版社で印刷製本
 docrevision: "1.0"
-# short-hash: (git short hash)
-
-documentclass: book
-
-reporter: "Rep Orter"
-dnumber: DA9999
-project: TestChip
-rep_date: 21-Jul-2017
-revision: 1
-
-secPrefix: Chapter
-linkcolor: black
-urlcolor: black
-citecolor: black
-chapter: true
-listings: true
-codeBlockCaptions: true
-listingTitle: 'List'
-listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
-
 front: images/front-image.png
-include: [markdown, images, data, Out]
 ...

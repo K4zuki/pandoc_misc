@@ -63,22 +63,6 @@ TEXFLAGS = --template=$(TEXTEMPLATE)
 TEXFLAGS += --latex-engine=xelatex
 TEXFONTFLAGS = -M documentclass=book
 TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
-TEXFONTFLAGS += -M fontsize=11
-TEXFONTFLAGS += -M papersize=b5paper
-TEXFONTFLAGS += -M mainfont=SourceSansPro-Regular
-TEXFONTFLAGS += -M sansfont=SourceSansPro-Regular
-TEXFONTFLAGS += -M monofont=RictyDiminished-Regular
-TEXFONTFLAGS += -M mainlang=Japanese
-TEXFONTFLAGS += -M CJKoptions='BoldFont=RictyDiminished-Bold, \
-	ItalicFont=RictyDiminished-Oblique, \
-	BoldItalicFont=RictyDiminished-BoldOblique'
-TEXFONTFLAGS += -M CJKmainfont=RictyDiminished-Regular
-TEXFONTFLAGS += -M CJKsansfont=RictyDiminished-Regular
-TEXFONTFLAGS += -M CJKmonofont=RictyDiminished-Regular
-TEXFONTFLAGS += -M geometry='top=30truemm, \
-	bottom=30truemm, \
-	left=20truemm, \
-	right=20truemm'
 
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
@@ -93,6 +77,7 @@ PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
+PANFLAGS += $(MISC)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 ###  for debug  ###
 # PANFLAGS += --filter=$(MISC)/panflute/rotate.py
