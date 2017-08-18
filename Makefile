@@ -71,9 +71,7 @@ $(HTML): $(TARGETDIR)/$(INPUT)
 
 pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR) $(TARGETDIR)/$(TARGET).tex
 	cd $(TARGETDIR);\
-	xelatex --no-pdf $(TARGET).tex; \
-	xelatex $(TARGET).tex
-
+	xelatex --no-pdf $(TARGET).tex && xelatex $(TARGET).tex
 
 linking: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR)
 $(TARGETDIR)/$(IMAGEDIR):
