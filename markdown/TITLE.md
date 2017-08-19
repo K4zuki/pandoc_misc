@@ -42,48 +42,32 @@ Ubuntuユーザはaptがほぼ全てやってくれるので特別にインス�
 HaskellはPandocとpandoc-crossrefフィルタのインストールで必要です。NodeJSはフィルタと画像生成、
 Pythonはフィルタとシェルスクリプトの代わり、そしてLaTeXはPDF出力のためです。
 
-#### Haskell
-##### Mac {.unnumbered}
+#### Mac {.unnumbered}
 ```sh
 $ brew install cabal-install
-```
-
-#### Python3
-##### Mac {.unnumbered}
-```sh
 $ brew install python3
-```
-##### Ubuntu {.unnumbered}
-```sh
-$ sudo apt-get install python3 python3-pip
-```
-
-#### Node.js
-##### Mac {.unnumbered}
-```sh
 $ brew install nodebrew
 $ nodebrew use v6.5.0
-```
-##### Ubuntu {.unnumbered}
-```sh
-$ sudo apt-get install nodejs-legacy npm
-```
-
-#### TexLive/MacTex^[https://texwiki.texjp.org/?TeX%20Live]
-##### Mac {.unnumbered}
-```sh
 $ brew cask install mactex
 ```
-##### Ubuntu {.unnumbered}
+
+#### Ubuntu {.unnumbered}
 ```sh
+$ sudo apt-get install python3 python3-pip
+$ sudo apt-get install nodejs-legacy npm
 $ sudo apt-get install texlive-xetex
 ```
 
+[https://texwiki.texjp.org/?TeX%20Live]
+
 ### 各言語のパッケージのインストール
-#### Haskell
-##### Mac {.unnumbered}
+#### Mac {.unnumbered}
 ```sh
 $ cabal install pandoc-crossref
+$ pip3 install pyyaml pillow
+$ pip3 install pantable csv2table
+$ pip3 install six pandoc-imagine
+$ npm install -g phantomjs-prebuilt bit-field wavedrom-cli
 ```
 pandoc-crossrefがpandocに依存しているので自動的にインストールされます。
 
@@ -93,20 +77,20 @@ aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https
 ```sh
 $ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
 $ sudo dpkg -i pandoc-1.19.2.1-1-amd64.deb
+$ sudo -H pip3 install pyyaml pillow
+$ sudo -H pip3 install pantable csv2table
+$ sudo -H pip3 install six pandoc-imagine
+$ sudo npm install -g phantomjs-prebuilt bit-field wavedrom-cli
+$ sudo apt-get install xzdec texlive-lang-japanese
+$ tlmgr init-usertree
+$ tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
+$ wget -c https://github.com/zr-tex8r/BXptool/archive/v0.4.zip
+$ unzip v0.4.zip
+$ sudo mkdir -p /usr/share/texlive/texmf-dist/tex/latex/BXptool/
+$ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXptool/
+$ sudo mktexlsr
 ```
-
-#### Python3
-```sh
-$ (sudo -H) pip3 install pyyaml pillow
-$ (sudo -H) pip3 install pantable csv2table
-$ (sudo -H) pip3 install six pandoc-imagine
-```
-
-#### NodeJS
-```sh
-$ (sudo) npm install -g phantomjs-prebuilt bit-field wavedrom-cli
-```
-
+<!--
 #### TeXLive
 https://github.com/zr-tex8r/BXptool
 ```sh
@@ -119,7 +103,7 @@ $ sudo mkdir -p /usr/share/texlive/texmf-dist/tex/latex/BXptool/
 $ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXptool/
 $ sudo mktexlsr
 ```
-
+ -->
 ### ツールのインストール
 #### Mac {.unnumbered}
 ```sh
@@ -130,6 +114,8 @@ $ brew install librsvg gpp plantuml
 $ sudo apt-get install librsvg2-bin gpp
 ```
 ### フォントのインストール
+#### Mac {.unnumbered}
+#### Ubuntu {.unnumbered}
 #### Source Code Pro
 #### Source Sans Pro
 #### Ricty Diminished
@@ -229,8 +215,24 @@ front,表紙画像ファイル名,images/front-image.png
 ```
 
 ## 原稿を書く
+いわゆる普通のPandoc式Markdown記法に則って書いていきます。
+デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
+例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは_無条件に_ナンバリングされます。
+```markdown
+# 1 {.unnumbered} <!--章番号なし-->
+## 2 {.unnumbered} <!--章番号なし-->
+### 3 {.unnumbered} <!--章番号なし-->
+#### 4 {.unnumbered} <!--章番号なし-->
+##### 5 {.unnumbered} <!--章番号復活-->
+```
+
+### 原稿を連結する
+### 表を書く・引用する
+### ソースコードを引用する
+### ビットフィールド画像を描く
+### ロジック波形を書く
 ## コンパイルする
-ここでMakefileをリポジトリに登録して最初のコミットをします。
+`Makefile`/`config.yaml`と原稿一式をリポジトリに登録して最初のコミットをします。
 ```sh
 $ git add Makefile
 $ git commit -m"initial commit"
