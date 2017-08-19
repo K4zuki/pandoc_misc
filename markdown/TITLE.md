@@ -8,15 +8,29 @@ Windows10とWSLなUbuntu^[ぐぐってね]ならUbuntu16.04のやり方が
 あまり良いアドバイスができません。ごめんなさい。
 
 # 背景というか、どうやって変換するの？
-最終的にはシンプル３ステップで出力されます
+最終的にはシンプル３ステップで出力されます。原稿はMarkdown形式です。
 
 1. Markdownで原稿を書きます
 1. コンパイルします
 1. PDFが出力されます
 
+コンパイルの制御にはGNU Makeを使います。コンパイルの前処理としてGPPによる原稿の連結を行い[^gpp]、
+各種YAMLデータ[^yaml2json]から画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
+最後にMarkdownをPDFもしくはHTMLに出力します。
+
+[^gpp]: gpp
+[^yaml2json]:
+[^pandable]:
+[^pandoc-imagine]:
+[^wavedrom]:
+[^bitfield]:
+[^pandoc]:
+[^make-html]:
+[^make-pdf]:
+
 Markdownコンパイラは**Pandoc**^[マニュアルを日本語化している有志の方がいますね]と各種フィルタを使います。
 各種フィルタはあちこちから都合のいいものをかき集めてるので**_使用言語がバラバラです_**。
-Homebrewあるいはaptでインストールすれば比較的楽ちんなので気にせずに構築してきましたが、
+Homebrewあるいはaptでインストールすれば_比較的_楽ちんなので筆者は気にせずに構築してきましたが、
 Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使用をおすすめします。
 プロいひとはDockerイメージとかCIとかでもっと楽にできるかもしれません。
 
@@ -75,7 +89,7 @@ pandoc-crossrefがpandocに依存しているので自動的にインストー�
 aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https://github.com/jgm/pandoc/releases]
 からdebファイルを落としてきます
 ```sh
-$ wget -C https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
+$ wget -c https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
 $ sudo dpkg -i pandoc-1.19.2.1-1-amd64.deb
 $ sudo -H pip3 install pyyaml pillow
 $ sudo -H pip3 install pantable csv2table
@@ -89,6 +103,7 @@ $ unzip v0.4.zip
 $ sudo mkdir -p /usr/share/texlive/texmf-dist/tex/latex/BXptool/
 $ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXptool/
 $ sudo mktexlsr
+$ tlmgr install oberdiek
 ```
 <!--
 #### TeXLive
@@ -127,6 +142,8 @@ $ sudo apt-get install librsvg2-bin gpp
 $ cd ~/.pandoc
 $ git clone https://github.com/K4zuki/pandoc_misc.git
 $ git submodule update --init
+$ cd bitfield
+$ npm install
 ```
 
 # 本を書く
@@ -138,12 +155,12 @@ $ mkdir -p ~/workspace/MyBook
 $ cd workspace/MyBook
 $ git init
 ```
-ここでpandoc_miscディレクトリに戻り、原稿リポジトリにコンパイル環境をコピーします
+ここでpandoc_miscディレクトリに戻り、原稿リポジトリにコンパイル環境をコピーします。
 ```sh
 $ cd ~/.pandoc/pandoc_misc
 $ make init PREFIX=~/workspace/MyBook
 ```
-初期状態では以下のようなディレクトリ構成のはずです
+初期状態では以下のようなディレクトリ構成のはずです。
 ```
 ~/workspace/MyBook
 |-- Makefile
@@ -159,7 +176,8 @@ $ make init PREFIX=~/workspace/MyBook
 ```
 
 ## 原稿リポジトリの調整
-原稿のファイル名・置き場所・ディレクトリ構成は自由に配置してください。
+原稿のファイル名・置き場所・ディレクトリ構成は自由に配置してください。日本語ファイル名は
+問題ないと思います^[推奨しません]が、スペースを入れるのは避けるべきです。
 
 ### ファイル名・ディレクトリ名の設定(Makefile)
 タイトルファイル名、ディレクトリ名を変更した場合は、そのことをコンパイラに知らせる必要があります。
@@ -217,20 +235,83 @@ front,表紙画像ファイル名,images/front-image.png
 ## 原稿を書く
 いわゆる普通のPandoc式Markdown記法に則って書いていきます。
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
-例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは_無条件に_ナンバリングされます。
+例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _無条件に_ ナンバリングされます。
 ```markdown
-# 1 {.unnumbered} <!--章番号なし-->
-## 2 {.unnumbered} <!--章番号なし-->
-### 3 {.unnumbered} <!--章番号なし-->
-#### 4 {.unnumbered} <!--章番号なし-->
-##### 5 {.unnumbered} <!--章番号復活-->
+# 深さ1：章番号なし {.unnumbered}
+## 深さ2：章番号なし {.unnumbered}
+### 深さ3：章番号なし {.unnumbered}
+#### 深さ4：章番号なし {.unnumbered}
+##### 深さ5+：章番号復活 {.unnumbered}
 ```
 
 ### 原稿を連結する
+原稿の連結には[Generic Preprocessor](https://github.com/logological/gpp/)を使います。
+&lt;#include "ファイル名"&gt;
+
 ### 表を書く・引用する
+表の引用とレンダリングには[pantableフィルタ](pantable)を使います。
+
+~~~~~markdown
+```table
+---
+caption: '*Awesome* **Markdown** Table'
+alignment: RCDL # Right, Center, Default, Left
+table-width: 2/3 # default is 1.0 * page width
+markdown: True # inline markdown
+include: "data/table.csv" # eternal file
+---
+```
+~~~~~
+
+<!-- - csv file -->
+
+```listingtable
+source: data/table.csv
+class: csv
+tex: True
+---
+```
+
+<!-- - result -->
+```table
+---
+caption: '*Awesome* **Markdown** Table'
+alignment: RCDL
+table-width: 2/3
+markdown: True
+include: "data/table.csv"
+---
+```
+
 ### ソースコードを引用する
+ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[pandoc_misc/panflute/include.py]
+を使います。
+
 ### ビットフィールド画像を描く
+
+~~~~~markdown
+```listingtable
+source: data/bitfields/bit.yaml
+class: yaml
+tex: True
+---
+```
+~~~~~
+
 ### ロジック波形を書く
+### その他各種レンダラを使う
+他にもPlantUML,Mermaid,GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
+種類があまりにも多くてPlantUML以外未テストですが
+[Imagine](https://github.com/hertogp/imagine)フィルタを使えばコードブロックから
+画像生成が可能です。
+
+~~~~~markdown
+```plantuml
+Bob->Alice: Hello
+```
+~~~~~
+
+### 画像を回転する
 ## コンパイルする
 `Makefile`/`config.yaml`と原稿一式をリポジトリに登録して最初のコミットをします。
 ```sh
@@ -316,7 +397,6 @@ $ pip3 install pantable
 ~~~~~markdown
 ```table
 ---
-# yaml front matter
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL # Right, Center, Default, Left
 table-width: 2/3 # default is 1.0 * page width
@@ -337,7 +417,6 @@ tex: True
 - result
 ```table
 ---
-# yaml front matter
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL
 table-width: 2/3
