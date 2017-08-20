@@ -4,6 +4,7 @@ endif
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 include $(MISC)/Makefile.in
+include $(MISC)/Makefile
 
 ## userland: uncomment and replace
 # MDDIR:= markdown
@@ -18,5 +19,3 @@ include $(MISC)/Makefile.in
 # INPUT:= TITLE.md
 # TARGET:= TARGET
 ##
-
-include $(MISC)/Makefile
