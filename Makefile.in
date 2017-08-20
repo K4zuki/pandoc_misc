@@ -58,9 +58,9 @@ IMAGINEDIR:= pd-images
 
 TEXTEMPLATE = $(MISC)/CJK_xelatex.tex
 # TEXTEMPLATE = $(MISC)/../pandoc-latex-template/eisvogel.latex
-TEXFLAGS = --template=$(TEXTEMPLATE)
+TEXFLAGS:= --template=$(TEXTEMPLATE)
 TEXFLAGS += --latex-engine=xelatex
-TEXFONTFLAGS = -M documentclass=book
+TEXFONTFLAGS:= -M documentclass=book
 TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
 # TEXFLAGS += -V lang=en-us
@@ -95,7 +95,7 @@ GPPFLAGS += -I$(TARGETDIR)
 GPPFLAGS += -Ipanflute
 
 ###  default directories set; otherwise images/ directory cleaned by make-clean
-MDDIR= markdown
+MDDIR:= markdown
 DATADIR:= data
 TARGETDIR:= Out
 IMAGEDIR:= images
@@ -103,7 +103,7 @@ WAVEDIR:= waves
 BITDIR:= bitfields
 BIT16DIR:= bitfield16
 MFILTDIR:= mermaid-filter
-PREFIX= .
+PREFIX:= .
 
 ### default source and target file names
 CONFIG:= config.yaml

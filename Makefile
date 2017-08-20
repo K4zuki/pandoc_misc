@@ -3,7 +3,10 @@ HOME = C:/Users/$(USERNAME)
 endif
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
+
+ifeq ($(PROJECT),)
 include $(MISC)/Makefile.in
+endif
 
 REQ = 'Requirements -\n'
 REQ += '\033[92m'
@@ -47,7 +50,7 @@ BIT16JSON:= $(BIT16YAML:%.yaml=$(TARGETDIR)/%.bit16json)
 BIT16PNG:=  $(BIT16YAML:%.yaml=$(IMAGEDIR)/$(BIT16DIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
-FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
+FILTERED:= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
 
