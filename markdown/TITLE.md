@@ -2,10 +2,13 @@
 このドキュメントは、筆者が本を書くために構築したオレオレMarkdown-PDF変換環境
 を解説するための本です。^[このドキュメント自身もその環境で出力されました。よくあることですね]
 
-OSはUNIXを前提にします。具体的に言うとMac、Ubuntuなら16.04LTSです。
-Windows10とWSLなUbuntu^[ぐぐってね]ならUbuntu16.04のやり方が
-うまくいくかもしれませんが、Win10機を持ってないので
-あまり良いアドバイスができません。ごめんなさい。
+筆者が以前使っていたGitBookでは表の扱いなどに制限があり不満があったので、
+「なければ作る」の原則に従ってみました。
+
+使用OSはUNIXを前提にします。具体的に言うとMac、LinuxならUbuntu16.04LTSです。
+Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います^[Creators Updateの適用が必要]。
+Win10機は持っているのですが、当該機がとっても遅い[^i5-2500Kかつメインディスクが2.5インチHDDでして]
+ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
 # 背景というか、どうやって変換するの？
 最終的にはシンプル３ステップで出力されます。原稿はMarkdown形式です。
@@ -16,21 +19,21 @@ Windows10とWSLなUbuntu^[ぐぐってね]ならUbuntu16.04のやり方が
 
 コンパイルの制御にはGNU Makeを使います。コンパイルの前処理としてGPPによる原稿の連結を行い[^gpp]、
 各種YAMLデータ[^yaml2json]から画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
-最後にMarkdownをPDFもしくはHTMLに出力します。
+最後にMarkdownをPDFもしくはHTMLに出力します[^pandoc][^make-html][^make-pdf]。
 
-[^gpp]: gpp
-[^yaml2json]:
-[^pandable]:
-[^pandoc-imagine]:
-[^wavedrom]:
-[^bitfield]:
-[^pandoc]:
-[^make-html]:
-[^make-pdf]:
+[^gpp]: @sec:gpp
+[^yaml2json]: yaml2json
+[^pandable]: @sec:pantable
+[^pandoc-imagine]: pandoc-imagine
+[^wavedrom]: wavedrom
+[^bitfield]: @sec:bitfield
+[^pandoc]: @sec:pandoc
+[^make-html]: make html
+[^make-pdf]: make pdf
 
 Markdownコンパイラは**Pandoc**^[マニュアルを日本語化している有志の方がいますね]と各種フィルタを使います。
 各種フィルタはあちこちから都合のいいものをかき集めてるので**_使用言語がバラバラです_**。
-Homebrewあるいはaptでインストールすれば_比較的_楽ちんなので筆者は気にせずに構築してきましたが、
+Homebrewあるいはaptでインストールすれば _比較的_ 楽ちんなので筆者は気にせずに構築してきましたが、
 Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使用をおすすめします。
 プロいひとはDockerイメージとかCIとかでもっと楽にできるかもしれません。
 
@@ -85,7 +88,7 @@ $ npm install -g phantomjs-prebuilt bit-field wavedrom-cli
 ```
 pandoc-crossrefがpandocに依存しているので自動的にインストールされます。
 
-##### Ubuntu {.unnumbered}
+#### Ubuntu {.unnumbered}
 aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https://github.com/jgm/pandoc/releases]
 からdebファイルを落としてきます
 ```sh
@@ -122,18 +125,22 @@ $ sudo mktexlsr
 ### ツールのインストール
 #### Mac {.unnumbered}
 ```sh
-$ brew install librsvg gpp plantuml
+$ brew install librsvg gpp plantuml wget
 ```
 #### Ubuntu {.unnumbered}
 ```sh
 $ sudo apt-get install librsvg2-bin gpp
 ```
 ### フォントのインストール
-#### Mac {.unnumbered}
-#### Ubuntu {.unnumbered}
-#### Source Code Pro
-#### Source Sans Pro
-#### Ricty Diminished
+各リポジトリからアーカイブをダウンロード・解凍してTTFファイル(TrueTypeフォント)を全部、
+ユーザフォントディレクトリにコピーします。
+```sh
+mkdir -p $HOME/.local/share/fonts/
+cd $HOME/.local/share/fonts/
+wget -c https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
+wget -c https://github.com/adobe-fonts/source-sans-pro/archive/2.020R-ro/1.075R-it.zip
+wget -c https://github.com/mzyy94/RictyDiminished-for-Powerline/archive/3.2.4-powerline-early-2016.zip
+```
 
 ## ダウンロード
 ### pandoc_misc
@@ -232,7 +239,7 @@ docrevision,リビジョン番号,1.0
 front,表紙画像ファイル名,images/front-image.png
 ```
 
-## 原稿を書く
+## 原稿を書く {#sec:pandoc}
 いわゆる普通のPandoc式Markdown記法に則って書いていきます。
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _無条件に_ ナンバリングされます。
@@ -244,12 +251,25 @@ front,表紙画像ファイル名,images/front-image.png
 ##### 深さ5+：章番号復活 {.unnumbered}
 ```
 
-### 原稿を連結する
-原稿の連結には[Generic Preprocessor](https://github.com/logological/gpp/)を使います。
-&lt;#include "ファイル名"&gt;
+### 原稿を連結する {#sec:gpp}
+原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
+HTML風に&lt;#include "ファイル名"&gt;と記述すると、指定されたファイルがまるごと
+コピーされて置き換えられます。
 
-### 表を書く・引用する
-表の引用とレンダリングには[pantableフィルタ](pantable)を使います。
+### 表を書く・引用する {#sec:pantable}
+表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
+```table
+---
+caption: pantableフィルタオプション
+markdown: True
+---
+オプション,省略可能,デフォルト値,意味
+caption,,,
+include,,,
+markdown,,,
+alignment,,,
+table-width,,,
+```
 
 ~~~~~markdown
 ```table
@@ -283,11 +303,22 @@ include: "data/table.csv"
 ---
 ```
 
-### ソースコードを引用する
-ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[pandoc_misc/panflute/include.py]
+### ソースコードを引用する {#sec:listingtable}
+ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[`pandoc_misc/panflute/ListingTable.py`]
 を使います。
 
-### ビットフィールド画像を描く
+```table
+---
+caption: ListingTableフィルタオプション
+markdown: True
+---
+オプション,省略可能,デフォルト値,意味
+source,N,,ソースファイル名(フルパス)
+class,N,,"ソースファイル種類(python,cpp,markdown etc.)"
+tex,Y,False,LaTeXを出力するとき"True"にする。case sensitive
+```
+
+### ビットフィールド画像を描く {#sec:bitfield}
 
 ~~~~~markdown
 ```listingtable
@@ -298,10 +329,10 @@ tex: True
 ```
 ~~~~~
 
-### ロジック波形を書く
+### ロジック波形を描く
 ### その他各種レンダラを使う
 他にもPlantUML,Mermaid,GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
-種類があまりにも多くてPlantUML以外未テストですが
+種類があまりにも多くてPlantUML以外未テストですが、
 [Imagine](https://github.com/hertogp/imagine)フィルタを使えばコードブロックから
 画像生成が可能です。
 
