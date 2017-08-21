@@ -111,11 +111,7 @@ $(TARGETDIR)/%.table.md: $(DATADIR)/%.csv
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
-ifneq ($(OS),Windows_NT)
 	phantomjs $(WAVEDROM) -i $< -p $@
-else
-	cp $(MISC)/$(IMAGEDIR)/dummy.png $@
-endif
 
 bitfield: $(BITDIR) $(BITPNG) $(BIT16PNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson

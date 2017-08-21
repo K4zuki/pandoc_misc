@@ -5,7 +5,7 @@ ifeq ($(OS),Windows_NT)
 HOME = C:/Users/$(USERNAME)
 CABAL = $(HOME)/AppData/Roaming/cabal
 EXE:=.exe
-WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
+WAVEDROM = $(HOME)/AppData/Roaming/npm/node_modules/wavedrom-cli/bin/wavedrom-cli.js
 # BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
 PANTABLE = /c/Program\ Files/Python36/Scripts/pantable.exe
 RSVG = $(HOME)/AppData/Roaming/npm/svg2png
