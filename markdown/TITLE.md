@@ -97,7 +97,8 @@ $ sudo dpkg -i pandoc-1.19.2.1-1-amd64.deb
 $ sudo -H pip3 install pyyaml pillow
 $ sudo -H pip3 install pantable csv2table
 $ sudo -H pip3 install six pandoc-imagine
-$ sudo npm install -g phantomjs-prebuilt bit-field wavedrom-cli
+$ sudo npm install -g phantomjs-prebuilt wavedrom-cli
+$ sudo npm install -g fs-extra yargs onml bit-field
 $ sudo apt-get install xzdec texlive-lang-japanese
 $ tlmgr init-usertree
 $ tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
@@ -319,6 +320,26 @@ tex,Y,False,LaTeXを出力するとき"True"にする。case sensitive
 ```
 
 ### ビットフィールド画像を描く {#sec:bitfield}
+```table
+---
+caption: BitFieldフィルタオプション
+markdown: True
+---
+オプション,省略可能,デフォルト値,意味
+input,N,,ソースファイル名
+png,Y,True,PNG出力フラグ
+eps,Y,False,EPS出力フラグ
+pdf,Y,False,PDF出力フラグ
+lane-height,Y,80,レーンあたりの高さ
+lane-width,Y,640,レーンの幅
+lanes,Y,1,レーンの数
+bits,Y,8,総ビット数
+fontfamily,Y,"source code pro",フォントファミリ名
+fontsize,Y,16,フォントサイズ
+fontweight,Y,normal,フォントのウェイト
+caption,Y,Untitled,タイトル
+directory,Y,"`./svg`",出力ディレクトリ
+```
 
 ~~~~~markdown
 ```listingtable
