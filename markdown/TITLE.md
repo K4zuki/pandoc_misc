@@ -55,7 +55,7 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 Ubuntuユーザはaptがほぼ全てやってくれるので特別にインストールするものはありません
 
 ### 言語のインストール
-主に４言語使います - **Haskell・Python・NodeJS・LaTeXです**^[_もううんざりしてきた？_]。
+主に４言語使います - **Haskell・Python _３_・NodeJS・LaTeXです**^[_もううんざりしてきた？_]。
 HaskellはPandocとpandoc-crossrefフィルタのインストールで必要です。NodeJSはフィルタと画像生成、
 Pythonはフィルタとシェルスクリプトの代わり、そしてLaTeXはPDF出力のためです。
 
@@ -241,7 +241,7 @@ front,表紙画像ファイル名,images/front-image.png
 ```
 
 ## 原稿を書く {#sec:pandoc}
-いわゆる普通のPandoc式Markdown記法に則って書いていきます。
+~~**デファクトスタンダードこと**~~Pandoc式Markdown記法に則って書いていきます。
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _無条件に_ ナンバリングされます。
 ```markdown
@@ -254,38 +254,44 @@ front,表紙画像ファイル名,images/front-image.png
 
 ### 原稿を連結する {#sec:gpp}
 原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
-HTML風に&lt;#include "ファイル名"&gt;と記述すると、指定されたファイルがまるごと
-コピーされて置き換えられます。
+C言語で＃`include "stdio.h"`などと記述するアレです。
+C言語風そのままだとヘッダと間違われるのでHTML風に&lt;＃`include "ファイル名"`&gt;
+と記述します。該当部分は指定されたファイルに
+置き換えられます(入れ子になっていても機能します)。
 
 ### 表を書く・引用する {#sec:pantable}
 表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
+コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
+タイトルの有無やCSVセルの内容をMarkdownとして解釈するかどうか
+を選択するオプションがあります。１セルが複数行に渡る表も書けます。
+`include` でファイルを指定しているときは直接記述部分は無視されます。
 ```table
 ---
-caption: pantableフィルタオプション
+caption: pantableフィルタオプション（抜粋）
 markdown: True
 ---
 オプション,省略可能,デフォルト値,意味
-caption,,,
-include,,,
-markdown,,,
-alignment,,,
-table-width,,,
+caption,Y,,表のタイトル。Markdown記法が使える
+include,Y,,CSVファイル名
+markdown,Y,False,セルの内容をMarkdownとして解釈するフラグ
+alignment,Y,,列ごとの右揃え(R)/左揃え(L)/中央揃え(C)/デフォルト(D)の指定
+table-width,Y,1.0,表全体の幅 ページ幅に対する比率で指定する(ページ幅いっぱいが1.0)
 ```
 
+#### 記述例 {.unnumbered}
 ~~~~~markdown
 ```table
 ---
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL # Right, Center, Default, Left
-table-width: 2/3 # default is 1.0 * page width
+table-width: 0.6 # default is 1.0 * page width
 markdown: True # inline markdown
 include: "data/table.csv" # eternal file
 ---
 ```
 ~~~~~
 
-<!-- - csv file -->
-
+#### CSVファイルの中身 {.unnumbered}
 ```listingtable
 source: data/table.csv
 class: csv
@@ -293,12 +299,12 @@ tex: True
 ---
 ```
 
-<!-- - result -->
+#### 変換結果 {.unnumbered}
 ```table
 ---
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL
-table-width: 2/3
+table-width: 0.6
 markdown: True
 include: "data/table.csv"
 ---
@@ -324,6 +330,12 @@ tex,Y,False,LaTeXを出力するとき"True"にする。case sensitive
 ---
 caption: BitFieldフィルタオプション
 markdown: True
+width:
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.25
+alignment: DCCC
 ---
 オプション,省略可能,デフォルト値,意味
 input,N,,ソースファイル名
@@ -342,19 +354,22 @@ directory,Y,"`./svg`",出力ディレクトリ
 ```
 
 ~~~~~markdown
-```listingtable
-source: data/bitfields/bit.yaml
-class: yaml
-tex: True
+```bitfield
+source: Out/bit.bitjson
 ---
 ```
 ~~~~~
+
+```bitfield
+input: Out/bit.bitjson
+---
+```
 
 ### ロジック波形を描く
 ### その他各種レンダラを使う
 他にもPlantUML,Mermaid,GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
-[Imagine](https://github.com/hertogp/imagine)フィルタを使えばコードブロックから
+Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブロックから
 画像生成が可能です。
 
 ~~~~~markdown
@@ -362,6 +377,9 @@ tex: True
 Bob->Alice: Hello
 ```
 ~~~~~
+```plantuml
+Bob->Alice: Hello
+```
 
 ### 画像を回転する
 ## コンパイルする
@@ -371,6 +389,24 @@ $ git add Makefile
 $ git commit -m"initial commit"
 ```
 この状態でmake htmlとするとOut/TARGET.htmlというファイルができあがるはずです。
+
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
+<!-- ############################################################################## -->
 
 # 必要なもの
 ## pandoc
