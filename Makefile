@@ -34,6 +34,7 @@ CSV:= $(shell cd $(DATADIR); ls *.csv)
 TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.table.md)
 
 WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
+### https://gist.github.com/noahcoad/51934724e0896184a2340217b383af73
 PYWAVEOPTS:= -c
 PYWAVEOPTS += 'import sys, yaml, json, io;\
 						sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"); \
