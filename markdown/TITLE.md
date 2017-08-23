@@ -406,22 +406,15 @@ Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブ
 
 - <http://qiita.com/mitsugu/items/014e13ca0696c7c53d4c>
 
-~~~~~markdown
-```plantuml
-@startuml
-Bob->Alice: Hello
-@enduml
-```
-~~~~~
-```plantuml
+```{.plantuml im_out="fcb,img" caption="PlantUML sample"}
 @startuml
 Bob->Alice: Hello
 @enduml
 ```
 
 ```{.plantuml im_out="fcb,img" caption="Created by plantuml"}
-**@startuml
-scale 580*690
+@startuml
+scale 600*800
 title Servlet Container
 (*) --> "ClickServlet.handleRequest()"
 --> "new Page"
