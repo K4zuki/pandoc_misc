@@ -408,11 +408,15 @@ Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブ
 
 ~~~~~markdown
 ```plantuml
+@startuml
 Bob->Alice: Hello
+@enduml
 ```
 ~~~~~
 ```plantuml
+@startuml
 Bob->Alice: Hello
+@enduml
 ```
 
 ### 画像を回転する
