@@ -160,7 +160,7 @@ $ npm install
 ホームディレクトリ直下のworkspaceディレクトリにMyBookというGitリポジトリを作ります。
 ```sh
 $ mkdir -p ~/workspace/MyBook
-$ cd workspace/MyBook
+$ cd ~/workspace/MyBook
 $ git init
 ```
 ここでpandoc_miscディレクトリに戻り、原稿リポジトリにコンパイル環境をコピーします。
@@ -240,8 +240,39 @@ docrevision,リビジョン番号,1.0
 front,表紙画像ファイル名,images/front-image.png
 ```
 
+## 原稿リポジトリをコンパイル
+ここでいったんコンパイルできるかどうか試してみましょう。`TITLE.md`の中身が空でも
+コンパイルすることはできます。コンパイルする前に`Makefile`/`config.yaml`と
+原稿一式をリポジトリに登録して最初のコミットをします。
+```sh
+$ git add .
+$ git commit -m"initial commit"
+```
+この状態で`make html`とすると`Out/TARGET.html`というファイルができあがるはずです。
+以下に代表的なコマンドの一覧を載せます。
+`````table
+---
+caption: コンパイル方法
+markdown: True
+---
+コマンド,効果,成果物
+`make html`,HTMLファイル生成,`$(TARGETDIR)/$(TARGET).html`
+`make pdf`,PDFファイル生成,`$(TARGETDIR)/$(TARGET).pdf`
+`make clean`,成果物を全部消去,"
+```
+rm -rf $(TARGETDIR)/*\\
+rm -rf $(IMAGEDIR)/$(WAVEDIR)/\\
+rm -rf $(IMAGEDIR)/$(BITDIR)/\\
+rm -rf $(IMAGEDIR)/$(BIT16DIR)/
+```
+"
+`````
+
 ## 原稿を書く {#sec:pandoc}
+これでとりあえずコンパイルが通るようになったので、実際の原稿を書けるようになりました。
 ~~**デファクトスタンダードこと**~~Pandoc式Markdown記法に則って書いていきます。
+
+### ヘッダの書き方
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _無条件に_ ナンバリングされます。
 ```markdown
@@ -382,13 +413,6 @@ Bob->Alice: Hello
 ```
 
 ### 画像を回転する
-## コンパイルする
-`Makefile`/`config.yaml`と原稿一式をリポジトリに登録して最初のコミットをします。
-```sh
-$ git add Makefile
-$ git commit -m"initial commit"
-```
-この状態でmake htmlとするとOut/TARGET.htmlというファイルができあがるはずです。
 
 <!-- ############################################################################## -->
 <!-- ############################################################################## -->
