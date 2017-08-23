@@ -94,7 +94,7 @@ def file2listingtable(file="Makefile",
     except:
         result.append("failed to open file %s" % (_file))
 
-    return "\n".join(result)
+    return "\n".join(result).encode('utf-8')
 
 
 if __name__ == '__main__':

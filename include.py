@@ -59,6 +59,7 @@ if __name__ == '__main__':
     import argparse
     from file2listingtable import file2listingtable as f2l
     from rotateimg import rotatepic
+    import io
 
     class MyParser(object):
 
@@ -68,7 +69,7 @@ if __name__ == '__main__':
             self._parser.add_argument('infile',
                                       nargs='?',
                                       type=argparse.FileType('r'),
-                                      default=sys.stdin)
+                                      default=io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"))
             self._parser.add_argument('--out',
                                       '-O',
                                       help='output markdown file',
@@ -107,36 +108,36 @@ if __name__ == '__main__':
     # regex filter to find out table caption
     tblcaption = re.compile(
         "(Table:)([\*_\ ]*)(.[^\{\}\*_]*)([\*_\ ]*).*\{\ *#(tbl:.[^\*\n]*[^\ ])\ *\}")
-    output = open(_basedir + "/" + _output, 'w')
 
-    for line in stripped.split("\n"):
-        if _include.search(line):
-            print ("main: include",)
-            input_file = _include.search(line).groups()[0]
-            print (input_file)
-            line = _include.sub(line, include(input_file, _basedir, _mode))
-        if listing.search(line):
-            print ("main: listingtable of", end="")
-            input_file = listing.search(line).groups()[0]
-            filetype = listing.search(line).groups()[1]
-            print (filetype)
-            convert = f2l(input_file, filetype, __mode[0], __mode[1])
-            line = listing.sub(line, convert)
-        if _rotimg.search(line):
-            print ("main: rotate image of", end="")
-            input_file = _rotimg.search(line).groups()[0]
-            caption = _rotimg.search(line).groups()[1]
-            angle = _rotimg.search(line).groups()[2]
-            others = _rotimg.search(line).groups()[3]
-            print (input_file, angle)
-            rotatedcaption = rotatepic(input_file, caption, angle, others)
-            # print rotatedcaption
-            line = listing.sub(line, rotatedcaption)
-        if tblcaption.search(line):
-            if(__mode[0]):
-                caption = tblcaption.search(line).groups()[2]
-                link = tblcaption.search(line).groups()[4]
-                line = "TC \"[@" + link + "] " + caption + "\" `\l` 5\n\n" + line
-                print (link)
-        output.write(line)
-        output.write("\n")
+    with open("/".join([_basedir, _output]), 'w', encoding='utf-8') as output:
+        for line in stripped.split("\n"):
+            if _include.search(line):
+                print ("main: include",)
+                input_file = _include.search(line).groups()[0]
+                print (input_file)
+                line = _include.sub(line, include(input_file, _basedir, _mode))
+            if listing.search(line):
+                print ("main: listingtable of", end="")
+                input_file = listing.search(line).groups()[0]
+                filetype = listing.search(line).groups()[1]
+                print (filetype)
+                convert = f2l(input_file, filetype, __mode[0], __mode[1])
+                line = listing.sub(line, convert)
+            if _rotimg.search(line):
+                print ("main: rotate image of", end="")
+                input_file = _rotimg.search(line).groups()[0]
+                caption = _rotimg.search(line).groups()[1]
+                angle = _rotimg.search(line).groups()[2]
+                others = _rotimg.search(line).groups()[3]
+                print (input_file, angle)
+                rotatedcaption = rotatepic(input_file, caption, angle, others)
+                # print rotatedcaption
+                line = listing.sub(line, rotatedcaption)
+            if tblcaption.search(line):
+                if(__mode[0]):
+                    caption = tblcaption.search(line).groups()[2]
+                    link = tblcaption.search(line).groups()[4]
+                    line = "TC \"[@" + link + "] " + caption + "\" `\l` 5\n\n" + line
+                    print (link)
+            output.write(line)
+            output.write("\n")
