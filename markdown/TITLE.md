@@ -10,7 +10,7 @@ Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思い
 Win10機は持っているのですが、当該機がとっても遅い[^i5-2500Kかつメインディスクが2.5インチHDDでして]
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
-# 背景というか、どうやって変換するの？
+## 背景というか、どうやって変換するの？
 最終的にはシンプル３ステップで出力されます。原稿はMarkdown形式です。
 
 1. Markdownで原稿を書きます
@@ -131,6 +131,7 @@ $ brew install librsvg gpp plantuml wget
 #### Ubuntu {.unnumbered}
 ```sh
 $ sudo apt-get install librsvg2-bin gpp
+# sudo apt-get install graphviz plantuml
 ```
 ### フォントのインストール
 各リポジトリからアーカイブをダウンロード・解凍してTTFファイル(TrueTypeフォント)を全部、
@@ -402,6 +403,8 @@ input: Out/bit.bitjson
 種類があまりにも多くてPlantUML以外未テストですが、
 Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブロックから
 画像生成が可能です。
+
+- <http://qiita.com/mitsugu/items/014e13ca0696c7c53d4c>
 
 ~~~~~markdown
 ```plantuml
