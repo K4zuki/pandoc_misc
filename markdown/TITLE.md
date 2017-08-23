@@ -10,7 +10,7 @@ Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思い
 Win10機は持っているのですが、当該機がとっても遅い[^i5-2500Kかつメインディスクが2.5インチHDDでして]
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
-## 背景というか、どうやって変換するの？
+## 背景というか、どうやって変換するの？ {-}
 最終的にはシンプル３ステップで出力されます。原稿はMarkdown形式です。
 
 1. Markdownで原稿を書きます
@@ -255,15 +255,19 @@ $ git commit -m"initial commit"
 ---
 caption: コンパイル方法
 markdown: True
+width:
+  - 0.2
+  - 0.3
+  - 0.5
 ---
 コマンド,効果,成果物
 `make html`,HTMLファイル生成,`$(TARGETDIR)/$(TARGET).html`
 `make pdf`,PDFファイル生成,`$(TARGETDIR)/$(TARGET).pdf`
 `make clean`,成果物を全部消去,"
-```
-rm -rf $(TARGETDIR)/*\\
-rm -rf $(IMAGEDIR)/$(WAVEDIR)/\\
-rm -rf $(IMAGEDIR)/$(BITDIR)/\\
+```makefile
+rm -rf $(TARGETDIR)/*
+rm -rf $(IMAGEDIR)/$(WAVEDIR)/
+rm -rf $(IMAGEDIR)/$(BITDIR)/
 rm -rf $(IMAGEDIR)/$(BIT16DIR)/
 ```
 "
@@ -301,6 +305,12 @@ C言語風そのままだとヘッダと間違われるのでHTML風に&lt;＃`i
 ---
 caption: pantableフィルタオプション（抜粋）
 markdown: True
+alignment: CCCD
+width:
+  - 0.2
+  - 0.1
+  - 0.2
+  - 0.5
 ---
 オプション,省略可能,デフォルト値,意味
 caption,Y,,表のタイトル。Markdown記法が使える
@@ -350,6 +360,7 @@ include: "data/table.csv"
 ---
 caption: ListingTableフィルタオプション
 markdown: True
+alignment: DCCD
 ---
 オプション,省略可能,デフォルト値,意味
 source,N,,ソースファイル名(フルパス)
@@ -367,7 +378,7 @@ width:
   - 0.25
   - 0.25
   - 0.25
-alignment: DCCC
+alignment: DCCD
 ---
 オプション,省略可能,デフォルト値,意味
 input,N,,ソースファイル名
