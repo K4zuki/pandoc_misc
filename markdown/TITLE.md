@@ -131,7 +131,7 @@ $ brew install librsvg gpp plantuml wget
 #### Ubuntu {.unnumbered}
 ```sh
 $ sudo apt-get install librsvg2-bin gpp
-# sudo apt-get install graphviz plantuml
+$ sudo apt-get install graphviz plantuml
 ```
 ### フォントのインストール
 各リポジトリからアーカイブをダウンロード・解凍してTTFファイル(TrueTypeフォント)を全部、
@@ -387,7 +387,7 @@ directory,Y,"`./svg`",出力ディレクトリ
 
 ~~~~~markdown
 ```bitfield
-source: Out/bit.bitjson
+input: Out/bit.bitjson
 ---
 ```
 ~~~~~
@@ -416,6 +416,52 @@ Bob->Alice: Hello
 ```plantuml
 @startuml
 Bob->Alice: Hello
+@enduml
+```
+
+```{.plantuml im_out="fcb,img" caption="Created by plantuml"}
+**@startuml
+scale 580*690
+title Servlet Container
+(*) --> "ClickServlet.handleRequest()"
+--> "new Page"
+if "Page.onSecurityCheck" then
+->[true] "Page.onInit()"
+if "isForward?" then
+->[no] "Process controls"
+if "continue processing?" then
+-->[yes] ===RENDERING===
+else
+-->[no] ===REDIRECT_CHECK===
+endif
+else
+-->[yes] ===RENDERING===
+endif
+if "is Post?" then
+-->[yes] "Page.onPost()"
+--> "Page.onRender()" as render
+--> ===REDIRECT_CHECK===
+else
+-->[no] "Page.onGet()"
+--> render
+endif
+else
+-->[false] ===REDIRECT_CHECK===
+endif
+if "Do redirect?" then
+->[yes] "redirect request"
+--> ==BEFORE_DESTROY===
+else
+if "Do Forward?" then
+-left->[yes] "Forward request"
+--> ==BEFORE_DESTROY===
+else
+-right->[no] "Render page template"
+--> ==BEFORE_DESTROY===
+endif
+endif
+--> "Page.onDestroy()"
+-->(*)
 @enduml
 ```
 
