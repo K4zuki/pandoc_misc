@@ -188,7 +188,7 @@ $ make init PREFIX=~/workspace/MyBook
 原稿のファイル名・置き場所・ディレクトリ構成は自由に配置してください。日本語ファイル名は
 問題ないと思います^[推奨しません]が、スペースを入れるのは避けるべきです。
 
-### ファイル名・ディレクトリ名の設定(Makefile)
+#### ファイル名・ディレクトリ名の設定(Makefile) {.unnumbered}
 タイトルファイル名、ディレクトリ名を変更した場合は、そのことをコンパイラに知らせる必要があります。
 コンパイラはタイトルページのファイル名と各種ディレクトリ名をMakefileから取得します。
 ディレクトリ名はすべてMakefileが置かれたディレクトリからの相対パスです。
@@ -202,6 +202,7 @@ width:
   - 0.55
   - 0.1
 header: True
+markdown: True
 ---
 変数名,種類,意味,初期値
 `CONFIG`,ファイル,pandocのコンフィグファイル,`config.yaml`
@@ -216,9 +217,9 @@ header: True
 `BIT16DIR`,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,`bitfield16/`
 ```
 
-### Pandocオプションの設定(config.yaml)
+#### Pandocオプションの設定(config.yaml) {.unnumbered}
 Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAMLファイルから
-コンパイルオプションを取得します。
+コンパイルオプションを取得します。これらの値は表紙絵と奥付に使用されます
 ```table
 ---
 caption: Pandocコンパイルオプション
@@ -251,6 +252,7 @@ $ git commit -m"initial commit"
 ```
 この状態で`make html`とすると`Out/TARGET.html`というファイルができあがるはずです。
 以下に代表的なコマンドの一覧を載せます。
+
 `````table
 ---
 caption: コンパイル方法
@@ -263,19 +265,16 @@ width:
 コマンド,効果,成果物
 `make html`,HTMLファイル生成,`$(TARGETDIR)/$(TARGET).html`
 `make pdf`,PDFファイル生成,`$(TARGETDIR)/$(TARGET).pdf`
-`make clean`,成果物を全部消去,"
-```makefile
-rm -rf $(TARGETDIR)/*
-rm -rf $(IMAGEDIR)/$(WAVEDIR)/
-rm -rf $(IMAGEDIR)/$(BITDIR)/
-rm -rf $(IMAGEDIR)/$(BIT16DIR)/
-```
+`make clean`,成果物を全部消去,"`rm -rf $(TARGETDIR)/*`\\
+`rm -rf $(IMAGEDIR)/$(WAVEDIR)/`\\
+`rm -rf $(IMAGEDIR)/$(BITDIR)/`\\
+`rm -rf $(IMAGEDIR)/$(BIT16DIR)/`
 "
 `````
 
 ## 原稿を書く {#sec:pandoc}
 これでとりあえずコンパイルが通るようになったので、実際の原稿を書けるようになりました。
-~~**デファクトスタンダードこと**~~Pandoc式Markdown記法に則って書いていきます。
+**~~デファクトスタンダードこと~~**Pandoc式Markdown記法に則って書いていきます。
 
 ### ヘッダの書き方
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
@@ -369,6 +368,17 @@ tex,Y,False,LaTeXを出力するとき"True"にする。case sensitive
 ```
 
 ### ビットフィールド画像を描く {#sec:bitfield}
+bitfield[^drom/bitfield]はあまり知られていませんがJSONファイルをレジスタマップSVG風に描画するJSライブラリです。
+Pandocフィルタを用意しました。
+ソースコードはJSONまたはYAML形式が使えます。コードブロック直接記述もファイル指定も可能です。
+YAML形式は内部でJSONへの変換を試みます。pantableフィルタと同様にソースコードを
+指定すると直接記述は無視されます。指定されたソースコードが見つからないときはエラーが出ます。
+
+出力形式はPNG/PDF/EPSが指定できますが、pandocの出力ファイル形式(`-f`オプション)によって
+ある程度自動判定されます。出力形式にhtmlが指定されていると暗黙にSVGをリンクします。
+同様にlatexが指定されているとPDF画像をリンクします。中間ファイルはデフォルトで`svg`ディレクトリに
+保存されます。
+
 ```table
 ---
 caption: BitFieldフィルタオプション
@@ -420,13 +430,19 @@ Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブ
 
 ```{.plantuml im_out="fcb,img" caption="PlantUML sample"}
 @startuml
+skinparam monochrome true
+skinparam defaultFontName Ricty Diminished
+
 Bob->Alice: Hello
 @enduml
 ```
 
 ```{.plantuml im_out="fcb,img" caption="Created by plantuml"}
 @startuml
-scale 600*800
+skinparam monochrome true
+skinparam defaultFontName Ricty Diminished
+
+scale 1200*1600
 title Servlet Container
 (*) --> "ClickServlet.handleRequest()"
 --> "new Page"
