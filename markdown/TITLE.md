@@ -204,16 +204,16 @@ width:
 header: True
 ---
 変数名,種類,意味,初期値
-CONFIG,ファイル,pandocのコンフィグファイル,config.yaml
-INPUT,ファイル,タイトルファイル,TITLE.md
-TARGET,ファイル,出力ファイル,TARGET
-MDDIR,ディレクトリ,タイトルファイルの置き場所,markdown/
-DATADIR,ディレクトリ,データディレクトリ,data/
-TARGETDIR,ディレクトリ,出力先ディレクトリ,Out/
-IMAGEDIR,ディレクトリ,画像ファイルの置き場所,images/
-WAVEDIR,ディレクトリ,WaveDromファイルの置き場所,waves/
-BITDIR,ディレクトリ,８ビット幅Bitfieldファイルの置き場所,bitfields/
-BIT16DIR,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,bitfield16/
+`CONFIG`,ファイル,pandocのコンフィグファイル,`config.yaml`
+`INPUT`,ファイル,タイトルファイル,`TITLE.md`
+`TARGET`,ファイル,出力ファイル,`TARGET`
+`MDDIR`,ディレクトリ,タイトルファイルの置き場所,`markdown/`
+`DATADIR`,ディレクトリ,データディレクトリ,`data/`
+`TARGETDIR`,ディレクトリ,出力先ディレクトリ,`Out/`
+`IMAGEDIR`,ディレクトリ,画像ファイルの置き場所,`images/`
+`WAVEDIR`,ディレクトリ,WaveDromファイルの置き場所,`waves/`
+`BITDIR`,ディレクトリ,８ビット幅Bitfieldファイルの置き場所,`bitfields/`
+`BIT16DIR`,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,`bitfield16/`
 ```
 
 ### Pandocオプションの設定(config.yaml)
@@ -290,8 +290,8 @@ rm -rf $(IMAGEDIR)/$(BIT16DIR)/
 
 ### 原稿を連結する {#sec:gpp}
 原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
-C言語で＃`include "stdio.h"`などと記述するアレです。
-C言語風そのままだとヘッダと間違われるのでHTML風に&lt;＃`include "ファイル名"`&gt;
+C言語で`＃include "stdio.h"`などと記述するアレです。
+C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃include "ファイル名"`&gt;
 と記述します。該当部分は指定されたファイルに
 置き換えられます(入れ子になっていても機能します)。
 
@@ -300,7 +300,7 @@ C言語風そのままだとヘッダと間違われるのでHTML風に&lt;＃`i
 コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
 タイトルの有無やCSVセルの内容をMarkdownとして解釈するかどうか
 を選択するオプションがあります。１セルが複数行に渡る表も書けます。
-`include` でファイルを指定しているときは直接記述部分は無視されます。
+`include`でファイルを指定しているときは直接記述部分は無視されます。
 ```table
 ---
 caption: pantableフィルタオプション（抜粋）
@@ -354,7 +354,7 @@ include: "data/table.csv"
 
 ### ソースコードを引用する {#sec:listingtable}
 ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[`pandoc_misc/panflute/ListingTable.py`]
-を使います。
+を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`との組み合わせ運用を前提にしています)。
 
 ```table
 ---
@@ -405,12 +405,13 @@ input: Out/bit.bitjson
 
 ```bitfield
 input: Out/bit.bitjson
+caption: bitfield sample
 ---
 ```
 
 ### ロジック波形を描く
 ### その他各種レンダラを使う
-他にもPlantUML,Mermaid,GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
+他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
 Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブロックから
 画像生成が可能です。
