@@ -406,6 +406,8 @@ caption,Y,Untitled,タイトル
 directory,Y,"`./svg`",出力ディレクトリ
 ```
 
+![](data/bitfields/bit.yaml){.bitfield bits=9 width=10%}
+
 ~~~~~markdown
 ```bitfield
 input: Out/bit.bitjson
