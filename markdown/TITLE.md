@@ -406,13 +406,15 @@ caption,Y,Untitled,タイトル
 directory,Y,"`./svg`",出力ディレクトリ
 ```
 
-![](data/bitfields/bit.yaml){.bitfield bits=9 width=10%}
+![](data/bitfields/bit.yaml){.bitfield}
 
 ~~~~~markdown
 ```bitfield
 input: Out/bit.bitjson
 ---
 ```
+
+![](data/bitfields/bit.yaml){.bitfield}
 ~~~~~
 
 ```bitfield
@@ -420,6 +422,8 @@ input: Out/bit.bitjson
 caption: bitfield sample
 ---
 ```
+
+![](data/bitfields/bit.yaml){.bitfield}
 
 ### ロジック波形を描く
 ### その他各種レンダラを使う
