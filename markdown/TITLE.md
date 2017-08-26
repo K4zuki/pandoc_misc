@@ -426,6 +426,9 @@ caption: bitfield sample
 ![](data/bitfields/bit.yaml){.bitfield}
 
 ### ロジック波形を描く
+
+![](data/waves/wave.yaml){.wavedrom}
+
 ### その他各種レンダラを使う
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
