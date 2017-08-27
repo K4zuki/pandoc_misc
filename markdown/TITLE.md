@@ -44,9 +44,8 @@ Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使�
 インストールしまくります。
 
 ### パッケージ管理ツールのインストール
-
 #### Homebrew(Mac)
-https://brew.sh/index_ja.html
+<https://brew.sh/index_ja.html>
 
 全てに先んじてHomebrewのインストールをします。
 ```sh
@@ -55,7 +54,7 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 Ubuntuユーザはaptがほぼ全てやってくれるので特別にインストールするものはありません
 
 ### 言語のインストール
-主に４言語使います - **Haskell・Python _３_・NodeJS・LaTeXです**^[_もううんざりしてきた？_]。
+主に４言語使います - **Haskell・Python _３_・NodeJS・LaTeXです**。
 HaskellはPandocとpandoc-crossrefフィルタのインストールで必要です。NodeJSはフィルタと画像生成、
 Pythonはフィルタとシェルスクリプトの代わり、そしてLaTeXはPDF出力のためです。
 
@@ -75,7 +74,7 @@ $ sudo apt-get install nodejs-legacy npm
 $ sudo apt-get install texlive-xetex
 ```
 
-[https://texwiki.texjp.org/?TeX%20Live]
+<https://texwiki.texjp.org/?TeX%20Live>
 
 ### 各言語のパッケージのインストール
 #### Mac {.unnumbered}
@@ -109,20 +108,6 @@ $ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXpt
 $ sudo mktexlsr
 $ tlmgr install oberdiek
 ```
-<!--
-#### TeXLive
-https://github.com/zr-tex8r/BXptool
-```sh
-$ sudo apt-get install xzdec texlive-lang-japanese
-$ tlmgr init-usertree
-$ tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
-$ wget -c https://github.com/zr-tex8r/BXptool/archive/v0.4.zip
-$ unzip v0.4.zip
-$ sudo mkdir -p /usr/share/texlive/texmf-dist/tex/latex/BXptool/
-$ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXptool/
-$ sudo mktexlsr
-```
- -->
 ### ツールのインストール
 #### Mac {.unnumbered}
 ```sh
@@ -217,6 +202,7 @@ markdown: True
 `BIT16DIR`,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,`bitfield16/`
 ```
 
+\\newpage
 #### Pandocオプションの設定(config.yaml) {.unnumbered}
 Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAMLファイルから
 コンパイルオプションを取得します。これらの値は表紙絵と奥付に使用されます
@@ -242,6 +228,7 @@ docrevision,リビジョン番号,1.0
 front,表紙画像ファイル名,images/front-image.png
 ```
 
+\\newpage
 ## 原稿リポジトリをコンパイル
 ここでいったんコンパイルできるかどうか試してみましょう。`TITLE.md`の中身が空でも
 コンパイルすることはできます。コンパイルする前に`Makefile`/`config.yaml`と
@@ -294,6 +281,7 @@ C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃i
 と記述します。該当部分は指定されたファイルに
 置き換えられます(入れ子になっていても機能します)。
 
+\\newpage
 ### 表を書く・引用する {#sec:pantable}
 表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
 コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
@@ -306,9 +294,9 @@ caption: pantableフィルタオプション（抜粋）
 markdown: True
 alignment: CCCD
 width:
-  - 0.2
-  - 0.1
-  - 0.2
+  - 0.15
+  - 0.15
+  - 0.20
   - 0.5
 ---
 オプション,省略可能,デフォルト値,意味
@@ -317,6 +305,7 @@ include,Y,,CSVファイル名
 markdown,Y,False,セルの内容をMarkdownとして解釈するフラグ
 alignment,Y,,列ごとの右揃え(R)/左揃え(L)/中央揃え(C)/デフォルト(D)の指定
 table-width,Y,1.0,表全体の幅 ページ幅に対する比率で指定する(ページ幅いっぱいが1.0)
+width,Y,,列ごとの幅
 ```
 
 #### 記述例 {.unnumbered}
@@ -325,13 +314,19 @@ table-width,Y,1.0,表全体の幅 ページ幅に対する比率で指定する(
 ---
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL # Right, Center, Default, Left
-table-width: 0.6 # default is 1.0 * page width
+table-width: 0.8 # default is 1.0 * page width
 markdown: True # inline markdown
-include: "data/table.csv" # eternal file
+include: "data/table.csv" # external file
+width:
+  - 0.1
+  - 0.2
+  - 0.2
+  - 0.3
 ---
 ```
 ~~~~~
 
+\\newpage
 #### CSVファイルの中身 {.unnumbered}
 ```listingtable
 source: data/table.csv
@@ -345,12 +340,18 @@ tex: True
 ---
 caption: '*Awesome* **Markdown** Table'
 alignment: RCDL
-table-width: 0.6
+table-width: 0.8
 markdown: True
 include: "data/table.csv"
+width:
+  - 0.1
+  - 0.2
+  - 0.2
+  - 0.3
 ---
 ```
 
+\\newpage
 ### ソースコードを引用する {#sec:listingtable}
 ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[`pandoc_misc/panflute/ListingTable.py`]
 を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`との組み合わせ運用を前提にしています)。
@@ -367,9 +368,24 @@ class,N,,"ソースファイル種類(python,cpp,markdown etc.)"
 tex,Y,False,LaTeXを出力するとき"True"にする。case sensitive
 ```
 
-### ビットフィールド画像を描く {#sec:bitfield}
-bitfield[^drom/bitfield]はあまり知られていませんがJSONファイルをレジスタマップSVG風に描画するJSライブラリです。
-Pandocフィルタを用意しました。
+`````markdown
+```listingtable
+source: data/table.csv
+class: csv
+tex: True
+---
+```
+`````
+
+\\newpage
+### ビットフィールド画像を描く・挿入する {#sec:bitfield}
+bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
+レジスタマップ風SVGに描画するJSライブラリです。
+
+Pandocフィルタを2種類用意しました。pantable同様のブロック形式と
+画像リンクにソースファイル名を指定するインライン形式で本文中に挿入できます。
+形式ごとにオプションが若干違います。
+
 ソースコードはJSONまたはYAML形式が使えます。コードブロック直接記述もファイル指定も可能です。
 YAML形式は内部でJSONへの変換を試みます。pantableフィルタと同様にソースコードを
 指定すると直接記述は無視されます。指定されたソースコードが見つからないときはエラーが出ます。
@@ -384,15 +400,15 @@ YAML形式は内部でJSONへの変換を試みます。pantableフィルタと�
 caption: BitFieldフィルタオプション
 markdown: True
 width:
-  - 0.25
-  - 0.25
-  - 0.25
-  - 0.25
+  - 0.20
+  - 0.20
+  - 0.20
+  - 0.40
 alignment: DCCD
 ---
 オプション,省略可能,デフォルト値,意味
 input,N,,ソースファイル名
-png,Y,True,PNG出力フラグ
+png,Y,**True**,PNG出力フラグ
 eps,Y,False,EPS出力フラグ
 pdf,Y,False,PDF出力フラグ
 lane-height,Y,80,レーンあたりの高さ
@@ -402,34 +418,75 @@ bits,Y,8,総ビット数
 fontfamily,Y,"source code pro",フォントファミリ名
 fontsize,Y,16,フォントサイズ
 fontweight,Y,normal,フォントのウェイト
-caption,Y,Untitled,タイトル
+caption,Y,Untitled(*),タイトル
 directory,Y,"`./svg`",出力ディレクトリ
+attr,Y,,画像幅などの指定
 ```
+(*) インライン形式のときはタイトルなしにできる
+\\newpage
 
-![](data/bitfields/bit.yaml){.bitfield}
-
+#### 記述例 - ブロック形式
 ~~~~~markdown
 ```bitfield
-input: Out/bit.bitjson
+# input: data/bitfields/bit.yaml
+caption: _**block bitfield sample**_
 ---
+# list from LSB
+# bits: bit width
+# attr: information RO/WO/RW etc.
+# name: name of bitfield
+- bits: 5
+- bits: 1
+  attr: RW
+  name: IPO
+- bits: 1
+  attr: RW
+  name: BRK
+- bits: 1
+  name: CPK
 ```
-
-![](data/bitfields/bit.yaml){.bitfield}
 ~~~~~
 
-```bitfield
-input: Out/bit.bitjson
-caption: bitfield sample
----
+#### インライン形式 {.unnumbered}
+```markdown
+![**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 ```
 
-![](data/bitfields/bit.yaml){.bitfield}
+#### 変換結果 - ブロック形式
+```bitfield
+# input: data/bitfields/bit.yaml
+caption: _**block bitfield sample**_
+---
+# list from LSB
+# bits: bit width
+# attr: information RO/WO/RW etc.
+# name: name of bitfield
+- bits: 5
+- bits: 1
+  attr: RW
+  name: IPO
+- bits: 1
+  attr: RW
+  name: BRK
+- bits: 1
+  name: CPK
+```
+#### インライン形式 {.unnumbered}
+![**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 
-### ロジック波形を描く
+\\newpage
+### WaveDromロジック波形を描く・挿入する
 
-![](data/waves/wave.yaml){.wavedrom}
+WaveDrom^[http://wavedrom.com] は、ロジック波形を記述ためのJSライブラリです。
+@sec:bitfield と同様のインライン形式で本文に挿入できます。
 
-### その他各種レンダラを使う
+~~~markdown
+![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
+~~~
+![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
+
+\\newpage
+### その他各種レンダラを使う {#sec:imagine}
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
 Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブロックから
