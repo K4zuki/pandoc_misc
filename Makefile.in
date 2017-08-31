@@ -66,11 +66,11 @@ TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
-PANFLAGS += --filter=$(MISC)/panflute/RotateImage.py
 PANFLAGS += --filter=$(MISC)/panflute/ListingTable.py
 PANFLAGS += --filter=$(MISC)/panflute/BitField.py
 PANFLAGS += --filter=$(MISC)/panflute/bitfield-inline.py
 PANFLAGS += --filter=$(MISC)/panflute/wavedrom-inline.py
+PANFLAGS += --filter=$(MISC)/panflute/RotateImage.py
 PANFLAGS += --filter=$(MISC)/panflute/rotateimage-inline.py
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
