@@ -2,12 +2,11 @@
 このドキュメントは、筆者が本を書くために構築したオレオレMarkdown-PDF変換環境
 を解説するための本です。^[このドキュメント自身もその環境で出力されました。よくあることですね]
 
-筆者が以前使っていたGitBookでは表の扱いなどに制限があり不満があったので、
-「なければ作る」の原則に従ってみました。
+筆者が以前使っていたGitBookでは表の扱いなどに制限があり不満があったので、「なければ作る」の原則に従ってみました。
 
 使用OSはUNIXを前提にします。具体的に言うとMac、LinuxならUbuntu16.04LTSです。
 Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います^[Creators Updateの適用が必要]。
-Win10機は持っているのですが、当該機がとっても遅い[^i5-2500Kかつメインディスクが2.5インチHDDでして]
+Win10機は持っているのですが、当該機がとっても遅い^[i5-2500Kかつメインディスクが2.5インチHDDでして]
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
 ## 背景というか、どうやって変換するの？ {-}
@@ -18,14 +17,13 @@ Win10機は持っているのですが、当該機がとっても遅い[^i5-2500
 1. PDFが出力されます
 
 コンパイルの制御にはGNU Makeを使います。コンパイルの前処理としてGPPによる原稿の連結を行い[^gpp]、
-各種YAMLデータ[^yaml2json]から画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
+各種YAMLデータから画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
 最後にMarkdownをPDFもしくはHTMLに出力します[^pandoc][^make-html][^make-pdf]。
 
 [^gpp]: @sec:gpp
-[^yaml2json]: yaml2json
 [^pandable]: @sec:pantable
-[^pandoc-imagine]: pandoc-imagine
-[^wavedrom]: wavedrom
+[^pandoc-imagine]: @sec:pandoc-imagine
+[^wavedrom]: @sec:wavedrom
 [^bitfield]: @sec:bitfield
 [^pandoc]: @sec:pandoc
 [^make-html]: make html
@@ -83,6 +81,7 @@ $ cabal install pandoc-crossref
 $ pip3 install pyyaml pillow
 $ pip3 install pantable csv2table
 $ pip3 install six pandoc-imagine
+$ pip3 install six svgutils
 $ npm install -g phantomjs-prebuilt bit-field wavedrom-cli
 ```
 pandoc-crossrefがpandocに依存しているので自動的にインストールされます。
@@ -96,6 +95,7 @@ $ sudo dpkg -i pandoc-1.19.2.1-1-amd64.deb
 $ sudo -H pip3 install pyyaml pillow
 $ sudo -H pip3 install pantable csv2table
 $ sudo -H pip3 install six pandoc-imagine
+$ sudo -H pip3 install svgutils
 $ sudo npm install -g phantomjs-prebuilt wavedrom-cli
 $ sudo npm install -g fs-extra yargs onml bit-field
 $ sudo apt-get install xzdec texlive-lang-japanese
@@ -184,8 +184,8 @@ caption: Makeコンパイルオプション
 width:
   - 0.15
   - 0.2
-  - 0.55
-  - 0.1
+  - 0.50
+  - 0.15
 header: True
 markdown: True
 ---
@@ -198,8 +198,8 @@ markdown: True
 `TARGETDIR`,ディレクトリ,出力先ディレクトリ,`Out/`
 `IMAGEDIR`,ディレクトリ,画像ファイルの置き場所,`images/`
 `WAVEDIR`,ディレクトリ,WaveDromファイルの置き場所,`waves/`
-`BITDIR`,ディレクトリ,８ビット幅Bitfieldファイルの置き場所,`bitfields/`
-`BIT16DIR`,ディレクトリ,１６ビット幅Bitfieldファイルの置き場所,`bitfield16/`
+`BITDIR`,ディレクトリ,8ビット幅Bitfieldファイルの置き場所,`bitfields/`
+`BIT16DIR`,ディレクトリ,16ビット幅Bitfieldファイルの置き場所,`bitfield16/`
 ```
 
 \\newpage
@@ -475,7 +475,7 @@ caption: _**block bitfield sample**_
 ![**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 
 \\newpage
-### WaveDromロジック波形を描く・挿入する
+### WaveDromロジック波形を描く・挿入する {#sec:wavedrom}
 
 WaveDrom^[http://wavedrom.com] は、ロジック波形を記述ためのJSライブラリです。
 @sec:bitfield と同様のインライン形式で本文に挿入できます。
@@ -486,7 +486,7 @@ WaveDrom^[http://wavedrom.com] は、ロジック波形を記述ためのJSラ�
 ![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 
 \\newpage
-### その他各種レンダラを使う {#sec:imagine}
+### その他各種レンダラを使う {#sec:pandoc-imagine}
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
 Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブロックから
@@ -553,7 +553,39 @@ endif
 ```
 
 ### 画像を回転する
-![](images/bitfields/bit.png){.rotate angle=90}
+`````markdown
+![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
+
+![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
+
+```rotate
+source: images/bitfields/bit.png
+caption: block png rotation 90degree
+angle: 90
+---
+```
+`````
+
+![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
+
+![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
+
+![60](data/waves/wave.yaml){.bitfield .rotate angle=60}
+![90](data/waves/wave.yaml){.bitfield .rotate angle=90}
+
+![120](data/waves/wave.yaml){.bitfield .rotate angle=120}
+![150](data/waves/wave.yaml){.bitfield .rotate angle=150}
+![180](data/waves/wave.yaml){.bitfield .rotate angle=180}
+
+![210](data/bitfields/bit.yaml){.bitfield .rotate angle=210}
+![240](data/bitfields/bit.yaml){.bitfield .rotate angle=240}
+![270](data/bitfields/bit.yaml){.bitfield .rotate angle=270}
+
+![300](data/bitfields/bit.yaml){.bitfield .rotate angle=300}
+![330](data/bitfields/bit.yaml){.bitfield .rotate angle=330}
+![360](data/bitfields/bit.yaml){.bitfield .rotate angle=360}
+
+
 ```rotate
 source: images/bitfields/bit.png
 #caption: foo
