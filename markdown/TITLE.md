@@ -586,21 +586,21 @@ angle: 90
 
 ![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
 
-![0](data/bitfields/bit.yaml){.bitfield}
 
 <div id="fig:RotateImage">
+![0](data/bitfields/bit.yaml){.bitfield height=30% width=30%}
+
 ![30](data/bitfields/bit.yaml){.bitfield .rotate angle=30 height=30% width=30% #fig:RotateImageA}
 ![60](data/bitfields/bit.yaml){.bitfield .rotate angle=60 height=30% width=30% #fig:RotateImageB}
 ![90](data/bitfields/bit.yaml){.bitfield .rotate angle=90 height=30% width=30% #fig:RotateImageC}
-
 ![120](data/bitfields/bit.yaml){.bitfield .rotate angle=120 height=30% width=30% #fig:RotateImageD}
+
 ![150](data/bitfields/bit.yaml){.bitfield .rotate angle=150 height=30% width=30% #fig:RotateImageE}
 ![180](data/bitfields/bit.yaml){.bitfield .rotate angle=180 height=30% width=30% #fig:RotateImageF}
-
 ![210](data/bitfields/bit.yaml){.bitfield .rotate angle=210 height=30% width=30% #fig:RotateImageG}
 ![240](data/bitfields/bit.yaml){.bitfield .rotate angle=240 height=30% width=30% #fig:RotateImageH}
-![270](data/bitfields/bit.yaml){.bitfield .rotate angle=270 height=30% width=30% #fig:RotateImageI}
 
+![270](data/bitfields/bit.yaml){.bitfield .rotate angle=270 height=30% width=30% #fig:RotateImageI}
 ![300](data/bitfields/bit.yaml){.bitfield .rotate angle=300 height=30% width=30% #fig:RotateImageJ}
 ![330](data/bitfields/bit.yaml){.bitfield .rotate angle=330 height=30% width=30% #fig:RotateImageK}
 ![360](data/bitfields/bit.yaml){.bitfield .rotate angle=360 height=30% width=30% #fig:RotateImageL}
