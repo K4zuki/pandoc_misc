@@ -5,8 +5,8 @@
 筆者が以前使っていたGitBookでは表の扱いなどに制限があり不満があったので、「なければ作る」の原則に従ってみました。
 
 使用OSはUNIXを前提にします。具体的に言うとMac、LinuxならUbuntu16.04LTSです。
-Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います^[Creators Updateの適用が必要]。
-Win10機は持っているのですが、当該機がとっても遅い^[i5-2500Kかつメインディスクが2.5インチHDDでして]
+Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います[creators]。
+Win10機は持っているのですが、当該機がとっても遅い[^i5-2500k]
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
 ## 背景というか {-}
@@ -34,14 +34,16 @@ Markdown原稿がGNU Make x Pandocという*グレイトな*アプリケーシ�
 各種YAMLデータから画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
 最後にMarkdownをPDFもしくはHTMLに出力します[^pandoc][^make-html][^make-pdf]。
 
+[^creators]: Creators Updateの適用が必要
+[^i5-2500k]: i5-2500Kかつメインディスクが2.5インチHDDでして
 [^gpp]: @sec:gpp
 [^pandable]: @sec:pantable
 [^pandoc-imagine]: @sec:pandoc-imagine
 [^wavedrom]: @sec:wavedrom
 [^bitfield]: @sec:bitfield
 [^pandoc]: @sec:pandoc
-[^make-html]: make html
-[^make-pdf]: make pdf
+[^make-html]: `make html`
+[^make-pdf]: `make pdf`
 
 Markdownコンパイラは**Pandoc**^[マニュアルを日本語化している有志の方がいますね]と各種フィルタを使います。
 各種フィルタはあちこちから都合のいいものをかき集めてるので**_使用言語がバラバラです_**。
@@ -584,21 +586,27 @@ angle: 90
 
 ![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
 
-![60](data/waves/wave.yaml){.bitfield .rotate angle=60}
-![90](data/waves/wave.yaml){.bitfield .rotate angle=90}
+![0](data/bitfields/bit.yaml){.bitfield}
 
-![120](data/waves/wave.yaml){.bitfield .rotate angle=120}
-![150](data/waves/wave.yaml){.bitfield .rotate angle=150}
-![180](data/waves/wave.yaml){.bitfield .rotate angle=180}
+<div id="fig:RotateImage">
+![30](data/bitfields/bit.yaml){.bitfield .rotate angle=30 height=30% width=30% #fig:RotateImageA}
+![60](data/bitfields/bit.yaml){.bitfield .rotate angle=60 height=30% width=30% #fig:RotateImageB}
+![90](data/bitfields/bit.yaml){.bitfield .rotate angle=90 height=30% width=30% #fig:RotateImageC}
 
-![210](data/bitfields/bit.yaml){.bitfield .rotate angle=210}
-![240](data/bitfields/bit.yaml){.bitfield .rotate angle=240}
-![270](data/bitfields/bit.yaml){.bitfield .rotate angle=270}
+![120](data/bitfields/bit.yaml){.bitfield .rotate angle=120 height=30% width=30% #fig:RotateImageD}
+![150](data/bitfields/bit.yaml){.bitfield .rotate angle=150 height=30% width=30% #fig:RotateImageE}
+![180](data/bitfields/bit.yaml){.bitfield .rotate angle=180 height=30% width=30% #fig:RotateImageF}
 
-![300](data/bitfields/bit.yaml){.bitfield .rotate angle=300}
-![330](data/bitfields/bit.yaml){.bitfield .rotate angle=330}
-![360](data/bitfields/bit.yaml){.bitfield .rotate angle=360}
+![210](data/bitfields/bit.yaml){.bitfield .rotate angle=210 height=30% width=30% #fig:RotateImageG}
+![240](data/bitfields/bit.yaml){.bitfield .rotate angle=240 height=30% width=30% #fig:RotateImageH}
+![270](data/bitfields/bit.yaml){.bitfield .rotate angle=270 height=30% width=30% #fig:RotateImageI}
 
+![300](data/bitfields/bit.yaml){.bitfield .rotate angle=300 height=30% width=30% #fig:RotateImageJ}
+![330](data/bitfields/bit.yaml){.bitfield .rotate angle=330 height=30% width=30% #fig:RotateImageK}
+![360](data/bitfields/bit.yaml){.bitfield .rotate angle=360 height=30% width=30% #fig:RotateImageL}
+
+回転サンプル
+</div>
 
 ```rotate
 source: images/bitfields/bit.png
