@@ -5,7 +5,7 @@
 筆者が以前使っていたGitBookでは表の扱いなどに制限があり不満があったので、「なければ作る」の原則に従ってみました。
 
 使用OSはUNIXを前提にします。具体的に言うとMac、LinuxならUbuntu16.04LTSです。
-Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います[creators]。
+Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います[^creators]。
 Win10機は持っているのですが、当該機がとっても遅い[^i5-2500k]
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
@@ -34,16 +34,16 @@ Markdown原稿がGNU Make x Pandocという*グレイトな*アプリケーシ�
 各種YAMLデータから画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
 最後にMarkdownをPDFもしくはHTMLに出力します[^pandoc][^make-html][^make-pdf]。
 
-[^creators]: Creators Updateの適用が必要
+[^creators]: Creators Updateの適用が必要です。2017年のFall Creators Updateで正式な機能になったっぽい・なるっぽいです。
 [^i5-2500k]: i5-2500Kかつメインディスクが2.5インチHDDでして
-[^gpp]: @sec:gpp
-[^pandable]: @sec:pantable
-[^pandoc-imagine]: @sec:pandoc-imagine
-[^wavedrom]: @sec:wavedrom
-[^bitfield]: @sec:bitfield
-[^pandoc]: @sec:pandoc
-[^make-html]: `make html`
-[^make-pdf]: `make pdf`
+[^gpp]: @sec:gpp を参照
+[^pandable]: @sec:pantable を参照
+[^pandoc-imagine]: @sec:pandoc-imagine を参照
+[^wavedrom]: @sec:wavedrom を参照
+[^bitfield]: @sec:bitfield を参照
+[^pandoc]: @sec:pandoc を参照
+[^make-html]: `make html`を実行
+[^make-pdf]: `make pdf`を実行
 
 Markdownコンパイラは**Pandoc**^[マニュアルを日本語化している有志の方がいますね]と各種フィルタを使います。
 各種フィルタはあちこちから都合のいいものをかき集めてるので**_使用言語がバラバラです_**。
@@ -59,7 +59,7 @@ Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使�
 
 ### パッケージ管理ツールのインストール
 #### Homebrew(Mac)
-<https://brew.sh/index_ja.html>
+`https://brew.sh/index_ja.html`
 
 全てに先んじてHomebrewのインストールをします。
 ```sh
@@ -88,7 +88,7 @@ $ sudo apt-get install nodejs-legacy npm
 $ sudo apt-get install texlive-xetex
 ```
 
-<https://texwiki.texjp.org/?TeX%20Live>
+参考サイト： `https://texwiki.texjp.org`
 
 ### 各言語のパッケージのインストール
 #### Mac {.unnumbered}
@@ -190,8 +190,8 @@ $ make init PREFIX=~/workspace/MyBook
 問題ないと思います^[推奨しません]が、スペースを入れるのは避けるべきです。
 
 #### ファイル名・ディレクトリ名の設定(Makefile) {.unnumbered}
-タイトルファイル名、ディレクトリ名を変更した場合は、そのことをコンパイラに知らせる必要があります。
-コンパイラはタイトルページのファイル名と各種ディレクトリ名をMakefileから取得します。
+タイトルファイル名、ディレクトリ名を変更した場合は、そのことをビルドスクリプトに知らせる必要があります。
+ビルドスクリプトはタイトルページのファイル名と各種ディレクトリ名をMakefileから取得します。
 ディレクトリ名はすべてMakefileが置かれたディレクトリからの相対パスです。
 
 ```table
@@ -274,6 +274,7 @@ width:
 `rm -rf $(IMAGEDIR)/$(BIT16DIR)/`
 "
 `````
+`make pdf` を使うとXeLaTeXを使ってPDFに出力します。表紙、目次、本文、奥付けが体裁されたPDFができあがるはずです。
 
 ## 原稿を書く {#sec:pandoc}
 これでとりあえずコンパイルが通るようになったので、実際の原稿を書けるようになりました。
@@ -281,7 +282,8 @@ width:
 
 ### ヘッダの書き方
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
-例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _無条件に_ ナンバリングされます。
+例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _強制的に_ ナンバリングされます。
+バグっぽいんだけどどうなんですかね。そこまで深く章分けする人あまりいないんですかね。
 ```markdown
 # 深さ1：章番号なし {.unnumbered}
 ## 深さ2：章番号なし {.unnumbered}
@@ -291,7 +293,7 @@ width:
 ```
 
 ### 原稿を連結する {#sec:gpp}
-原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
+原稿の連結にはGeneric Preprocessor^[`https://github.com/logological/gpp`]を使います。
 C言語で`＃include "stdio.h"`などと記述するアレです。
 C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃include "ファイル名"`&gt;
 と記述します。該当部分は指定されたファイルに
@@ -299,7 +301,7 @@ C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃i
 
 \\newpage
 ### 表を書く・引用する {#sec:pantable}
-表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
+表の引用とレンダリングにはpantableフィルタ^[`https://github.com/ickc/pantable`]を使います。
 コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
 タイトルの有無やCSVセルの内容をMarkdownとして解釈するかどうか
 を選択するオプションがあります。１セルが複数行に渡る表も書けます。
@@ -395,7 +397,7 @@ tex: True
 
 \\newpage
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
-bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
+bitfield^[`https://github.com/drom/bitfield`]はあまり知られていませんがJSONファイルを
 レジスタマップ風SVGに描画するJSライブラリです。
 
 Pandocフィルタを2種類用意しました。pantable同様のブロック形式と
@@ -493,7 +495,7 @@ caption: _**block bitfield sample**_
 \\newpage
 ### WaveDromロジック波形を描く・挿入する {#sec:wavedrom}
 
-WaveDrom^[http://wavedrom.com] は、ロジック波形を記述ためのJSライブラリです。
+WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSライブラリです。
 @sec:bitfield と同様のインライン形式で本文に挿入できます。
 
 ~~~markdown
@@ -505,10 +507,16 @@ WaveDrom^[http://wavedrom.com] は、ロジック波形を記述ためのJSラ�
 ### その他各種レンダラを使う {#sec:pandoc-imagine}
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
-Imagineフィルタ^[https://github.com/hertogp/imagine]を使えばコードブロックから
+Imagineフィルタ[^imagine-filter]を使えばコードブロックから
 画像生成が可能です。
+**このフィルタは出力形式がPNG縛りになっているという欠点があります。**issueが上がってる
+ので[^imagine-png-only-issue]きっと近い将来改善されると思います。
 
-- <http://qiita.com/mitsugu/items/014e13ca0696c7c53d4c>
+- 参考にしたサイトはこちら： UbuntuのVimでPlantUMLをプレビューする on @Qiita[^plantuml-reference]
+
+[^imagine-filter]: `https://github.com/hertogp/imagine`
+[^imagine-png-only-issue]: `https://github.com/hertogp/imagine/issues/1`
+[^plantuml-reference]: `https://qiita.com/mitsugu/items/014e13ca0696c7c53d4c`
 
 ```{.plantuml im_out="fcb,img" caption="PlantUML sample"}
 @startuml
@@ -519,88 +527,52 @@ Bob->Alice: Hello
 @enduml
 ```
 
-```{.plantuml im_out="fcb,img" caption="Created by plantuml"}
-@startuml
-skinparam monochrome true
-skinparam defaultFontName Ricty Diminished
+PlantUMLからditaa図をレンダリングすることもできます。詳細なオプションがよくわからないんですが、
+`scale=3`とすると3倍拡大してくれました。ditaaはもともとPNG出力のみなのでたとえ先述の問題が
+解決されSVG出力オプションが付けられるようになっても（拡張子がSVGになっても）
+中身はPNGのままです[^plantuml-svg-ditaa]。
 
-scale 1200*1600
-title Servlet Container
-(*) --> "ClickServlet.handleRequest()"
---> "new Page"
-if "Page.onSecurityCheck" then
-->[true] "Page.onInit()"
-if "isForward?" then
-->[no] "Process controls"
-if "continue processing?" then
--->[yes] ===RENDERING===
-else
--->[no] ===REDIRECT_CHECK===
-endif
-else
--->[yes] ===RENDERING===
-endif
-if "is Post?" then
--->[yes] "Page.onPost()"
---> "Page.onRender()" as render
---> ===REDIRECT_CHECK===
-else
--->[no] "Page.onGet()"
---> render
-endif
-else
--->[false] ===REDIRECT_CHECK===
-endif
-if "Do redirect?" then
-->[yes] "redirect request"
---> ==BEFORE_DESTROY===
-else
-if "Do Forward?" then
--left->[yes] "Forward request"
---> ==BEFORE_DESTROY===
-else
--right->[no] "Render page template"
---> ==BEFORE_DESTROY===
-endif
-endif
---> "Page.onDestroy()"
--->(*)
-@enduml
-```
+[^plantuml-svg-ditaa]: `http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected`
 
-```{.plantuml im_out="fcb,img" caption="Created by plantuml"}
-@startditaa
-.                                                                                     +-------+
-------*---------------*---------------*---------------*---------------*---------------+ FORCE |
-      |               |               |               |               |               +-------+
-      |               |               |               |               |
-      |               |               |               |               |           +-------+
----*---------------*---------------*---------------*---------------*--------------+ SENSE |
-   |  |            |  |            |  |            |  |            |  |           +-------+
-   |  |            |  |            |  |            |  |            |  |                   +-----+
----|--|--------/---|--|--------/---|--|--------/---|--|--------/---|--|--------/----/-----+ I2C |
-   |  |        |   |  |        |   |  |        |   |  |        |   |  |        |    16    +-----+
-   |  |        |   |  |        |   |  |        |   |  |        |   |  |        |
- +-+--+------+ | +-+--+------+ | +-+--+------+ | +-+--+------+ | +-+--+------+ |
- | |  |      | | | |  |      | | | |  |      | | | |  |      | | | |  |      | |
- | *  *      | | | *  *      | | | *  *      | | | *  *      | | | *  *      | |
- | /<-/<-------+ | /<-/<-------+ | /<-/<-------+ | /<-/<-------+ | /<-/<-------+
- | *  *      |   | *  *      |   | *  *      |   | *  *      |   | *  *      |
- | |  |      |   | |  |      |   | |  |      |   | |  |      |   | |  |      |
- | channel 0 |   | channel 1 |   | channel 2 |   | channel 3 |   | channel 4 |
- +-+--+------+   +-+--+------+   +-+--+------+   +-+--+------+   +-+--+------+
-   |  |            |  |            |  |            |  |            |  |
- /----+--------+ /----+--------+ /----+--------+ /----+--------+ /----+--------+
- |             | |             | |             | |             | |             |
- +-------------/ +-------------/ +-------------/ +-------------/ +-------------/
-   |               |               |               |               |
- /-+-----------+ /-+-----------+ /-+-----------+ /-+-----------+ /-+-----------+
- |             | |             | |             | |             | |             |
- +-------------/ +-------------/ +-------------/ +-------------/ +-------------/
+\\newpage
+```{.plantuml im_out="fcb,img" caption="ditaa diagram Created through plantuml"}
+@startditaa(scale=3)
+.                                                     +-------+
+------*---------------*---------------*---------------+ FORCE |
+      |               |               |               +-------+
+      |               |               |
+      |               |               |           +-------+
+---*---------------*---------------*--------------+ SENSE |
+   |  |            |  |            |  |           +-------+
+   |  |            |  |            |  |                 +-----+
+---|--|--------/---|--|--------/---|--|--------/----/---+ I2C |
+   |  |        |   |  |        |   |  |        |    16  +-----+
+   |  |        |   |  |        |   |  |        |
+ +-+--+------+ | +-+--+------+ | +-+--+------+ |
+ | |  |      | | | |  |      | | | |  |      | |
+ | *  *      | | | *  *      | | | *  *      | |
+ | /<-/<-------+ | /<-/<-------+ | /<-/<-------+
+ | *  *      |   | *  *      |   | *  *      |
+ | |  |      |   | |  |      |   | |  |      |
+ | channel 0 |   | channel 1 |   | channel 2 |
+ +-+--+------+   +-+--+------+   +-+--+------+
+   |  |            |  |            |  |
+ /----+--------+ /----+--------+ /----+--------+
+ |             | |             | |             |
+ +-------------/ +-------------/ +-------------/
+   |               |               |
+ /-+-----------+ /-+-----------+ /-+-----------+
+ |             | |             | |             |
+ +-------------/ +-------------/ +-------------/
 @endditaa
 ```
 
+\\newpage
 ### 画像を回転する
+シンプルな画像回転フィルタです。wavedromとbitfieldとの組み合わせ、拡大縮小も可能です。
+wavedrom/bitfieldと組み合わせた場合はSVG/PDF画像の回転を試みます。~~たまにSVGの回転がイマイチになります。~~
+_angle_ 指定が正の数で時計回り、負の数は反時計回りです。実際の _angle_ は360で割った余りを用います。
+_angle=365_ なら右に5度回転します。
 `````markdown
 ![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
 
