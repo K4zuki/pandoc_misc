@@ -58,8 +58,7 @@ Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使�
 インストールしまくります。
 
 ### パッケージ管理ツールのインストール
-#### Homebrew(Mac)
-`https://brew.sh/index_ja.html`
+#### Homebrew(Mac) - https://brew.sh/index_ja.html
 
 全てに先んじてHomebrewのインストールをします。
 ```sh
@@ -88,7 +87,7 @@ $ sudo apt-get install nodejs-legacy npm
 $ sudo apt-get install texlive-xetex
 ```
 
-参考サイト： `https://texwiki.texjp.org`
+参考サイト： https://texwiki.texjp.org
 
 ### 各言語のパッケージのインストール
 #### Mac {.unnumbered}
@@ -233,15 +232,15 @@ width:
   - 0.3
 ---
 パラメータ,意味,初期値
-title,タイトル,本のタイトル
-abstract,サブタイトル,本の概要
-circle,サークル名,サークル名
-author,作者の名前,本の作者
-comiket,イベント名,コミケ
-year,発行年,出版年
-publisher,印刷所,出版社で印刷製本
-docrevision,リビジョン番号,1.0
-front,表紙画像ファイル名,images/front-image.png
+`title`,タイトル,本のタイトル
+`abstract`,サブタイトル,本の概要
+`circle`,サークル名,サークル名
+`author`,作者の名前,本の作者
+`comiket`,イベント名,コミケ
+`year`,発行年,出版年
+`publisher`,印刷所,出版社で印刷製本
+`docrevision`,リビジョン番号,1.0
+`front`,表紙画像ファイル名,images/front-image.png
 ```
 
 \\newpage
@@ -283,8 +282,11 @@ width:
 ### ヘッダの書き方
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _強制的に_ ナンバリングされます。
-バグっぽいんだけどどうなんですかね。そこまで深く章分けする人あまりいないんですかね。
-```markdown
+_**バグっぽいんだけどどうなんですかね**_。そこまで深く章分けする人あまりいないんですかね。
+
+Listing: 章番号は深さ5以上で強制される
+
+```{.markdown #lst:section-numbering}
 # 深さ1：章番号なし {.unnumbered}
 ## 深さ2：章番号なし {.unnumbered}
 ### 深さ3：章番号なし {.unnumbered}
@@ -293,7 +295,7 @@ width:
 ```
 
 ### 原稿を連結する {#sec:gpp}
-原稿の連結にはGeneric Preprocessor^[`https://github.com/logological/gpp`]を使います。
+原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
 C言語で`＃include "stdio.h"`などと記述するアレです。
 C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃include "ファイル名"`&gt;
 と記述します。該当部分は指定されたファイルに
@@ -301,7 +303,7 @@ C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃i
 
 \\newpage
 ### 表を書く・引用する {#sec:pantable}
-表の引用とレンダリングにはpantableフィルタ^[`https://github.com/ickc/pantable`]を使います。
+表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
 コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
 タイトルの有無やCSVセルの内容をMarkdownとして解釈するかどうか
 を選択するオプションがあります。１セルが複数行に渡る表も書けます。
@@ -318,12 +320,12 @@ width:
   - 0.5
 ---
 オプション,省略可能,デフォルト値,意味
-caption,Y,,表のタイトル。Markdown記法が使える
-include,Y,,CSVファイル名
-markdown,Y,False,セルの内容をMarkdownとして解釈するフラグ
-alignment,Y,,列ごとの右揃え(R)/左揃え(L)/中央揃え(C)/デフォルト(D)の指定
-table-width,Y,1.0,表全体の幅 ページ幅に対する比率で指定する(ページ幅いっぱいが1.0)
-width,Y,,列ごとの幅
+`caption`,Y,,表のタイトル。Markdown記法が使える
+`include`,Y,,CSVファイル名
+`markdown`,Y,False,セルの内容をMarkdownとして解釈するフラグ
+`alignment`,Y,,列ごとの右揃え(R)/左揃え(L)/中央揃え(C)/デフォルト(D)の指定
+`table-width`,Y,1.0,表全体の幅 ページ幅に対する比率で指定する(ページ幅いっぱいが1.0)
+`width`,Y,,列ごとの幅
 ```
 
 #### 記述例 {.unnumbered}
@@ -371,8 +373,12 @@ width:
 
 \\newpage
 ### ソースコードを引用する {#sec:listingtable}
-ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[`pandoc_misc/panflute/ListingTable.py`]
-を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`との組み合わせ運用を前提にしています)。
+ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[pandoc_misc/panflute/ListingTable.py]
+を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref][^pandoc-creooref-ref]
+との組み合わせ運用を前提にしています)。
+
+[^pandoc-crossref]: https://github.com/lierdakil/pandoc-crossref
+[^pandoc-crossref-ref]: http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref
 
 ```table
 ---
@@ -397,7 +403,7 @@ tex: True
 
 \\newpage
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
-bitfield^[`https://github.com/drom/bitfield`]はあまり知られていませんがJSONファイルを
+bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
 レジスタマップ風SVGに描画するJSライブラリです。
 
 Pandocフィルタを2種類用意しました。pantable同様のブロック形式と
@@ -425,20 +431,20 @@ width:
 alignment: DCCD
 ---
 オプション,省略可能,デフォルト値,意味
-input,N,,ソースファイル名
-png,Y,**True**,PNG出力フラグ
-eps,Y,False,EPS出力フラグ
-pdf,Y,False,PDF出力フラグ
-lane-height,Y,80,レーンあたりの高さ
-lane-width,Y,640,レーンの幅
-lanes,Y,1,レーンの数
-bits,Y,8,総ビット数
-fontfamily,Y,"source code pro",フォントファミリ名
-fontsize,Y,16,フォントサイズ
-fontweight,Y,normal,フォントのウェイト
-caption,Y,Untitled(*),タイトル
-directory,Y,"`./svg`",出力ディレクトリ
-attr,Y,,画像幅などの指定
+`input`,N,,ソースファイル名
+`png`,Y,**True**,PNG出力フラグ
+`eps`,Y,False,EPS出力フラグ
+`pdf`,Y,False,PDF出力フラグ
+`lane-height`,Y,80,レーンあたりの高さ
+`lane-width`,Y,640,レーンの幅
+`lanes`,Y,1,レーンの数
+`bits`,Y,8,総ビット数
+`fontfamily`,Y,"source code pro",フォントファミリ名
+`fontsize`,Y,16,フォントサイズ
+`fontweight`,Y,normal,フォントのウェイト
+`caption`,Y,Untitled(*),タイトル
+`directory`,Y,"`./svg`",出力ディレクトリ
+`attr`,Y,,画像幅などの指定
 ```
 (*) インライン形式のときはタイトルなしにできる
 \\newpage
@@ -514,9 +520,9 @@ Imagineフィルタ[^imagine-filter]を使えばコードブロックから
 
 - 参考にしたサイトはこちら： UbuntuのVimでPlantUMLをプレビューする on @Qiita[^plantuml-reference]
 
-[^imagine-filter]: `https://github.com/hertogp/imagine`
-[^imagine-png-only-issue]: `https://github.com/hertogp/imagine/issues/1`
-[^plantuml-reference]: `https://qiita.com/mitsugu/items/014e13ca0696c7c53d4c`
+[^imagine-filter]: https://github.com/hertogp/imagine
+[^imagine-png-only-issue]: https://github.com/hertogp/imagine/issues/1
+[^plantuml-reference]: https://qiita.com/mitsugu/items/014e13ca0696c7c53d4c
 
 ```{.plantuml im_out="fcb,img" caption="PlantUML sample"}
 @startuml
@@ -532,7 +538,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 解決されSVG出力オプションが付けられるようになっても（拡張子がSVGになっても）
 中身はPNGのままです[^plantuml-svg-ditaa]。
 
-[^plantuml-svg-ditaa]: `http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected`
+[^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
 \\newpage
 ```{.plantuml im_out="fcb,img" caption="ditaa diagram Created through plantuml"}
