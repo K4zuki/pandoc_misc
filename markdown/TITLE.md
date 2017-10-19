@@ -284,6 +284,7 @@ width:
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _強制的に_ ナンバリングされます。
 _**バグっぽいんだけどどうなんですかね**_。そこまで深く章分けする人あまりいないんですかね。
 
+\\newpage
 Listing: 章番号は深さ5以上で強制される
 
 ```{.markdown #lst:section-numbering}
@@ -541,7 +542,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 [^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
 \\newpage
-```{.plantuml im_out="fcb,img" caption="ditaa diagram Created through plantuml"}
+```{.plantuml im_out="fcb,img" caption="PlantUML x ditaa x imagine"}
 @startditaa(scale=3)
 .                                                     +-------+
 ------*---------------*---------------*---------------+ FORCE |
@@ -583,13 +584,6 @@ _angle=365_ なら右に5度回転します。
 ![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
 
 ![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
-
-```rotate
-source: images/bitfields/bit.png
-caption: block png rotation 90degree
-angle: 90
----
-```
 `````
 
 ![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
@@ -617,13 +611,6 @@ angle: 90
 
 回転サンプル
 </div>
-
-```rotate
-source: images/bitfields/bit.png
-#caption: foo
-angle: 90
----
-```
 
 # 更新履歴 {-}
 ## Revision1.0（技術書典3） {-}
