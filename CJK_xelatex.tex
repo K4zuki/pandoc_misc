@@ -100,7 +100,7 @@ $if(sansfont)$
 $endif$
 
 $if(monofont)$
-  \setmonofont[Mapping=tex-ansi]{$monofont$}
+  \setmonofont[Scale=0.9,Mapping=tex-ansi]{$monofont$}
 $else$
   \setmonofont{Courier New}
 $endif$
@@ -113,7 +113,7 @@ $if(CJKmainfont)$
   \usepackage{xeCJK}
   \setCJKmainfont[$localfontdir$,$CJKoptions$]{$CJKmainfont$}
   \setCJKsansfont[$localfontdir$,$CJKoptions$]{$CJKsansfont$}
-  \setCJKmonofont[$localfontdir$,$CJKoptions$]{$CJKmonofont$}
+  \setCJKmonofont[Scale=0.9,$localfontdir$,$CJKoptions$]{$CJKmonofont$}
 %  \setCJKmainfont{MingLiU}
 %\setCJKmainfont{ipaexm.ttf}
 %\setCJKsansfont{ipaexg.ttf}
