@@ -285,9 +285,7 @@ width:
 _**バグっぽいんだけどどうなんですかね**_。そこまで深く章分けする人あまりいないんですかね。
 
 \\newpage
-Listing: 章番号は深さ5以上で強制される
-
-```{.markdown #lst:section-numbering}
+```{.markdown}
 # 深さ1：章番号なし {.unnumbered}
 ## 深さ2：章番号なし {.unnumbered}
 ### 深さ3：章番号なし {.unnumbered}
@@ -375,7 +373,7 @@ width:
 \\newpage
 ### ソースコードを引用する {#sec:listingtable}
 ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[pandoc_misc/panflute/ListingTable.py]
-を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref][^pandoc-creooref-ref]
+を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref] [^pandoc-crossref-ref]
 との組み合わせ運用を前提にしています)。
 
 [^pandoc-crossref]: https://github.com/lierdakil/pandoc-crossref
