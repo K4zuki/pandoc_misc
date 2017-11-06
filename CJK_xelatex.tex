@@ -63,7 +63,6 @@ $endfor$
 \fancyhead[RE]{\itshape\nouppercase{\leftmark}}
 % \fancyfoot[CE,CO]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
-
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -388,28 +387,6 @@ $endif$
     \addtocounter{page}{-1}%
     \newpage}
 
-%\providecommand*{\endnoteplus}{
-%\begingroup
-%\centering % Center all text
-%%\bigskip % big White space at the top of the page
-%\thispagestyle{empty}
-%\vspace*{\stretch{1}}
-%\begin{flushright}
-%\begin{minipage}{0.5\hsize}
-%\begin{description}
-%  \item{著者:} $author$
-%  \item{発行:} $date$
-%  \item{印刷:} $publisher$
-%\end{description}
-%\end{minipage}
-%\end{flushright}
-%\endgroup
-%}
-%\usepackage{tabularx} % in the preamble
-%\usepackage{tabu} % in the preamble
-%\setlength\LTleft{0pt}
-%\setlength\LTright{0pt}
-
 %bxascmac
 %\usepackage{ascmac}
 \usepackage{bxascmac}
@@ -486,36 +463,9 @@ $if(biblatex)$
 \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
 $endif$
 
-% ....
-%\begin{tabularx}{\textwidth}{X|l}
-%  \textbf{Symptom} & \textbf{Metric} \\
-%\hline
-%Class that has many accessor methods and accesses a lot of external data & ATFD is more than a few\\
-%Class that is large and complex & WMC is high\\
-%Class that has a lot of methods that only operate on a proper subset of the instance variable set & TCC is low\\
-%\end{tabularx}
-
 $for(include-after)$
 $include-after$
 $endfor$
-
-
-%$if(title)$
-%\newpage
-%\centering % Center all text
-%%\bigskip % big White space at the top of the page
-%\thispagestyle{empty}
-%\vspace*{\stretch{1}}
-%\begin{flushright}
-%\begin{minipage}{0.5\hsize}
-%\begin{description}
-%  \item{著者:} $author$
-%  \item{発行:} $date$
-%  \item{印刷:} $publisher$
-%\end{description}
-%\end{minipage}
-%\end{flushright}
-%$endif$
 
 % \newpage
 \checkoddpage
