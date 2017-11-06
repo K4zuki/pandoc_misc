@@ -113,11 +113,6 @@ $if(CJKmainfont)$
   \setCJKmainfont[$localfontdir$,$CJKoptions$]{$CJKmainfont$}
   \setCJKsansfont[$localfontdir$,$CJKoptions$]{$CJKsansfont$}
   \setCJKmonofont[Scale=0.9,$localfontdir$,$CJKoptions$]{$CJKmonofont$}
-%  \setCJKmainfont{MingLiU}
-%\setCJKmainfont{ipaexm.ttf}
-%\setCJKsansfont{ipaexg.ttf}
-%\setCJKmonofont{ipaexg.ttf}
-
 $endif$
 
 % use upquote if available, for straight quotes in verbatim environments
@@ -165,23 +160,6 @@ $for(bibliography)$
 $endfor$
 $endif$
 
-$if(listings)$
-\usepackage{listings}
-\newcommand{\passthrough}[1]{#1}
-% \lstset{% general command to set parameter(s)
-% backgroundcolor=\color{listing-background},
-% basicstyle=\small, % print whole listing small
-% keywordstyle=\color{black}\bfseries,
-% ndkeywordstyle={\small},%
-% identifierstyle={\small},%
-% commentstyle={\small\itshape},%
-% stringstyle=\ttfamily, % typewriter type for strings
-% showstringspaces=false, % no special string spaces$endif$
-% frame={tb},
-% breaklines=true,
-% numberstyle={\scriptsize},%
-% }
-
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 % colors
 %
@@ -200,13 +178,15 @@ $if(listings)$
 \definecolor{listing-comment}{rgb}{0.4,0.4,0.4}
 \definecolor{listing-javadoc-comment}{rgb}{0.4,0.4,0.4}
 
+
+$if(listings)$
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
 %
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 % Listings
 %
 %
-
-$if(listings)$
 \lstdefinestyle{eisvogel_listing_style}{
   language=java,
   numbers=left,
@@ -276,6 +256,9 @@ $if(tables)$
 % \end{longtable}
 %
 % https://en.wikibooks.org/wiki/LaTeX/Tables#.40-expressions
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
 $endif$
 
 $if(lhs)$
@@ -289,12 +272,6 @@ $endif$
 $if(verbatim-in-note)$
 \usepackage{fancyvrb}
 \VerbatimFootnotes
-$endif$
-
-$if(tables)$
-\usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
 $endif$
 
 $if(graphics)$
