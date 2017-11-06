@@ -41,7 +41,7 @@ endif
 # PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
 # PANDOC= $(CABAL)/bin/pandoc$(EXE)
 # be9957bd https://github.com/pandoc-extras/pandoc-nightly/releases/latest
-PANDOC= $(HOME)/bin/pandoc$(EXE)
+PANDOC= $(CABAL)/bin/pandoc$(EXE)
 PCROSSREF = $(HOME)/bin/pandoc-crossref$(EXE)
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
@@ -58,8 +58,8 @@ IMAGINEDIR:= pd-images
 
 TEXTEMPLATE = $(MISC)/CJK_xelatex.tex
 # TEXTEMPLATE = $(MISC)/../pandoc-latex-template/eisvogel.latex
-TEXFLAGS:= --template=$(TEXTEMPLATE)
-TEXFLAGS += --latex-engine=xelatex
+TEXFLAGS:= --template=$(TEXTEMPLATE) -t latex
+TEXFLAGS += --pdf-engine=xelatex
 TEXFONTFLAGS:= -M documentclass=book
 TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
