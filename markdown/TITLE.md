@@ -92,21 +92,21 @@ $ sudo apt-get install texlive-xetex
 ### 各言語のパッケージのインストール
 #### Mac {.unnumbered}
 ```sh
-$ cabal install pandoc-crossref
+$ cabal install pandoc
 $ pip3 install pyyaml pillow
 $ pip3 install pantable csv2table
 $ pip3 install six pandoc-imagine
 $ pip3 install six svgutils
 $ npm install -g phantomjs-prebuilt bit-field wavedrom-cli
 ```
-pandoc-crossrefがpandocに依存しているので自動的にインストールされます。
+<!-- pandoc-crossrefがpandocに依存しているので自動的にインストールされます。 -->
 
 #### Ubuntu {.unnumbered}
 aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https://github.com/jgm/pandoc/releases]
 からdebファイルを落としてきます
 ```sh
-$ wget -c https://github.com/jgm/pandoc/releases/download/1.19.2.1/pandoc-1.19.2.1-1-amd64.deb
-$ sudo dpkg -i pandoc-1.19.2.1-1-amd64.deb
+$ wget -c https://github.com/jgm/pandoc/releases/download/2.0.1.1/pandoc-2.0.1.1-1-amd64.deb
+$ sudo dpkg -i pandoc-2.0.1.1-1-amd64.deb
 $ sudo -H pip3 install pyyaml pillow
 $ sudo -H pip3 install pantable csv2table
 $ sudo -H pip3 install six pandoc-imagine
@@ -153,6 +153,19 @@ $ git clone https://github.com/K4zuki/pandoc_misc.git
 $ git submodule update --init
 $ cd bitfield
 $ npm install
+$ make init
+  mkdir -p ./
+  mkdir -p ./Out
+  mkdir -p ./data
+  mkdir -p ./markdown
+  mkdir -p ./images
+  mkdir -p ./data/waves
+  mkdir -p ./data/bitfields
+  mkdir -p ./data/bitfield16
+  cp -i /home/yamamoto/.pandoc/pandoc_misc/Makefile.txt ./Makefile
+  cp: './Makefile' を上書きしますか? n
+  touch ./markdown/config.yaml
+  touch ./markdown/TITLE.md
 ```
 
 # 本を書く
@@ -254,8 +267,8 @@ $ git commit -m"initial commit"
 ```
 この状態で`make html`とすると`Out/TARGET.html`というファイルができあがるはずです。
 以下に代表的なコマンドの一覧を載せます。
-
-`````table
+<!--  -->
+```table
 ---
 caption: コンパイル方法
 markdown: True
@@ -272,7 +285,8 @@ width:
 `rm -rf $(IMAGEDIR)/$(BITDIR)/`\\
 `rm -rf $(IMAGEDIR)/$(BIT16DIR)/`
 "
-`````
+```
+
 `make pdf` を使うとXeLaTeXを使ってPDFに出力します。表紙、目次、本文、奥付けが体裁されたPDFができあがるはずです。
 
 ## 原稿を書く {#sec:pandoc}
@@ -285,7 +299,7 @@ width:
 _**バグっぽいんだけどどうなんですかね**_。そこまで深く章分けする人あまりいないんですかね。
 
 \\newpage
-```{.markdown}
+```markdown
 # 深さ1：章番号なし {.unnumbered}
 ## 深さ2：章番号なし {.unnumbered}
 ### 深さ3：章番号なし {.unnumbered}
