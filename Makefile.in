@@ -78,7 +78,7 @@ PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --toc
 PANFLAGS += --listings
-PANFLAGS += --number-sections --highlight-style=pygments
+PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
 PANFLAGS += $(MISC)/$(CONFIG)
