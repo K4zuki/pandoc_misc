@@ -422,6 +422,11 @@ tex: True
 ![](data/table.csv){.listingtable type=plain}
 `````
 
+### ページを横長にする {#sec:landscape}
+PDF出力の場合のみ適用されますが、横に長い表・ソースコードなどを引用するときに、
+ページを横に長く使う（ランドスケープ）設定にできます。`\\Begin{landscape}`と`\\End{landscape}`
+に挟まれた部分が90度回転してレンダリングされます。
+
 \\newpage
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
 bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
