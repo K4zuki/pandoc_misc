@@ -558,6 +558,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 [^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
 \\newpage
+\\Begin{landscape}
 ```{.plantuml im_out="fcb,img" caption="PlantUML x ditaa x imagine"}
 @startditaa(scale=3)
 .                                                     +-------+
@@ -589,6 +590,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
  +-------------/ +-------------/ +-------------/
 @endditaa
 ```
+\\End{landscape}
 
 \\newpage
 ### 画像を回転する
