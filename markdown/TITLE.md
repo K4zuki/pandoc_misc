@@ -390,10 +390,12 @@ width:
 
 \\newpage
 ### ソースコードを引用する {#sec:listingtable}
-ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ^[pandoc_misc/panflute/ListingTable.py]
+ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ[^listingtable-yaml][^listingtable-inline]
 を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref] [^pandoc-crossref-ref]
 との組み合わせ運用を前提にしています)。
 
+[^listingtable-yaml]: pandoc_misc/panflute/ListingTable.py
+[^listingtable-yaml]: pandoc_misc/panflute/listingtable-inline.py
 [^pandoc-crossref]: https://github.com/lierdakil/pandoc-crossref
 [^pandoc-crossref-ref]: http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref
 
@@ -405,7 +407,8 @@ alignment: DCCD
 ---
 オプション,省略可能,デフォルト値,意味
 source,N,,ソースファイル名(フルパス)
-class,N,,"ソースファイル種類(python,cpp,markdown etc.)"
+class,N,,"ソースファイル種類(python,cpp,markdown etc.)^[ブロック表記のとき]"
+type,N,,"ソースファイル種類(python,cpp,markdown etc.)^[インライン表記のとき]"
 tex,Y,False,LaTeXを出力するとき"True"にする。case sensitive
 ```
 
@@ -416,6 +419,7 @@ class: csv
 tex: True
 ---
 ```
+![](data/table.csv){.listingtable type=plain}
 `````
 
 \\newpage
