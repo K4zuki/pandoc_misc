@@ -146,7 +146,7 @@ $(TARGETDIR)/%.bit16json: $(DATADIR)/$(BIT16DIR)/%.yaml
 	if [ ! -e $(IMAGEDIR)/$(BIT16DIR) ]; then mkdir -p $(IMAGEDIR)/$(BIT16DIR); fi
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
-init:
+initdir:
 	mkdir -p $(PREFIX)/
 	mkdir -p $(PREFIX)/$(TARGETDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)
@@ -155,6 +155,8 @@ init:
 	mkdir -p $(PREFIX)/$(DATADIR)/$(WAVEDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)/$(BITDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)/$(BIT16DIR)
+
+init: initdir
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
 	cp -i $(MISC)/config.txt $(PREFIX)/$(MDDIR)/$(CONFIG)
 	touch $(PREFIX)/$(MDDIR)/$(INPUT)
