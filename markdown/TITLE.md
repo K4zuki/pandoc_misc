@@ -5,8 +5,8 @@
 筆者が以前使っていたGitBookでは表の扱いなどに制限があり不満があったので、「なければ作る」の原則に従ってみました。
 
 使用OSはUNIXを前提にします。具体的に言うとMac、LinuxならUbuntu16.04LTSです。
-Windows10とWSLなUbuntuならUbuntu16.04のやり方がうまくいくと思います[^creators]。
-Win10機は持っているのですが、当該機がとっても遅い[^i5-2500k]
+Windows10とWSL上のUbuntuであればUbuntu16.04のやり方がうまくいっています[^creators]。
+技術書典3のあと更新したWin10機ですが、けっこう速いはずなのにとっても遅い[^i7-7700HQ]
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
 ## 背景というか {-}
@@ -34,8 +34,8 @@ Markdown原稿がGNU Make x Pandocという*グレイトな*アプリケーシ�
 各種YAMLデータから画像もしくは表を生成し[^pandable][^pandoc-imagine][^wavedrom][^bitfield]、
 最後にMarkdownをPDFもしくはHTMLに出力します[^pandoc][^make-html][^make-pdf]。
 
-[^creators]: Creators Updateの適用が必要です。2017年のFall Creators Updateで正式な機能になったっぽい・なるっぽいです。
-[^i5-2500k]: i5-2500Kかつメインディスクが2.5インチHDDでして
+[^creators]: Creators Updateの適用が必要です。2017年のFall Creators Updateで正式な機能になったっぽいです。
+[^i7-7700HQ]: [すごいゲーパソ](http://www.gigabyte.jp/Mini-PcBarebone/GB-BNi7HG6-1060-rev-10)上のWSLでHTML出力に5分位かかる。Linux機は3秒半。ｲﾐﾜｶﾗﾝ。たぶん最適化の問題。
 [^gpp]: @sec:gpp を参照
 [^pandable]: @sec:pantable を参照
 [^pandoc-imagine]: @sec:pandoc-imagine を参照
@@ -45,11 +45,13 @@ Markdown原稿がGNU Make x Pandocという*グレイトな*アプリケーシ�
 [^make-html]: `make html`を実行
 [^make-pdf]: `make pdf`を実行
 
-Markdownコンパイラは**Pandoc**^[マニュアルを日本語化している有志の方がいますね]と各種フィルタを使います。
+Markdownコンパイラは**Pandoc**[^pandoc-localize]と各種フィルタを使います。
 各種フィルタはあちこちから都合のいいものをかき集めてるので**_使用言語がバラバラです_**。
 Homebrewあるいはaptでインストールすれば _比較的_ 楽ちんなので筆者は気にせずに構築してきましたが、
 Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使用をおすすめします。
 プロいひとはDockerイメージとかCIとかでもっと楽にできるかもしれません。
+
+[^pandoc-localize]: マニュアルを日本語化している有志の方がいますね
 
 # 環境構築する
 やることはいっぱいあります。~~やっぱりDockerイメージ欲しいな()~~
@@ -315,8 +317,11 @@ _**バグっぽいんだけどどうなんですかね**_。そこまで深く�
 原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
 C言語で`＃include "stdio.h"`などと記述するアレです。
 C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃include "ファイル名"`&gt;
-と記述します。該当部分は指定されたファイルに
-置き換えられます(入れ子になっていても機能します)。
+と記述します。該当部分は指定されたファイルに置き換えられます(入れ子になっていても機能します)。
+
+GPPの良くないところは
+**バックスラッシュ`\\`(または半角の`￥`)が1つだけ使われていると強制的に消されてしまうことです。**
+_このドキュメントの原稿も2個重ねてあります。_
 
 \\newpage
 ### 表を書く・引用する {#sec:pantable}
@@ -395,7 +400,7 @@ width:
 との組み合わせ運用を前提にしています)。
 
 [^listingtable-yaml]: pandoc_misc/panflute/ListingTable.py
-[^listingtable-yaml]: pandoc_misc/panflute/listingtable-inline.py
+[^listingtable-inline]: pandoc_misc/panflute/listingtable-inline.py
 [^pandoc-crossref]: https://github.com/lierdakil/pandoc-crossref
 [^pandoc-crossref-ref]: http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref
 
@@ -419,13 +424,15 @@ class: csv
 tex: True
 ---
 ```
+
 ![](data/table.csv){.listingtable type=plain}
+
 `````
 
 ### ページを横長にする {#sec:landscape}
 PDF出力の場合のみ適用されますが、横に長い表・ソースコードなどを引用するときに、
 ページを横に長く使う（ランドスケープ）設定にできます。`\\Begin{landscape}`と`\\End{landscape}`
-に挟まれた部分が90度回転してレンダリングされます。
+に挟まれた部分が90度回転してレンダリングされます。いまお読みいただいているものがPDF版であれば @lst:ditaa-sample を参照ください。
 
 \\newpage
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
@@ -568,37 +575,13 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 
 \\newpage
 \\Begin{landscape}
-```{.plantuml im_out="fcb,img" caption="PlantUML x ditaa x imagine"}
-@startditaa(scale=3)
-.                                                     +-------+
-------*---------------*---------------*---------------+ FORCE |
-      |               |               |               +-------+
-      |               |               |
-      |               |               |           +-------+
----*---------------*---------------*--------------+ SENSE |
-   |  |            |  |            |  |           +-------+
-   |  |            |  |            |  |                 +-----+
----|--|--------/---|--|--------/---|--|--------/----/---+ I2C |
-   |  |        |   |  |        |   |  |        |    16  +-----+
-   |  |        |   |  |        |   |  |        |
- +-+--+------+ | +-+--+------+ | +-+--+------+ |
- | |  |      | | | |  |      | | | |  |      | |
- | *  *      | | | *  *      | | | *  *      | |
- | /<-/<-------+ | /<-/<-------+ | /<-/<-------+
- | *  *      |   | *  *      |   | *  *      |
- | |  |      |   | |  |      |   | |  |      |
- | channel 0 |   | channel 1 |   | channel 2 |
- +-+--+------+   +-+--+------+   +-+--+------+
-   |  |            |  |            |  |
- /----+--------+ /----+--------+ /----+--------+
- |             | |             | |             |
- +-------------/ +-------------/ +-------------/
-   |               |               |
- /-+-----------+ /-+-----------+ /-+-----------+
- |             | |             | |             |
- +-------------/ +-------------/ +-------------/
-@endditaa
+
+![ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
+
+```{.plantuml im_out="img" caption="PlantUML x ditaa x imagine"}
+<#include "ditaa.puml">
 ```
+
 \\End{landscape}
 
 \\newpage
