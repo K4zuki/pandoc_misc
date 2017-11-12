@@ -83,6 +83,7 @@ $ brew cask install mactex
 #### Ubuntu {.unnumbered}
 ```sh
 $ sudo apt-get install python3 python3-pip
+$ sudo apt-get install cabal-install
 $ sudo apt-get install nodejs-legacy npm
 $ sudo apt-get install texlive-xetex
 ```
@@ -97,7 +98,14 @@ $ pip3 install pyyaml pillow
 $ pip3 install pantable csv2table
 $ pip3 install six pandoc-imagine
 $ pip3 install six svgutils
-$ npm install -g phantomjs-prebuilt bit-field wavedrom-cli
+$ npm install -g phantomjs-prebuilt wavedrom-cli
+$ sudo npm install -g fs-extra yargs onml bit-field
+$ wget -c https://github.com/zr-tex8r/BXptool/archive/v0.4.zip
+$ unzip v0.4.zip
+$ sudo mkdir -p /usr/local/texlive/2015basic/texmf-local/BXptool/
+$ sudo cp BXptool-0.4/bx*.{sty,def} /usr/local/texlive/2015basic/texmf-local/BXptool/
+$ sudo mktexlsr
+$ tlmgr install oberdiek
 ```
 <!-- pandoc-crossrefがpandocに依存しているので自動的にインストールされます。 -->
 
@@ -153,7 +161,7 @@ $ git clone https://github.com/K4zuki/pandoc_misc.git
 $ git submodule update --init
 $ cd bitfield
 $ npm install
-$ make init
+$ make initdir
   mkdir -p ./
   mkdir -p ./Out
   mkdir -p ./data
@@ -162,10 +170,6 @@ $ make init
   mkdir -p ./data/waves
   mkdir -p ./data/bitfields
   mkdir -p ./data/bitfield16
-  cp -i /home/yamamoto/.pandoc/pandoc_misc/Makefile.txt ./Makefile
-  cp: './Makefile' を上書きしますか? n
-  touch ./markdown/config.yaml
-  touch ./markdown/TITLE.md
 ```
 
 # 本を書く
@@ -253,7 +257,7 @@ width:
 `year`,発行年,出版年
 `publisher`,印刷所,出版社で印刷製本
 `docrevision`,リビジョン番号,1.0
-`front`,表紙画像ファイル名,images/front-image.png
+`front`,表紙画像ファイル名,`images/front-image.png`
 ```
 
 \\newpage
