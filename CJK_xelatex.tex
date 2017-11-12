@@ -88,6 +88,10 @@ $endif$
 	\leaders\hbox{─}\hfill\kern0pt
 }
 
+% Thanks to this github comment https://github.com/jgm/pandoc/issues/3145#issuecomment-302787889
+\let\Begin\begin
+\let\End\end
+
 $if(mainfont)$
 \setmainfont{$mainfont$}
 $else$
