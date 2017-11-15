@@ -7,7 +7,7 @@ EXE:=.exe
 else
 # UNIX common #
 EXE =
-WAVEDROM = wavedrom
+WAVEDROM = /usr/local/bin/wavedrom
 PANTABLE = pantable
 RSVG = rsvg-convert
 PYTHON = python3
@@ -19,7 +19,7 @@ endif
 
 PANDOC= pandoc
 PCROSSREF = pandoc-crossref
-PANSTYLES= .
+PANSTYLES= /workspace
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= bitfield
 
