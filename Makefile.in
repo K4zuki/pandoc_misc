@@ -3,54 +3,27 @@
 
 ifeq ($(OS),Windows_NT)
 HOME = C:/Users/$(USERNAME)
-CABAL = $(HOME)/AppData/Roaming/cabal
 EXE:=.exe
-WAVEDROM = $(HOME)/AppData/Roaming/npm/node_modules/wavedrom-cli/bin/wavedrom-cli.js
-# BITFIELD:= $(HOME)/AppData/Roaming/npm/bitfield.cmd
-PANTABLE = /c/Program\ Files/Python36/Scripts/pantable.exe
-RSVG = $(HOME)/AppData/Roaming/npm/svg2png
-GPP = $(HOME)/bin/gpp
-PYTHON= python3.exe
-FONTDIR = "ExternalLocation = /c"
-GPP = $(HOME)/bin/gpp
-# MFILTER = $(HOME)/AppData/Roaming/npm/mermaid-filter.cmd
-# PUML =
-# PUMLFILTER =
-IMAGINE = /c/Program\ Files/Python36/Scripts/pandoc-imagine.exe
-CSV2TABLE= '/c/Program\ Files/Python36/Scripts/csv2table.exe'
 else
 # UNIX common #
-CABAL = $(HOME)/.cabal
 EXE =
-WAVEDROM = /usr/local/bin/wavedrom
-PANTABLE = /usr/local/bin/pantable
+WAVEDROM = wavedrom
+PANTABLE = pantable
 RSVG = rsvg-convert
 PYTHON = python3
-IMAGINE = /usr/local/bin/pandoc-imagine
-CSV2TABLE= /usr/local/bin/csv2table
-FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
-ifeq ($(shell uname),Linux)
+IMAGINE = pandoc-imagine
+CSV2TABLE= csv2table
+FONTDIR = "ExternalLocation = /usr/local/share/fonts/"
 GPP = /usr/bin/gpp
-else
-WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
-GPP = /usr/local/bin/gpp
-endif
 endif
 
-### constant over OSes
-# PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
-# PANDOC= $(CABAL)/bin/pandoc$(EXE)
-# be9957bd https://github.com/pandoc-extras/pandoc-nightly/releases/latest
-PANDOC= $(CABAL)/bin/pandoc$(EXE)
-PCROSSREF = $(HOME)/bin/pandoc-crossref$(EXE)
-PANSTYLES= $(HOME)/.pandoc
+PANDOC= pandoc
+PCROSSREF = pandoc-crossref
+PANSTYLES= .
 MISC= $(PANSTYLES)/pandoc_misc
-BITFIELD:= $(MISC)/bitfield/bin/bitfield.js
+BITFIELD:= bitfield
 
 REFERENCE= $(MISC)/ref.docx
-
-SVN=
-SVNDIR=
 
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
