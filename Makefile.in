@@ -34,7 +34,7 @@ TEXTEMPLATE = $(MISC)/CJK_xelatex.tex
 TEXFLAGS:= --template=$(TEXTEMPLATE) -t latex
 TEXFLAGS += --pdf-engine=xelatex
 TEXFONTFLAGS:= -M documentclass=book
-TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
+# TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
