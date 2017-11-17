@@ -19,7 +19,7 @@ endif
 
 PANDOC= pandoc
 PCROSSREF = pandoc-crossref
-PANSTYLES= /workspace
+PANSTYLES= /var
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= bitfield
 
