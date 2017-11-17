@@ -576,7 +576,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 \\newpage
 \\Begin{landscape}
 
-![ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
+[ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
 ```{.plantuml im_out="img" caption="PlantUML x ditaa x imagine"}
 <#include "ditaa.puml">
