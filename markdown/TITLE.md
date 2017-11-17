@@ -1,3 +1,5 @@
+[caption](markdown/config.yaml){.listingtable type=yaml}
+
 # まえがき {.unnumbered}
 このドキュメントは、筆者が本を書くために構築したオレオレMarkdown-PDF変換環境
 を解説するための本です。^[このドキュメント自身もその環境で出力されました。よくあることですね]
@@ -575,8 +577,6 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 
 \\newpage
 \\Begin{landscape}
-
-![ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
 ```{.plantuml im_out="img" caption="PlantUML x ditaa x imagine"}
 <#include "ditaa.puml">
