@@ -36,6 +36,7 @@ TEXFLAGS += --pdf-engine=xelatex
 TEXFONTFLAGS:= -M documentclass=book
 # TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
+DATE:= '$(shell date +%b-%d-%Y)'
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
@@ -54,6 +55,7 @@ PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
+PANFLAGS += -M date=$(DATE)
 PANFLAGS += $(MISC)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 ###  for debug  ###
