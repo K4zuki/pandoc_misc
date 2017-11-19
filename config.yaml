@@ -10,7 +10,7 @@ tables: true
 codeBlockCaptions: true
 listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
-date: 本の出版日時
+# date: 本の出版日時
 
 fontsize: 11
 papersize: b5paper
@@ -25,6 +25,7 @@ CJKmainfont: RictyDiminished-Regular
 CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
 geometry: 'top=30truemm,bottom=30truemm,left=20truemm,right=20truemm'
+lgeometry: 'top=30truemm,bottom=20truemm,left=20truemm,right=20truemm'
 
 include: [markdown, images, data, Out]
 ...
