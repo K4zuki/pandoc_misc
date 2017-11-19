@@ -83,6 +83,8 @@ $endif$
 \usepackage{xltxtra,xunicode}
 \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 \usepackage{pdflscape}
+\newcommand{\Startlandscape}{\newgeometry{$lgeometry$}\begin{landscape}}
+\newcommand{\Stoplandscape}{\end{landscape}\restoregeometry}
 \newcommand{\euro}{€}
 \newcommand{\hrulemfill}{
 	\leaders\hbox{─}\hfill\kern0pt
