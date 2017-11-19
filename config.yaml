@@ -25,7 +25,7 @@ CJKmainfont: RictyDiminished-Regular
 CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
 geometry: 'top=30truemm,bottom=30truemm,left=20truemm,right=20truemm'
-lgeometry: 'top=25truemm,bottom=25truemm,left=20truemm,right=20truemm'
+lgeometry: 'top=20truemm,bottom=20truemm,left=20truemm,right=20truemm'
 
 include: [markdown, images, data, Out]
 ...
