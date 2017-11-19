@@ -574,7 +574,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 [^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
 \\newpage
-\\Begin{landscape}
+\\Startlandscape
 
 [ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
@@ -582,7 +582,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 <#include "ditaa.puml">
 ```
 
-\\End{landscape}
+\\Stoplandscape
 
 \\newpage
 ### 画像を回転する
