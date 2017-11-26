@@ -187,7 +187,11 @@ $endif$
 
 $if(listings)$
 \usepackage{listings}
+$if(verbcolored)$
+\newcommand{\passthrough}[1]{\colorbox{listing-background}{#1}}
+$else$
 \newcommand{\passthrough}[1]{#1}
+$endif$
 %
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 % Listings
@@ -375,6 +379,9 @@ $endif$
 \usepackage{bxascmac}
 \usepackage{fancybox}
 \usepackage{ifoddpage}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
 
 % Overwrite \begin{figure}[htbp] with \begin{figure}[H]
 \usepackage{float}
