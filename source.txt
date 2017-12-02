@@ -1,0 +1,8 @@
+
+`images/waves/wave.png`{.rotate
+                        .caption="任意角度（90度）で回転させたWaveDrom画像"
+                        .angle=90}{}
+
+```
+`data/waves/wave.yaml`{.listingtable .yaml}
+```
