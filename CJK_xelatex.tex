@@ -175,7 +175,7 @@ $endif$
 % listing colors
 %
 \definecolor{listing-background}{rgb}{0.97,0.97,0.97}
-\definecolor{listing-rule}{HTML}{dddddd}
+\definecolor{listing-rule}{HTML}{888888}
 \definecolor{listing-numbers}{HTML}{000000}
 \definecolor{listing-text-color}{HTML}{000000}
 \definecolor{listing-keyword}{HTML}{000000}
@@ -188,7 +188,7 @@ $endif$
 $if(listings)$
 \usepackage{listings}
 $if(verbcolored)$
-\newcommand{\passthrough}[1]{\colorbox{listing-rule}{listing-background}{#1}}
+\newcommand{\passthrough}[1]{\fcolorbox{listing-rule}{listing-background}{#1}}
 $else$
 \newcommand{\passthrough}[1]{#1}
 $endif$
