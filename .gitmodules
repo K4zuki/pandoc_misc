@@ -4,3 +4,6 @@
 [submodule "bitfield"]
 	path = bitfield
 	url = https://github.com/drom/bitfield
+[submodule "pandocker-filters"]
+	path = pandocker-filters
+	url = https://github.com/K4zuki/pandocker-filters.git
