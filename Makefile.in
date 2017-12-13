@@ -40,13 +40,13 @@ DATE:= '$(shell date +%b-%d-%Y)'
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
-PANFLAGS += --filter=$(MISC)/panflute/ListingTable.py
-PANFLAGS += --filter=$(MISC)/panflute/listingtable-inline.py
-PANFLAGS += --filter=$(MISC)/panflute/BitField.py
-PANFLAGS += --filter=$(MISC)/panflute/bitfield-inline.py
-PANFLAGS += --filter=$(MISC)/panflute/wavedrom-inline.py
-PANFLAGS += --filter=$(MISC)/panflute/RotateImage.py
-PANFLAGS += --filter=$(MISC)/panflute/rotateimage-inline.py
+PANFLAGS += --filter=pandocker-listingtable
+PANFLAGS += --filter=pandocker-listingtable-inline
+PANFLAGS += --filter=pandocker-bitfield
+PANFLAGS += --filter=pandocker-bitfield-inline
+PANFLAGS += --filter=pandocker-wavedrom-inline
+PANFLAGS += --filter=pandocker-rotateimage
+PANFLAGS += --filter=pandocker-rotateimage-inline
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --filter=$(IMAGINE)
