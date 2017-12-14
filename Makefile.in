@@ -7,7 +7,7 @@ EXE:=.exe
 else
 # UNIX common #
 EXE =
-WAVEDROM = /usr/local/bin/wavedrom
+WAVEDROM = $(shell which wavedrom)
 PANTABLE = pantable
 RSVG = rsvg-convert
 PYTHON = python3
