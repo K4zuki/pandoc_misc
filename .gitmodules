@@ -1,6 +1,3 @@
 [submodule "github_css"]
 	path = github_css
 	url = https://gist.github.com/a4e68be952382d2c7c85baca530a6d7e.git
-[submodule "pandocker-filters"]
-	path = pandocker-filters
-	url = https://github.com/K4zuki/pandocker-filters.git
