@@ -99,11 +99,7 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 
 filtered: $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG) $(MFILTDIR) $(TABLES)
-ifneq ($(OS),Windows_NT)
-	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
-else
 	$(GPP) $(GPPFLAGS) $< > $@
-endif
 
 tables: $(TABLES)
 	@echo $(TABLES)
