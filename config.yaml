@@ -8,8 +8,8 @@ chapter: true
 listings: true
 tables: true
 codeBlockCaptions: true
-listingTitle: 'List'
-listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
+listingTitle: "List"
+listingTemplate: "---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---"
 # date: 本の出版日時
 
 fontsize: 11
@@ -18,14 +18,14 @@ mainfont: SourceSansPro-Regular
 sansfont: SourceSansPro-Regular
 monofont: RictyDiminished-Regular
 mainlang: Japanese
-CJKoptions: 'BoldFont=RictyDiminished-Bold,
+CJKoptions: "BoldFont=RictyDiminished-Bold,
   ItalicFont=RictyDiminished-Oblique,
-  BoldItalicFont=RictyDiminished-BoldOblique'
+  BoldItalicFont=RictyDiminished-BoldOblique"
 CJKmainfont: RictyDiminished-Regular
 CJKsansfont: RictyDiminished-Regular
 CJKmonofont: RictyDiminished-Regular
-geometry: 'top=30truemm,bottom=30truemm,left=20truemm,right=20truemm'
-lgeometry: 'top=20truemm,bottom=20truemm,left=20truemm,right=20truemm'
+geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
+lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
 
 include: [markdown, images, data, Out]
 ...
