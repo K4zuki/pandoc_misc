@@ -1,6 +1,6 @@
 *.pyc
-Out/
+docs/Out/
 .DS_Store
-svg/
-pd-images/
+docs/svg/
+docs/pd-images/
 node_modules/
