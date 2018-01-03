@@ -83,6 +83,7 @@ WAVEDIR:= waves
 BITDIR:= bitfields
 BIT16DIR:= bitfield16
 MFILTDIR:= mermaid-filter
+CIDIR:= .circleci
 PREFIX:= .
 
 ### default source and target file names
