@@ -188,7 +188,7 @@ $endif$
 $if(listings)$
 \usepackage{listings}
 $if(verbcolored)$
-\newcommand{\passthrough}[1]{\fcolorbox{listing-rule}{listing-background}{#1}}
+\newcommand{\passthrough}[1]{\tcbox[size=fbox,on line]{#1}}
 $else$
 \newcommand{\passthrough}[1]{#1}
 $endif$
