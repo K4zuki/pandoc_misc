@@ -45,6 +45,8 @@ PANFLAGS += --filter=pandocker-listingtable-inline
 PANFLAGS += --filter=pandocker-bitfield
 PANFLAGS += --filter=pandocker-bitfield-inline
 PANFLAGS += --filter=pandocker-wavedrom-inline
+PANFLAGS += --filter=pandocker-aafigure
+PANFLAGS += --filter=pandocker-aafigure-inline
 PANFLAGS += --filter=pandocker-rotateimage
 PANFLAGS += --filter=pandocker-rotateimage-inline
 PANFLAGS += --filter=$(PANTABLE)
