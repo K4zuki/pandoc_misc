@@ -41,6 +41,7 @@ DATE:= '$(shell date +%b-%d-%Y)'
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
+PANFLAGS += --filter=pandocker-rmnote
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=pandocker-listingtable
 PANFLAGS += --filter=pandocker-listingtable-inline
