@@ -11,9 +11,6 @@ PROJECT= `pwd`
 # DATADIR:= data
 # TARGETDIR:= Out
 # IMAGEDIR:= images
-# WAVEDIR:= waves
-# BITDIR:= bitfields
-# BIT16DIR:= bitfield16
 
 # CONFIG:= config.yaml
 # INPUT:= TITLE.md

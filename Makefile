@@ -30,9 +30,6 @@ REQ += 'rsvg-convert(via librsvg)'
 REQ += '\033[0m'
 REQ += 'to convert SVG to PNG\n\033[0m'
 
-CSV:= $(shell cd $(DATADIR); ls *.csv)
-TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.table.md)
-
 FILTERED:= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
@@ -52,7 +49,7 @@ $(DOCX): $(FILTERED)
 	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
-$(HTML): $(TARGETDIR)/$(INPUT)
+$(HTML): $(FILTERED) $(TARGETDIR)/$(INPUT)
 	$(PANDOC) $(PANFLAGS) $(PANHTMLFLAGS) $(FILTERED) -o $(HTML)
 
 pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR) $(TARGETDIR)/$(TARGET).tex
@@ -86,9 +83,6 @@ initdir:
 	mkdir -p $(PREFIX)/$(DATADIR)
 	mkdir -p $(PREFIX)/$(MDDIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(WAVEDIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(BITDIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(BIT16DIR)
 
 init: initdir
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile

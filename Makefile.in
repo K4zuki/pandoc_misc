@@ -7,7 +7,6 @@ EXE:=.exe
 else
 # UNIX common #
 EXE =
-WAVEDROM = $(shell which wavedrom)
 PANTABLE = pantable
 RSVG = rsvg-convert
 PYTHON = python3
@@ -76,17 +75,12 @@ GPPFLAGS = -H +c "<!--" "-->"
 GPPFLAGS += -I$(MDDIR)
 GPPFLAGS += -I$(DATADIR)
 GPPFLAGS += -I$(TARGETDIR)
-GPPFLAGS += -Ipanflute
 
 ###  default directories set; otherwise images/ directory cleaned by make-clean
 MDDIR:= markdown
 DATADIR:= data
 TARGETDIR:= Out
 IMAGEDIR:= images
-WAVEDIR:= waves
-BITDIR:= bitfields
-BIT16DIR:= bitfield16
-MFILTDIR:= mermaid-filter
 CIDIR:= .circleci
 PREFIX:= .
 
