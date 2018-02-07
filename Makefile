@@ -87,7 +87,7 @@ initdir:
 init: initdir
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
 	cp -i $(MISC)/config.txt $(PREFIX)/$(MDDIR)/$(CONFIG)
-	cp -i $(MISC)/.gitignore $(PREFIX)/.gitignore
+	cp -i $(MISC)/gitignore.txt $(PREFIX)/.gitignore
 	cp -i $(MISC)/circleci.yml $(PREFIX)/$(CIDIR)/config.yml
 	touch $(PREFIX)/$(MDDIR)/$(INPUT)
 
