@@ -55,6 +55,7 @@ PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --toc
 PANFLAGS += --listings
+PANFLAGS += --top-level-division=chapter
 PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
