@@ -14,16 +14,16 @@ listingTemplate: "---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---"
 
 fontsize: 11
 papersize: b5paper
-mainfont: SourceSansPro-Regular
-sansfont: SourceSansPro-Regular
-monofont: RictyDiminished-Regular
+mainfont: SourceHanSans-Normal
+sansfont: SourceHanSans-Normal
+monofont: SourceHanSans-Normal
 mainlang: Japanese
-CJKoptions: "BoldFont=RictyDiminished-Bold,
-  ItalicFont=RictyDiminished-Oblique,
-  BoldItalicFont=RictyDiminished-BoldOblique"
-CJKmainfont: RictyDiminished-Regular
-CJKsansfont: RictyDiminished-Regular
-CJKmonofont: RictyDiminished-Regular
+# CJKoptions: "BoldFont=RictyDiminished-Bold,
+#   ItalicFont=RictyDiminished-Oblique,
+#   BoldItalicFont=RictyDiminished-BoldOblique"
+CJKmainfont: SourceHanSans-Normal
+CJKsansfont: SourceHanSans-Normal
+CJKmonofont: SourceHanSans-Normal
 geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
 
