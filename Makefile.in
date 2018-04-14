@@ -52,6 +52,7 @@ PANFLAGS += --filter=pandocker-aafigure-inline
 PANFLAGS += --filter=pandocker-rotateimage
 PANFLAGS += --filter=pandocker-rotateimage-inline
 PANFLAGS += --filter=$(IMAGINE)
+PANFLAGS += --filter=pandocker-tex-landscape
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --toc
 PANFLAGS += --listings
