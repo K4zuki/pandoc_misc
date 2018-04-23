@@ -148,6 +148,9 @@ $endif$
             pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
 
+$for(header-includes)$
+$header-includes$
+$endfor$
 $if(lang)$
 \usepackage{polyglossia}
 \setmainlanguage{$mainlang$}
