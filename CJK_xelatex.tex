@@ -53,16 +53,6 @@ $for(classoption)$
 $endfor$
 ]{$documentclass$}
 
-\usepackage{fancyhdr}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand{\sectionmark}[1]{\markright{#1}}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[LO]{\itshape\nouppercase{\rightmark}}
-\fancyhead[RE]{\itshape\nouppercase{\leftmark}}
-% \fancyfoot[CE,CO]{\thepage}
-\renewcommand{\headrulewidth}{0pt}
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -86,10 +76,6 @@ $endif$
 \newcommand{\hrulemfill}{
 	\leaders\hbox{─}\hfill\kern0pt
 }
-
-% Thanks to this github comment https://github.com/jgm/pandoc/issues/3145#issuecomment-302787889
-\let\Begin\begin
-\let\End\end
 
 $if(mainfont)$
 \setmainfont{$mainfont$}
@@ -223,81 +209,7 @@ $endif$
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-% Create the command for including the title page in the document vvvvvvvvvvvv
-\providecommand*{\titleGP}{
-\begingroup
-\centering % Center all text
-\vspace*{\baselineskip} % White space at the top of the page
-
-\rule{\textwidth}{1.6pt}\vspace*{-0.5\baselineskip}\vspace*{2pt} % Thick horizontal line
-\rule{\textwidth}{0.4pt}\\[\baselineskip] % Thin horizontal line
-
-{\huge $title$} \leavevmode\\[0.2\baselineskip] % Title
-
-\rule{\textwidth}{0.4pt}\vspace*{-0.5\baselineskip}\vspace{3.2pt} % Thin horizontal line
-\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
-
-\scshape % Small caps
-$if(abstract)$
-{\Large $abstract$}
-$endif$
-\vspace*{2\baselineskip} % Whitespace between location/year and editors
-
-{\large Edited by}  \leavevmode\\[\baselineskip]
-{\Large $circle$ / $author$} % Editor list
-%{\itshape The University of California \\ Berkeley\par} % Editor affiliation
-
-$if(front)$
-\vfill % Whitespace between editor names and publisher logo
-\includegraphics[height=10cm,width=10cm,keepaspectratio]{$front$}
-$endif$
-\vfill* % Whitespace between editor names and publisher logo
-
-%\plogo  \leavevmode\\[0.3\baselineskip] % Publisher logo
-{\scshape }{\large $year$} \\[0.3\baselineskip] % Year published
-%{\large THE PUBLISHER}\par % Publisher
-\endgroup
-}
-% Create the command for including the title page in the document ^^^^^^^^^^^^^^^^^
-\usepackage{xhfill}
-
-%bxascmac
-%\usepackage{ascmac}
-\usepackage{bxascmac}
-\usepackage{fancybox}
-\usepackage{ifoddpage}
-\usepackage{tcolorbox}
-\usepackage{tikz}
-\usepackage[framemethod=tikz]{mdframed}
-
-% Overwrite \begin{figure}[htbp] with \begin{figure}[H]
-\usepackage{float}
-\let\origfigure=\figure
-\let\endorigfigure=\endfigure
-\renewenvironment{figure}[1][]{%
-\origfigure[H]
-}{%
-\endorigfigure
-}
-
-\def\surplus#1#2{%
-        \newcount\n \newcount\m \newcount\t
-        \n=#1 \m=#2 \t=\n%
-        \divide \n by \m%
-        \multiply \n by \m%
-        \advance \t by -\n%
-        #1=\t\relax%
-}
-
 \begin{document}
-$if(title)$
-%\maketitle
-\titleGP
-\thispagestyle{empty}
-\blankpage
-\afterpage{\blankpage}
-$endif$
-
 $for(include-before)$
 $include-before$
 $endfor$
@@ -342,57 +254,4 @@ $endif$
 $for(include-after)$
 $include-after$
 $endfor$
-
-% \newpage
-\checkoddpage
-\ifoddpage
-  \newpage
-\else
-  \afterpage{\blankpage}
-  % \afterpage{\blankpage\blankpage}
-\fi
-% \checkoddpage\ifoddpage\newpage\else\newpage\blankpage\newpage\fi
-$if(title)$
-
-\newpage
-\newcount\p \p=\thepage % always even numver
-\advance\p by2 % \thepage does not include title and first blank pages
-\newcount\q \q=4
-\surplus\p\q % p = p % 4 : 2 or 0
-
-\thispagestyle{empty}
-% \checkoddpage\ifoddpage{}\else\blankpage\fi
-\thispagestyle{empty} \vspace*{95ex}
-
-\begin{longtable}[]{@{}c@{}}
-\toprule
-$title$\tabularnewline
-\midrule
-\endhead
-$circle$\tabularnewline
-$author$\tabularnewline
-Markdown x Pandoc x \XeLaTeX\tabularnewline
-Revision $docrevision$ / $comiket$ / $short-hash$\tabularnewline
-$publisher$\tabularnewline
-\bottomrule
-\end{longtable}
-$endif$
-
-$if(printer)$ % use home printer
-  \if\p=2 %
-    \afterpage{\blankpage}
-    \afterpage{\blankpage}
-  \fi
-$else$
-  \if\p=0
-    \afterpage{\blankpage}
-    \afterpage{\blankpage}
-    \afterpage{\blankpage}
-    \afterpage{\blankpage}
-  \else
-    \afterpage{\blankpage}
-    \afterpage{\blankpage}
-  \fi
-$endif$
-
 \end{document}
