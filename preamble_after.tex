@@ -120,6 +120,24 @@ $endif$
 }
 $endif$
 
+% https://github.com/Wandmalfarbe/pandoc-latex-template
+% colors
+%
+\usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
+
+% https://github.com/Wandmalfarbe/pandoc-latex-template
+% listing colors
+%
+\definecolor{listing-background}{rgb}{0.97,0.97,0.97}
+\definecolor{listing-rule}{HTML}{888888}
+\definecolor{listing-numbers}{HTML}{000000}
+\definecolor{listing-text-color}{HTML}{000000}
+\definecolor{listing-keyword}{HTML}{000000}
+\definecolor{listing-identifier}{HTML}{000000}
+\definecolor{listing-string}{HTML}{000000}
+\definecolor{listing-comment}{rgb}{0.4,0.4,0.4}
+\definecolor{listing-javadoc-comment}{rgb}{0.4,0.4,0.4}
+
 %
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 %
@@ -138,24 +156,6 @@ $if(tables)$
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
 $endif$
-
-% https://github.com/Wandmalfarbe/pandoc-latex-template
-% colors
-%
-\usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
-
-% https://github.com/Wandmalfarbe/pandoc-latex-template
-% listing colors
-%
-\definecolor{listing-background}{rgb}{0.97,0.97,0.97}
-\definecolor{listing-rule}{HTML}{888888}
-\definecolor{listing-numbers}{HTML}{000000}
-\definecolor{listing-text-color}{HTML}{000000}
-\definecolor{listing-keyword}{HTML}{000000}
-\definecolor{listing-identifier}{HTML}{000000}
-\definecolor{listing-string}{HTML}{000000}
-\definecolor{listing-comment}{rgb}{0.4,0.4,0.4}
-\definecolor{listing-javadoc-comment}{rgb}{0.4,0.4,0.4}
 
 \usepackage{xhfill}
 
