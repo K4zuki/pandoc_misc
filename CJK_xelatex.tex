@@ -261,14 +261,6 @@ $endif$
 % Create the command for including the title page in the document ^^^^^^^^^^^^^^^^^
 \usepackage{xhfill}
 
-\usepackage{afterpage}
-
-\newcommand\blankpage{%
-    \null
-    \thispagestyle{empty}%
-    \addtocounter{page}{-1}%
-    \newpage}
-
 %bxascmac
 %\usepackage{ascmac}
 \usepackage{bxascmac}
@@ -296,10 +288,6 @@ $endif$
         \advance \t by -\n%
         #1=\t\relax%
 }
-\usepackage{lastpage}
-% https://github.com/daamien/pandoc-latex-barcode requires:
-\usepackage{pstricks}
-\usepackage{pst-barcode}
 
 \begin{document}
 $if(title)$
