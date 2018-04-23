@@ -1,0 +1,51 @@
+% \newpage
+\checkoddpage
+\ifoddpage
+  \newpage
+\else
+  \afterpage{\blankpage}
+  % \afterpage{\blankpage\blankpage}
+\fi
+% \checkoddpage\ifoddpage\newpage\else\newpage\blankpage\newpage\fi
+$if(title)$
+
+\newpage
+\newcount\p \p=\thepage % always even numver
+\advance\p by2 % \thepage does not include title and first blank pages
+\newcount\q \q=4
+\surplus\p\q % p = p % 4 : 2 or 0
+
+\thispagestyle{empty}
+% \checkoddpage\ifoddpage{}\else\blankpage\fi
+\thispagestyle{empty} \vspace*{95ex}
+
+\begin{longtable}[]{@{}c@{}}
+\toprule
+$title$\tabularnewline
+\midrule
+\endhead
+$circle$\tabularnewline
+$author$\tabularnewline
+Markdown x Pandoc x \XeLaTeX\tabularnewline
+Revision $docrevision$ / $comiket$ / $short-hash$\tabularnewline
+$publisher$\tabularnewline
+\bottomrule
+\end{longtable}
+$endif$
+
+$if(printer)$ % use home printer
+  \if\p=2 %
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+  \fi
+$else$
+  \if\p=0
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+  \else
+    \afterpage{\blankpage}
+    \afterpage{\blankpage}
+  \fi
+$endif$
