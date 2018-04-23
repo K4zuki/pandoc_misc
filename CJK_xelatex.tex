@@ -169,25 +169,6 @@ $for(bibliography)$
 $endfor$
 $endif$
 
-%
-% https://github.com/Wandmalfarbe/pandoc-latex-template
-%
-$if(tables)$
-\renewcommand{\arraystretch}{1.4} % table spacing
-\definecolor{table-gray}{HTML}{F5F5F5}
-\rowcolors{3}{white!100!white}{table-gray!100!white!100}
-% Unfortunately the colored cells extend beyond the edge of the
-% table because pandoc uses @-expressions (@{}) like so:
-%
-% \begin{longtable}[]{@{}ll@{}}
-% \end{longtable}
-%
-% https://en.wikibooks.org/wiki/LaTeX/Tables#.40-expressions
-\usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
-$endif$
-
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
 $endif$
