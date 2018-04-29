@@ -56,6 +56,8 @@ PANFLAGS += --filter=pandocker-bitfield-inline
 PANFLAGS += --filter=pandocker-wavedrom-inline
 PANFLAGS += --filter=pandocker-aafigure
 PANFLAGS += --filter=pandocker-aafigure-inline
+PANFLAGS += --filter=pandocker-blockdiag
+PANFLAGS += --filter=pandocker-blockdiag-inline
 PANFLAGS += --filter=pandocker-rotateimage
 PANFLAGS += --filter=pandocker-rotateimage-inline
 PANFLAGS += --filter=$(IMAGINE)
