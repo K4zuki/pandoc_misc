@@ -14,8 +14,8 @@ listingTemplate: "---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---"
 
 fontsize: 11
 papersize: b5paper
-mainfont: SourceSansPro-Regular
-sansfont: SourceSansPro-Regular
+mainfont: SourceHanSans-Regular
+sansfont: SourceHanSans-Regular
 monofont: RictyDiminished-Regular
 mainlang: Japanese
 CJKoptions: "BoldFont=SourceHanSans-Bold,
