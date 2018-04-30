@@ -18,9 +18,9 @@ mainfont: SourceSansPro-Regular
 sansfont: SourceSansPro-Regular
 monofont: RictyDiminished-Regular
 mainlang: Japanese
-# CJKoptions: "BoldFont=RictyDiminished-Bold,
-#   ItalicFont=RictyDiminished-Oblique,
-#   BoldItalicFont=RictyDiminished-BoldOblique"
+CJKoptions: "BoldFont=SourceHanSans-Bold,
+  ItalicFont=SourceHanSans-Medium,
+  BoldItalicFont=SourceHanSans-Bold"
 CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
 CJKmonofont: RictyDiminished-Regular
