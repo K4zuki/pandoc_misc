@@ -18,6 +18,7 @@ mainfont: SourceHanSans-Regular
 sansfont: SourceHanSans-Regular
 monofont: RictyDiminished-Regular
 mainlang: Japanese
+mathfont: SourceHanSans-Light
 CJKoptions: "BoldFont=SourceHanSans-Bold,
   ItalicFont=SourceHanSans-Medium,
   BoldItalicFont=SourceHanSans-Bold"
