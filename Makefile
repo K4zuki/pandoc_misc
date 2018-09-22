@@ -89,6 +89,7 @@ initdir:
 	mkdir -p $(PREFIX)/$(DATADIR)
 	mkdir -p $(PREFIX)/$(MDDIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)
+	mkdir -p $(PREFIX)/$(SVGDIR)
 
 init: initdir
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
@@ -105,6 +106,9 @@ $(MDDIR):
 	mkdir -p $(MDDIR)
 $(IMAGEDIR):
 	mkdir -p $(IMAGEDIR)
+$(SVGDIR):
+	mkdir -p $(SVGDIR)
 
-clean: $(TARGETDIR)
+clean: $(TARGETDIR) $(SVGDIR)
 	rm -rf $(TARGETDIR)/*
+	rm -rf $(SVGDIR)/*

@@ -94,6 +94,7 @@ TARGETDIR:= Out
 IMAGEDIR:= images
 CIDIR:= .circleci
 PREFIX:= .
+SVGDIR:= svg
 
 ### default source and target file names
 CONFIG:= config.yaml
