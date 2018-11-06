@@ -9,7 +9,6 @@ listings: true
 tables: true
 codeBlockCaptions: true
 listingTitle: "List"
-listingTemplate: "---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---"
 # date: 本の出版日時
 
 fontsize: 11

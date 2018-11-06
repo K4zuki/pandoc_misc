@@ -99,4 +99,4 @@ SVGDIR:= svg
 ### default source and target file names
 CONFIG:= config.yaml
 INPUT:= TITLE.md
-TARGET:= TARGET
+TARGET:= TARGET-$(DATE)-$(HASH)
