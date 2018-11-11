@@ -42,8 +42,8 @@ TEXFLAGS += --include-after-body=$(TARGETDIR)/$(TEXTEMPLATE_TAIL)
 TEXFONTFLAGS:= -M documentclass=book
 # TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
-DATE:= '$(shell date +%b-%d-%Y)'
-HASH:= `git rev-parse --short HEAD`
+DATE= '$(shell date +%b-%d-%Y)'
+HASH= `git rev-parse --short HEAD`
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
