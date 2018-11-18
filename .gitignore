@@ -4,3 +4,18 @@ docs/Out/
 docs/svg/
 docs/pd-images/
 node_modules/
+
+# general things to ignore
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+*.py[cod]
+__pycache__/
+*.so
+*~
+
+# due to using tox and pytest
+.tox
+.cache
