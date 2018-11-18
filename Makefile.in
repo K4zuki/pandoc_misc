@@ -18,7 +18,7 @@ endif
 
 PANDOC= pandoc
 PCROSSREF = pandoc-crossref
-PANSTYLES= /var
+PANSTYLES= /usr/local/var
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= bitfield
 
@@ -71,7 +71,7 @@ PANFLAGS += $(MDDIR)/$(CONFIG)
 PANDOCXFFLAGS = --reference-doc=$(REFERENCE)
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --template=$(MISC)/github.html
-PANHTMLFLAGS += -M css=$(MISC)/github_css/github.css
+PANHTMLFLAGS += -M css=$(MISC)/github.css
 
 ### GPP flags
 GPPFLAGS = -H +c "<!--" "-->"
