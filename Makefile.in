@@ -49,11 +49,15 @@ HASH= '$(shell git rev-parse --short HEAD)'
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --filter=pandocker-rmnote
 PANFLAGS += --filter=$(PANTABLE)
+PANFLAGS += --filter=pandocker-aafigure-listed
+PANFLAGS += --filter=pandocker-bitfield-listed
+PANFLAGS += --filter=pandocker-listingtable-listed
+PANFLAGS += --filter=pandocker-rotateimage-listed
 PANFLAGS += --filter=pandocker-filters
-PANFLAGS += --filter=pandocker-blockdiag
-PANFLAGS += --filter=pandocker-blockdiag-inline
+PANFLAGS += --filter=pandocker-blockdiag-filters
 PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --filter=pandocker-tex-landscape
+PANFLAGS += --filter=pandoc-docx-pagebreakpy
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --toc
 PANFLAGS += --listings
