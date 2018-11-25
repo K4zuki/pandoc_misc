@@ -52,9 +52,9 @@ PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=pandocker-aafigure
 PANFLAGS += --filter=pandocker-bitfield
 PANFLAGS += --filter=pandocker-listingtable
-PANFLAGS += --filter=pandocker-rotateimage
-PANFLAGS += --filter=pandocker-filters
 PANFLAGS += --filter=pandocker-blockdiag-filters
+PANFLAGS += --filter=pandocker-filters
+PANFLAGS += --filter=pandocker-rotateimage
 PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --filter=pandocker-tex-landscape
 PANFLAGS += --filter=pandoc-docx-pagebreakpy
