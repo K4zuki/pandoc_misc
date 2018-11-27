@@ -53,11 +53,13 @@ PANFLAGS += --filter=pandocker-aafigure
 PANFLAGS += --filter=pandocker-bitfield
 PANFLAGS += --filter=pandocker-listingtable
 PANFLAGS += --filter=pandocker-blockdiag-filters
+PANFLAGS += --filter=pandoc-svgbob-filter
 PANFLAGS += --filter=pandocker-filters
 PANFLAGS += --filter=pandocker-rotateimage
 PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --filter=pandocker-tex-landscape
 PANFLAGS += --filter=pandoc-docx-pagebreakpy
+PANFLAGS += --filter=pandoc-docx-utils
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --toc
 PANFLAGS += --listings
