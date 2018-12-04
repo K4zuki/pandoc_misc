@@ -68,6 +68,7 @@ PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
 PANFLAGS += -M date=$(DATE)
+PANFLAGS += -M linkReferences=true
 PANFLAGS += $(MISC)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 ###  for debug  ###
