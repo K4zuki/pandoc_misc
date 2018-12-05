@@ -22,8 +22,6 @@ PANSTYLES= /usr/local/var
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= bitfield
 
-REFERENCE= $(MISC)/ref.docx
-
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= $(MISC)/docxPropertywriter.py
 IMAGINEDIR:= pd-images
@@ -68,14 +66,14 @@ PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
 PANFLAGS += -M date=$(DATE)
-PANFLAGS += -M linkReferences=true
 PANFLAGS += $(MISC)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 ###  for debug  ###
 # PANFLAGS += --filter=$(MISC)/panflute/rotate.py
 ### ### ### ### ###
 
-PANDOCXFFLAGS = --reference-doc=$(REFERENCE)
+PANDOCXFLAGS = -M linkReferences=true
+
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --template=$(MISC)/github.html
 PANHTMLFLAGS += -M css=$(MISC)/github_css/github.css
@@ -94,6 +92,7 @@ IMAGEDIR:= images
 CIDIR:= .circleci
 PREFIX:= .
 SVGDIR:= svg
+REFERENCE:= $(MISC)/ref.docx
 
 ### default source and target file names
 CONFIG:= config.yaml

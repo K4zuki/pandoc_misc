@@ -15,5 +15,6 @@ PROJECT= `pwd`
 # CONFIG:= config.yaml
 # INPUT:= TITLE.md
 # TARGET:= TARGET-$(DATE)-$(HASH)
+# REFERENCE:= $(MISC)/ref.docx
 ##
 include $(MISC)/Makefile
