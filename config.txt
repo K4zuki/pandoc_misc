@@ -10,4 +10,16 @@ docrevision: "1.0"
 # front: images/front-image.png
 verbcolored: false
 # rmnote: false
+
+svgbob:
+  font-family: "Source Code Pro"
+  font-size: 14
+  scale: 1
+  strike-width: 2
+
+heading-unnumbered:
+  1: "Heading Unnumbered 1"
+  2: "Heading Unnumbered 2"
+  3: "Heading Unnumbered 3"
+  4: "Heading Unnumbered 4"
 ...
