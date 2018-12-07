@@ -22,4 +22,6 @@ heading-unnumbered:
   2: "Heading Unnumbered 2"
   3: "Heading Unnumbered 3"
   4: "Heading Unnumbered 4"
+
+image-div-style: "Image Caption"
 ...
