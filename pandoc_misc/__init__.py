@@ -3,7 +3,7 @@
 
 import subprocess as sp
 
-command = "make init -f /usr/local/var/pandoc_misc/Makefile"
+command = "docker run -v $PWD:/workdir k4zuki/pandocker make init -f /usr/local/var/pandoc_misc/Makefile"
 
 
 def main():
