@@ -13,6 +13,7 @@ listingTitle: "List"
 
 fontsize: 11
 papersize: b5paper
+secnumdepth: 3
 mainfont: SourceHanSans-Regular
 sansfont: SourceHanSans-Regular
 monofont: RictyDiminished-Regular
