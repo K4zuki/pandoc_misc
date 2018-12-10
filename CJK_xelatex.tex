@@ -40,16 +40,16 @@
 
 \documentclass[
 $if(fontsize)$
-  $fontsize$,
+$fontsize$,
 $endif$
 $if(lang)$
-  $lang$,
+$lang$,
 $endif$
 $if(papersize)$
-  $papersize$,
+$papersize$,
 $endif$
 $for(classoption)$
-  $classoption$$sep$,
+$classoption$$sep$,
 $endfor$
 ]{$documentclass$}
 
@@ -74,7 +74,7 @@ $endif$
 \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
 \newcommand{\euro}{€}
 \newcommand{\hrulemfill}{
-	\leaders\hbox{─}\hfill\kern0pt
+\leaders\hbox{─}\hfill\kern0pt
 }
 
 $if(mainfont)$
@@ -84,24 +84,24 @@ $else$
 $endif$
 
 $if(sansfont)$
-  \setsansfont{$sansfont$}
+\setsansfont{$sansfont$}
 $endif$
 
 $if(monofont)$
-  \setmonofont[Scale=0.9,Mapping=tex-ansi]{$monofont$}
+\setmonofont[Scale=0.9,Mapping=tex-ansi]{$monofont$}
 $else$
-  \setmonofont{Courier New}
+\setmonofont{Courier New}
 $endif$
 
 $if(mathfont)$
-  \setmathfont(Digits,Latin,Greek){$mathfont$}
+\setmathfont(Digits,Latin,Greek){$mathfont$}
 $endif$
 
 $if(CJKmainfont)$
-  \usepackage{xeCJK}
-  \setCJKmainfont[$localfontdir$,$CJKoptions$]{$CJKmainfont$}
-  \setCJKsansfont[$localfontdir$,$CJKoptions$]{$CJKsansfont$}
-  \setCJKmonofont[Scale=0.9,$localfontdir$,$CJKoptions$]{$CJKmonofont$}
+\usepackage{xeCJK}
+\setCJKmainfont[$localfontdir$,$CJKoptions$]{$CJKmainfont$}
+\setCJKsansfont[$localfontdir$,$CJKoptions$]{$CJKsansfont$}
+\setCJKmonofont[Scale=0.9,$localfontdir$,$CJKoptions$]{$CJKmonofont$}
 $endif$
 
 % use upquote if available, for straight quotes in verbatim environments
@@ -116,19 +116,19 @@ $if(geometry)$
 $endif$
 
 \usepackage[setpagesize=false, % page size defined by xetex
-            unicode=false, % unicode breaks when used with xetex
-            xetex]{hyperref}
+unicode=false, % unicode breaks when used with xetex
+xetex]{hyperref}
 
 \usepackage[usenames,dvipsnames]{color}
 \hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={$author-meta$},
-            pdftitle={$title-meta$},
-            colorlinks=true,
-            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
-            pdfborder={0 0 0}}
+bookmarks=true,
+pdfauthor={$author-meta$},
+pdftitle={$title-meta$},
+colorlinks=true,
+citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
+urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+pdfborder={0 0 0}}
 \urlstyle{same}  % don't use monospace font for urls
 
 $for(header-includes)$
@@ -190,7 +190,7 @@ $endif$
 \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 $if(numbersections)$
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
 $else$
 \setcounter{secnumdepth}{0}
 $endif$
@@ -210,48 +210,48 @@ $endif$
 \fi
 
 \begin{document}
-$for(include-before)$
-$include-before$
-$endfor$
+    $for(include-before)$
+    $include-before$
+    $endfor$
 
-$if(toc)$
-\break
-\break
-{
-\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
-\setcounter{tocdepth}{$toc-depth$}
-\tableofcontents
-}
-$endif$
-
-$if(lot)$
-\listoftables
-$endif$
-
-$if(lof)$
-\listoffigures
-$endif$
-
-$body$
-
-$if(natbib)$
-  $if(bibliography)$
-    $if(biblio-title)$
-      $if(book-class)$
-        \renewcommand\bibname{$biblio-title$}
-      $else$
-        \renewcommand\refname{$biblio-title$}
-      $endif$
+    $if(toc)$
+    \break
+    \break
+    {
+    \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+    \setcounter{tocdepth}{$toc-depth$}
+    \tableofcontents
+    }
     $endif$
-      \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
-  $endif$
-$endif$
 
-$if(biblatex)$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-$endif$
+    $if(lot)$
+    \listoftables
+    $endif$
 
-$for(include-after)$
-$include-after$
-$endfor$
+    $if(lof)$
+    \listoffigures
+    $endif$
+
+    $body$
+
+    $if(natbib)$
+    $if(bibliography)$
+    $if(biblio-title)$
+    $if(book-class)$
+    \renewcommand\bibname{$biblio-title$}
+    $else$
+    \renewcommand\refname{$biblio-title$}
+    $endif$
+    $endif$
+    \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+    $endif$
+    $endif$
+
+    $if(biblatex)$
+    \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+    $endif$
+
+    $for(include-after)$
+    $include-after$
+    $endfor$
 \end{document}
