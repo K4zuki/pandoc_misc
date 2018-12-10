@@ -529,7 +529,7 @@ caption: _**block bitfield sample**_
   name: CPK
 ```
 #### インライン形式 {.unnumbered}
-![**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
+[**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 
 \\newpage
 ### WaveDromロジック波形を描く・挿入する {#sec:wavedrom}
@@ -540,7 +540,7 @@ WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSラ
 ~~~markdown
 ![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 ~~~
-![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
+[inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 
 \\newpage
 ### その他各種レンダラを使う {#sec:pandoc-imagine}
@@ -596,28 +596,28 @@ _angle=365_ なら右に5度回転します。
 ![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
 `````
 
-![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
+[inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
 
-![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
+[inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
 
 
 <div id="fig:RotateImage">
-![0](data/bitfields/bit.yaml){.bitfield height=30% width=30%}
+[0](data/bitfields/bit.yaml){.bitfield height=30% width=30%}
 
-![30](data/bitfields/bit.yaml){.bitfield .rotate angle=30 height=30% width=30% #fig:RotateImageA}
-![60](data/bitfields/bit.yaml){.bitfield .rotate angle=60 height=30% width=30% #fig:RotateImageB}
-![90](data/bitfields/bit.yaml){.bitfield .rotate angle=90 height=30% width=30% #fig:RotateImageC}
-![120](data/bitfields/bit.yaml){.bitfield .rotate angle=120 height=30% width=30% #fig:RotateImageD}
+[30](data/bitfields/bit.yaml){.bitfield .rotate angle=30 height=25% width=25% #fig:RotateImageA}
+[60](data/bitfields/bit.yaml){.bitfield .rotate angle=60 height=25% width=25% #fig:RotateImageB}
+[90](data/bitfields/bit.yaml){.bitfield .rotate angle=90 height=25% width=25% #fig:RotateImageC}
+[120](data/bitfields/bit.yaml){.bitfield .rotate angle=120 height=25% width=25% #fig:RotateImageD}
 
-![150](data/bitfields/bit.yaml){.bitfield .rotate angle=150 height=30% width=30% #fig:RotateImageE}
-![180](data/bitfields/bit.yaml){.bitfield .rotate angle=180 height=30% width=30% #fig:RotateImageF}
-![210](data/bitfields/bit.yaml){.bitfield .rotate angle=210 height=30% width=30% #fig:RotateImageG}
-![240](data/bitfields/bit.yaml){.bitfield .rotate angle=240 height=30% width=30% #fig:RotateImageH}
+[150](data/bitfields/bit.yaml){.bitfield .rotate angle=150 height=25% width=25% #fig:RotateImageE}
+[180](data/bitfields/bit.yaml){.bitfield .rotate angle=180 height=25% width=25% #fig:RotateImageF}
+[210](data/bitfields/bit.yaml){.bitfield .rotate angle=210 height=25% width=25% #fig:RotateImageG}
+[240](data/bitfields/bit.yaml){.bitfield .rotate angle=240 height=25% width=25% #fig:RotateImageH}
 
-![270](data/bitfields/bit.yaml){.bitfield .rotate angle=270 height=30% width=30% #fig:RotateImageI}
-![300](data/bitfields/bit.yaml){.bitfield .rotate angle=300 height=30% width=30% #fig:RotateImageJ}
-![330](data/bitfields/bit.yaml){.bitfield .rotate angle=330 height=30% width=30% #fig:RotateImageK}
-![360](data/bitfields/bit.yaml){.bitfield .rotate angle=360 height=30% width=30% #fig:RotateImageL}
+[270](data/bitfields/bit.yaml){.bitfield .rotate angle=270 height=25% width=25% #fig:RotateImageI}
+[300](data/bitfields/bit.yaml){.bitfield .rotate angle=300 height=25% width=25% #fig:RotateImageJ}
+[330](data/bitfields/bit.yaml){.bitfield .rotate angle=330 height=25% width=25% #fig:RotateImageK}
+[360](data/bitfields/bit.yaml){.bitfield .rotate angle=360 height=25% width=25% #fig:RotateImageL}
 
 回転サンプル
 </div>
