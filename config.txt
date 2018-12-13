@@ -24,4 +24,22 @@ heading-unnumbered:
   4: "Heading Unnumbered 4"
 
 image-div-style: "Image Caption"
+
+docx_coreprop:
+  author: "K4ZUKI" # str
+  category: "Category" # str
+  comments: "Comment" # str
+  keywords: "Keyword1 Keyword2" # str
+  last_modified_by: "K4ZUKI" # str
+  last_printed: "2018-12-13" # datetime YYYY-MM-DD
+  modified: "2018-12-13" # datetime YYYY-MM-DD
+  revision: 1123 # int < 32768
+  subject: "SubjecT" # str
+  title: "Title" # str
+
+#  created: "2018-12-13" # datetime YYYY-MM-DD set externally
+  content_status: "Status" # ignored?
+  identifier: "ID" # ignored?
+  language: "Japanese" # ignored?
+  version: "Version" # ignored?
 ...

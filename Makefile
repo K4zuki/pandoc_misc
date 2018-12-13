@@ -43,10 +43,11 @@ all: html
 help:
 	@echo $(REQ)"\033[0m"
 
-docx: $(DOCX)
+docx: coreprop
+coreprop: $(DOCX)
+	$(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 $(DOCX): $(FILTERED)
-	$(PANDOC) $(PANFLAGS) $(PANDOCXFLAGS) --reference-doc=$(REFERENCE) $(FILTERED) -o $(DOCX); \
-	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
+	$(PANDOC) $(PANFLAGS) $(PANDOCXFLAGS) --reference-doc=$(REFERENCE) $(FILTERED) -o $(DOCX)
 
 html: $(HTML) $(MDDIR)/$(CONFIG)
 $(HTML): $(FILTERED) $(TARGETDIR)/$(INPUT) $(MDDIR)/$(CONFIG)

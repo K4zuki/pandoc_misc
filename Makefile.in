@@ -23,7 +23,7 @@ MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= bitfield
 
 FILTER= $(MISC)/include.py
-DOCXPWRTR:= $(MISC)/docxPropertywriter.py
+DOCXPWRTR:= docx-coreprop-writer
 IMAGINEDIR:= pd-images
 
 TEXTEMPLATE := $(MISC)/CJK_xelatex.tex
@@ -73,6 +73,7 @@ PANFLAGS += $(MDDIR)/$(CONFIG)
 ### ### ### ### ###
 
 PANDOCXFLAGS = -M linkReferences=true
+PANDOCXFLAGS += -M docx_coreprop.created=$(DATE)
 
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --template=$(MISC)/github.html
