@@ -37,6 +37,8 @@ TEXFLAGS += --pdf-engine=xelatex
 TEXFLAGS += --include-in-header=$(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
 TEXFLAGS += --include-before-body=$(TARGETDIR)/$(TEXTEMPLATE_COVER)
 TEXFLAGS += --include-after-body=$(TARGETDIR)/$(TEXTEMPLATE_TAIL)
+TEXFLAGS += -M date=$(DATE)
+
 TEXFONTFLAGS:= -M documentclass=book
 # TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
@@ -65,7 +67,6 @@ PANFLAGS += --top-level-division=chapter
 PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
-PANFLAGS += -M date=$(DATE)
 PANFLAGS += $(MISC)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 ###  for debug  ###
@@ -78,6 +79,7 @@ PANDOCXFLAGS += -M docx_coreprop.created=$(DATE)
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --template=$(MISC)/github.html
 PANHTMLFLAGS += -M css=$(MISC)/github_css/github.css
+PANHTMLFLAGS += -M date=$(DATE)
 
 ### GPP flags
 GPPFLAGS = -H +c "<!--" "-->"

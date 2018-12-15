@@ -44,8 +44,10 @@ help:
 	@echo $(REQ)"\033[0m"
 
 docx: coreprop
+
 coreprop: $(DOCX)
-	$(DOCXPWRTR) -I $(MDDIR)/$(CONFIG) -O $(DOCX)
+	$(DOCXPWRTR) -I $(MDDIR)/$(CONFIG) -M date=$(DATE) -O $(DOCX)
+
 $(DOCX): $(FILTERED)
 	$(PANDOC) $(PANFLAGS) $(PANDOCXFLAGS) --reference-doc=$(REFERENCE) $(FILTERED) -o $(DOCX)
 
