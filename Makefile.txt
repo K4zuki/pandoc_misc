@@ -16,5 +16,7 @@ PROJECT= `pwd`
 # INPUT:= TITLE.md
 # TARGET:= TARGET-$(DATE)-$(HASH)
 # REFERENCE:= $(MISC)/ref.docx
+# COREPROPFLAGS := --table "Normal Table=Centered"
+# COREPROPFLAGS += --paragraph "Normal=Body Text"
 ##
 include $(MISC)/Makefile

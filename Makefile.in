@@ -74,7 +74,6 @@ PANFLAGS += $(MDDIR)/$(CONFIG)
 ### ### ### ### ###
 
 PANDOCXFLAGS = -M linkReferences=true
-PANDOCXFLAGS += -M docx_coreprop.created=$(DATE)
 
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --template=$(MISC)/github.html
@@ -96,7 +95,7 @@ CIDIR:= .circleci
 PREFIX:= .
 SVGDIR:= svg
 REFERENCE:= $(MISC)/ref.docx
-
+COREPROPFLAGS := -M created=$(DATE)
 ### default source and target file names
 CONFIG:= config.yaml
 INPUT:= TITLE.md
