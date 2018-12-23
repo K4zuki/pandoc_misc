@@ -32,6 +32,7 @@ TEXTEMPLATE_COVER := titleGP.tex
 TEXTEMPLATE_TAIL := tailnote.tex
 # TEXTEMPLATE = $(MISC)/../pandoc-latex-template/eisvogel.latex
 TEXFLAGS= --template=$(TEXTEMPLATE) -t latex
+TEXFLAGS += --toc
 # TEXFLAGS += --filter=pandoc-latex-barcode
 TEXFLAGS += --pdf-engine=xelatex
 TEXFLAGS += --include-in-header=$(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
@@ -61,7 +62,7 @@ PANFLAGS += --filter=pandocker-tex-landscape
 PANFLAGS += --filter=pandoc-docx-pagebreakpy
 PANFLAGS += --filter=pandoc-docx-utils
 PANFLAGS += --filter=$(PCROSSREF)
-PANFLAGS += --toc
+#PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --top-level-division=chapter
 PANFLAGS += --number-sections --highlight-style=kate
@@ -76,6 +77,7 @@ PANFLAGS += $(MDDIR)/$(CONFIG)
 PANDOCXFLAGS = -M linkReferences=true
 
 PANHTMLFLAGS = --self-contained -thtml5
+PANHTMLFLAGS += --toc
 PANHTMLFLAGS += --template=$(MISC)/github.html
 PANHTMLFLAGS += -M css=$(MISC)/github_css/github.css
 PANHTMLFLAGS += -M date=$(DATE)

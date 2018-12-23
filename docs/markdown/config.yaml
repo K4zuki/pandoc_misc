@@ -15,12 +15,17 @@ docx_coreprop:
   author: "@_K4ZUKI_" # str
   category: "Category" # str
   comments: "Comment" # str
-  created: "2018-12-30" # datetime YYYY-MM-DD
+  created: "30-Dec-2018" # datetime YYYY-MM-DD
   keywords: "Keyword1 Keyword2" # str
   last_modified_by: "K4ZUKI" # str
-  last_printed: "2018-12-29" # datetime YYYY-MM-DD
-  modified: "2018-12-30" # datetime YYYY-MM-DD
+  last_printed: "29-Dec-2018" # datetime YYYY-MM-DD
+  modified: "29-Dec-2018" # datetime YYYY-MM-DD
   revision: 1230 # int < 32768
   subject: "SubjecT" # str
-  title: "Title" # str
+  #  title: "Title" # str
+  table:
+    "Normal Table": "Centered"
+  paragraph:
+    "Normal": "Body Text"
+    "First Paragraph": "Body Text"
 ...
