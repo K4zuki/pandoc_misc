@@ -210,48 +210,48 @@ $endif$
 \fi
 
 \begin{document}
-    $for(include-before)$
-    $include-before$
-    $endfor$
+$for(include-before)$
+$include-before$
+$endfor$
 
-    $if(toc)$
-    \break
-    \break
-    {
-    \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
-    \setcounter{tocdepth}{$toc-depth$}
-    \tableofcontents
-    }
-    $endif$
+$if(toc)$
+\break
+\break
+{
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+}
+$endif$
 
-    $if(lot)$
-    \listoftables
-    $endif$
+$if(lot)$
+\listoftables
+$endif$
 
-    $if(lof)$
-    \listoffigures
-    $endif$
+$if(lof)$
+\listoffigures
+$endif$
 
-    $body$
+$body$
 
-    $if(natbib)$
-    $if(bibliography)$
-    $if(biblio-title)$
-    $if(book-class)$
-    \renewcommand\bibname{$biblio-title$}
-    $else$
-    \renewcommand\refname{$biblio-title$}
-    $endif$
-    $endif$
-    \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
-    $endif$
-    $endif$
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+$endif$
 
-    $if(biblatex)$
-    \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-    $endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
 
-    $for(include-after)$
-    $include-after$
-    $endfor$
+$for(include-after)$
+$include-after$
+$endfor$
 \end{document}
