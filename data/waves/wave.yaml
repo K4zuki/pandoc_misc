@@ -1,6 +1,0 @@
-signal:
-  - name: "CS"
-    phase: 0.5
-    wave: "0P......."
-  - # no name
-    wave: "1N......."

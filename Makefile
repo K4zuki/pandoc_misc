@@ -1,7 +1,7 @@
 ifeq ($(OS),Windows_NT)
 HOME = C:/Users/$(USERNAME)
 endif
-PANSTYLES= $(HOME)/.pandoc
+PANSTYLES= /usr/local/var
 MISC= $(PANSTYLES)/pandoc_misc
 
 ifeq ($(PROJECT),)
@@ -30,27 +30,6 @@ REQ += 'rsvg-convert(via librsvg)'
 REQ += '\033[0m'
 REQ += 'to convert SVG to PNG\n\033[0m'
 
-CSV:= $(shell cd $(DATADIR); ls *.csv)
-TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.table.md)
-
-WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
-### https://gist.github.com/noahcoad/51934724e0896184a2340217b383af73
-PYWAVEOPTS:= -c
-PYWAVEOPTS += 'import sys, yaml, json, io;\
-						sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"); \
-						json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'
-
-WAVEJSON:= $(WAVEYAML:%.yaml=$(TARGETDIR)/%.wavejson)
-WAVEPNG:= $(WAVEYAML:%.yaml=$(IMAGEDIR)/$(WAVEDIR)/%.png)
-
-BITYAML:= $(shell cd $(DATADIR)/$(BITDIR); ls *.yaml)
-BITJSON:= $(BITYAML:%.yaml=$(TARGETDIR)/%.bitjson)
-BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
-BIT16YAML:= $(shell cd $(DATADIR)/$(BIT16DIR); ls *.yaml)
-BIT16JSON:= $(BIT16YAML:%.yaml=$(TARGETDIR)/%.bit16json)
-BIT16PNG:=  $(BIT16YAML:%.yaml=$(IMAGEDIR)/$(BIT16DIR)/%.png)
-# rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
-
 FILTERED:= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
@@ -64,13 +43,16 @@ all: html
 help:
 	@echo $(REQ)"\033[0m"
 
-docx: $(DOCX)
-$(DOCX): $(FILTERED)
-	$(PANDOC) $(PANFLAGS) $(PANDOCXFFLAGS) $(FILTERED) -o $(DOCX); \
-	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
+docx: coreprop
 
-html: $(HTML)
-$(HTML): $(TARGETDIR)/$(INPUT)
+coreprop: $(DOCX)
+	$(DOCXPWRTR) -I $(MDDIR)/$(CONFIG) $(COREPROPFLAGS) -O $(DOCX)
+
+$(DOCX): $(FILTERED)
+	$(PANDOC) $(PANFLAGS) $(PANDOCXFLAGS) --reference-doc=$(REFERENCE) $(FILTERED) -o $(DOCX)
+
+html: $(HTML) $(MDDIR)/$(CONFIG)
+$(HTML): $(FILTERED) $(TARGETDIR)/$(INPUT) $(MDDIR)/$(CONFIG)
 	$(PANDOC) $(PANFLAGS) $(PANHTMLFLAGS) $(FILTERED) -o $(HTML)
 
 pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR) $(TARGETDIR)/$(TARGET).tex
@@ -89,77 +71,34 @@ $(TARGETDIR)/$(IMAGINEDIR):
 	ln -s ../$(IMAGINEDIR)
 
 tex: $(TARGETDIR)/$(TARGET).tex
-$(TARGETDIR)/$(TARGET).tex: $(FILTERED)
+$(TARGETDIR)/$(TEXTEMPLATE_EXTRA): $(MISC)/$(TEXTEMPLATE_EXTRA) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+$(TARGETDIR)/$(TEXTEMPLATE_COVER): $(MISC)/$(TEXTEMPLATE_COVER) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+$(TARGETDIR)/$(TEXTEMPLATE_TAIL): $(MISC)/$(TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+$(TARGETDIR)/$(TARGET).tex: $(FILTERED) $(MDDIR)/$(CONFIG) $(TARGETDIR)/$(TEXTEMPLATE_EXTRA) $(TARGETDIR)/$(TEXTEMPLATE_COVER) $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
 	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) \
 		$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
 
-# merge: filtered $(TARGETDIR)/$(TARGET).md
-# $(TARGETDIR)/$(TARGET).md: $(FILTERED)
-# 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
-
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG) $(MFILTDIR) $(TABLES)
-ifneq ($(OS),Windows_NT)
-	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
-else
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN)
 	$(GPP) $(GPPFLAGS) $< > $@
-endif
-
-tables: $(TABLES)
-	@echo $(TABLES)
-$(TARGETDIR)/%.table.md: $(DATADIR)/%.csv
-	$(CSV2TABLE) $< $@
-
-wavedrom: $(WAVEDIR) $(WAVEPNG)
-$(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
-	phantomjs $(WAVEDROM) -i $< -p $@
-
-bitfield: $(BITDIR) $(BITPNG) $(BIT16PNG)
-$(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
-	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
-	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
-ifneq ($(OS),Windows_NT)
-	$(RSVG) $<.svg --format=png --output=$@
-else
-	$(RSVG) $<.svg --output $@
-endif
-
-$(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
-	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 16 \
-	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
-ifneq ($(OS),Windows_NT)
-	$(RSVG) $<.svg --format=png --output=$@
-else
-	$(RSVG) $<.svg --output $@
-endif
-
-yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON) $(BIT16JSON)
-$(TARGETDIR)/%.wavejson: $(DATADIR)/$(WAVEDIR)/%.yaml
-	if [ ! -e $(IMAGEDIR)/$(WAVEDIR) ]; then mkdir -p $(IMAGEDIR)/$(WAVEDIR); fi
-	$(PYTHON) $(PYWAVEOPTS) < $< > $@
-
-$(TARGETDIR)/%.bitjson: $(DATADIR)/$(BITDIR)/%.yaml
-	if [ ! -e $(IMAGEDIR)/$(BITDIR) ]; then mkdir -p $(IMAGEDIR)/$(BITDIR); fi
-	$(PYTHON) $(PYWAVEOPTS) < $< > $@
-
-$(TARGETDIR)/%.bit16json: $(DATADIR)/$(BIT16DIR)/%.yaml
-	if [ ! -e $(IMAGEDIR)/$(BIT16DIR) ]; then mkdir -p $(IMAGEDIR)/$(BIT16DIR); fi
-	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
 initdir:
 	mkdir -p $(PREFIX)/
+	mkdir -p $(PREFIX)/$(CIDIR)
 	mkdir -p $(PREFIX)/$(TARGETDIR)
 	mkdir -p $(PREFIX)/$(DATADIR)
 	mkdir -p $(PREFIX)/$(MDDIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(WAVEDIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(BITDIR)
-	mkdir -p $(PREFIX)/$(DATADIR)/$(BIT16DIR)
+	mkdir -p $(PREFIX)/$(SVGDIR)
 
 init: initdir
 	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
 	cp -i $(MISC)/config.txt $(PREFIX)/$(MDDIR)/$(CONFIG)
-	cp -i $(MISC)/.gitignore $(PREFIX)/.gitignore
+	cp -i $(MISC)/gitignore.txt $(PREFIX)/.gitignore
+	cp -i $(MISC)/circleci.yml $(PREFIX)/$(CIDIR)/config.yml
 	touch $(PREFIX)/$(MDDIR)/$(INPUT)
 
 $(TARGETDIR):
@@ -170,18 +109,9 @@ $(MDDIR):
 	mkdir -p $(MDDIR)
 $(IMAGEDIR):
 	mkdir -p $(IMAGEDIR)
-$(WAVEDIR):
-	mkdir -p $(IMAGEDIR)/$(WAVEDIR)
-$(BITDIR):
-	mkdir -p $(IMAGEDIR)/$(BITDIR)
-$(BIT16DIR):
-	mkdir -p $(IMAGEDIR)/$(BIT16DIR)
-$(MFILTDIR):
-	mkdir -p $(IMAGEDIR)/$(MFILTDIR)
+$(SVGDIR):
+	mkdir -p $(SVGDIR)
 
-clean: $(TARGETDIR)
+clean: $(TARGETDIR) $(SVGDIR)
 	rm -rf $(TARGETDIR)/*
-	rm -rf $(IMAGEDIR)/$(WAVEDIR)/
-	rm -rf $(IMAGEDIR)/$(BITDIR)/
-	rm -rf $(IMAGEDIR)/$(BIT16DIR)/
-	rm -rf $(IMAGEDIR)/$(MFILTDIR)/
+	rm -rf $(SVGDIR)/*

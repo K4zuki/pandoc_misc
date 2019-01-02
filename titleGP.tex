@@ -1,0 +1,39 @@
+$if(title)$
+\begingroup
+
+\centering % Center all text
+\vspace*{\baselineskip} % White space at the top of the page
+
+\rule{\textwidth}{1.6pt}\vspace*{-0.5\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[\baselineskip] % Thin horizontal line
+
+{\huge $title$} \leavevmode\\[0.2\baselineskip] % Title
+
+\rule{\textwidth}{0.4pt}\vspace*{-0.5\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+
+\scshape % Small caps
+$if(abstract)$
+{\Large $abstract$}
+$endif$
+\vspace*{2\baselineskip} % Whitespace between location/year and editors
+
+{\large Edited by}  \leavevmode\\[\baselineskip]
+{\Large $circle$ / $author$} % Editor list
+%{\itshape The University of California \\ Berkeley\par} % Editor affiliation
+
+$if(front)$
+\vfill % Whitespace between editor names and publisher logo
+\includegraphics[width=\textwidth,height=\paperheight-20mm,keepaspectratio]{$front$}
+$endif$
+\vfill* % Whitespace between editor names and publisher logo
+
+%\plogo  \leavevmode\\[0.3\baselineskip] % Publisher logo
+{\scshape }{\large $year$} \\[0.3\baselineskip] % Year published
+%{\large THE PUBLISHER}\par % Publisher
+
+\thispagestyle{empty}
+\blankpage
+\afterpage{\blankpage}
+\endgroup
+$endif$

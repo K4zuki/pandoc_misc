@@ -23,9 +23,9 @@ class MyParser(object):
 
     def __init__(self):
         self._parser = argparse.ArgumentParser(description="")
-        self._parser.add_argument('--infile', '-I', help='markdown input',
+        self._parser.add_argument("--infile", "-I", help="markdown input",
                                   default="document.md")
-        self._parser.add_argument('--outfile', '-O', help='docx output',
+        self._parser.add_argument("--outfile", "-O", help="docx output",
                                   default="document.docx")
         self.args = self._parser.parse_args(namespace=self)
 
@@ -41,15 +41,15 @@ data = yaml.load(_yaml)
 
 docu = docx.Document(_outfile)
 """this does not work
-keys = ['reporter',
-        'dnumber',
-        'project',
-        'rep_date',
-        'revision',
-        'author',
-        'title',
-        'version',
-        'created']
+keys = ["reporter",
+        "dnumber",
+        "project",
+        "rep_date",
+        "revision",
+        "author",
+        "title",
+        "version",
+        "created"]
 
 properties = [docu.core_properties.comments,  # reporter
               docu.core_properties.keywords,  # dnumber
@@ -65,26 +65,26 @@ for prop, key in zip(properties, keys):
     if key in data:
         prop = data[key]
         print(key)
-docu.core_properties.revision = int(data['revision']) if 'revision' in data else 1
+docu.core_properties.revision = int(data["revision"]) if "revision" in data else 1
 """
 """this work"""
-if 'reporter' in data:
-    docu.core_properties.comments = data['reporter']
-if 'dnumber' in data:
-    docu.core_properties.keywords = data['dnumber']
-if 'project' in data:
-    docu.core_properties.category = data['project']
-if 'rep_date' in data:
-    docu.core_properties.subject = data['rep_date']
-if 'revision' in data:
-    docu.core_properties.content_status = data['revision']
-if 'author' in data:
-    docu.core_properties.author = data['author']
-if 'title' in data:
-    docu.core_properties.title = data['title']
-if 'version' in data:
-    docu.core_properties.version = data['version']
-if 'created' in data:
-    docu.core_properties.created = data['created']
+if "reporter" in data:
+    docu.core_properties.comments = data["reporter"]
+if "dnumber" in data:
+    docu.core_properties.keywords = data["dnumber"]
+if "project" in data:
+    docu.core_properties.category = data["project"]
+if "rep_date" in data:
+    docu.core_properties.subject = data["rep_date"]
+if "revision" in data:
+    docu.core_properties.content_status = data["revision"]
+if "author" in data:
+    docu.core_properties.author = data["author"]
+if "title" in data:
+    docu.core_properties.title = data["title"]
+if "version" in data:
+    docu.core_properties.version = data["version"]
+if "created" in data:
+    docu.core_properties.created = data["created"]
 
 docu.save(_outfile)
