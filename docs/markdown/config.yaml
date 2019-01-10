@@ -28,4 +28,5 @@ docx_coreprop:
   paragraph:
     "Normal": "Body Text"
     "First Paragraph": "Body Text"
+    "Compact": "Bullet List 1"
 ...
