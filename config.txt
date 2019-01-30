@@ -23,6 +23,10 @@ heading-unnumbered:
   3: "Heading Unnumbered 3"
   4: "Heading Unnumbered 4"
 
+bullet-style:
+  1: "Bullet List 1"
+  2: "Bullet List 2"
+
 image-div-style: "Image Caption"
 
 docx_coreprop:
