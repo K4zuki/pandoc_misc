@@ -27,6 +27,10 @@ bullet-style:
   1: "Bullet List 1"
   2: "Bullet List 2"
 
+numbered-bullets:
+  1: "Number Bullet"
+  2: "Number Bullet 2"
+
 image-div-style: "Image Caption"
 
 docx_coreprop:
