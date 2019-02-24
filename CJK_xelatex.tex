@@ -78,7 +78,10 @@ $endif$
 }
 
 $if(mainfont)$
-\setmainfont{$mainfont$}
+\setmainfont[AutoFakeSlant=0.2,
+SlantedFeatures={FakeSlant=0.2},
+BoldItalicFeatures={FakeSlant=0.2},
+BoldSlantedFeatures={FakeSlant=0.2}]{$mainfont$}
 $else$
 \setmainfont{Times New Roman}
 $endif$
@@ -98,7 +101,7 @@ $if(mathfont)$
 $endif$
 
 $if(CJKmainfont)$
-\usepackage{xeCJK}
+\usepackage[AutoFakeSlant,AutoFakeBold]{xeCJK}
 \setCJKmainfont[$localfontdir$,$CJKoptions$]{$CJKmainfont$}
 \setCJKsansfont[$localfontdir$,$CJKoptions$]{$CJKsansfont$}
 \setCJKmonofont[Scale=0.9,$localfontdir$,$CJKoptions$]{$CJKmonofont$}
