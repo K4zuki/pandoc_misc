@@ -14,6 +14,7 @@ IMAGINE = pandoc-imagine
 CSV2TABLE= csv2table
 FONTDIR = "ExternalLocation = /usr/local/share/fonts/"
 GPP = /usr/bin/gpp
+PCPP = pcpp
 endif
 
 PANDOC= pandoc
@@ -87,6 +88,11 @@ GPPFLAGS = -H +c "<!--" "-->"
 GPPFLAGS += -I$(MDDIR)
 GPPFLAGS += -I$(DATADIR)
 GPPFLAGS += -I$(TARGETDIR)
+
+### PCPP flags
+PCPPFLAGS = --line-directive
+PCPPFLAGS += --passthru-unfound-includes
+PCPPFLAGS += --passthru-comments
 
 ###  default directories set; otherwise images/ directory cleaned by make-clean
 MDDIR:= markdown

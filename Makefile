@@ -83,7 +83,7 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED) $(MDDIR)/$(CONFIG) $(TARGETDIR)/$(TEXTEM
 
 filtered: $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN)
-	$(GPP) $(GPPFLAGS) $< > $@
+	$(PCPP) $(PCPPFLAGS) $< -o $@
 
 initdir:
 	mkdir -p $(PREFIX)/
