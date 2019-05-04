@@ -590,12 +590,13 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 [^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
 \newpage
+
 \Startlandscape
 
 [ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
 ```{.plantuml im_out="img" caption="PlantUML x ditaa x imagine"}
-<#include "ditaa.puml">
+#include "ditaa.puml"
 ```
 
 \Stoplandscape

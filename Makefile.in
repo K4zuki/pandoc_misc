@@ -93,7 +93,9 @@ GPPFLAGS += -I$(TARGETDIR)
 PCPPFLAGS = --line-directive
 PCPPFLAGS += --passthru-unfound-includes
 PCPPFLAGS += --passthru-comments
-PCPPFLAGS += -I.
+PCPPFLAGS += -I$(MDDIR)
+PCPPFLAGS += -I$(DATADIR)
+PCPPFLAGS += -I$(TARGETDIR)
 
 ###  default directories set; otherwise images/ directory cleaned by make-clean
 MDDIR:= markdown
