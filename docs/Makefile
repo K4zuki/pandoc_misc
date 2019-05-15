@@ -15,5 +15,6 @@ PROJECT= `pwd`
 # CONFIG:= config.yaml
 # INPUT:= TITLE.md
 # TARGET:= TARGET
+# REVERSE_INPUT:= reverse-input.docx
 ##
 include $(MISC)/Makefile

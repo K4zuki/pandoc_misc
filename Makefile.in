@@ -70,9 +70,6 @@ PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
 PANFLAGS += $(MISC)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
-###  for debug  ###
-# PANFLAGS += --filter=$(MISC)/panflute/rotate.py
-### ### ### ### ###
 
 PANDOCXFLAGS = -M linkReferences=true
 
@@ -81,6 +78,13 @@ PANHTMLFLAGS += --toc
 PANHTMLFLAGS += --template=$(MISC)/github.html
 PANHTMLFLAGS += -M css=$(MISC)/github_css/github.css
 PANHTMLFLAGS += -M date=$(DATE)
+
+PANREVERSEDOCX = -f docx-styles
+PANREVERSEDOCX += -t markdown-simple_tables-multiline_tables+grid_tables+pipe_tables
+PANREVERSEDOCX += --filter=pantable2csv
+PANREVERSEDOCX += --extract-media=$(IMAGEDIR)
+PANREVERSEDOCX += --wrap=preserve
+PANREVERSEDOCX += --atx-headers
 
 ### GPP flags
 GPPFLAGS = -H +c "<!--" "-->"
@@ -101,4 +105,5 @@ COREPROPFLAGS := -M created=$(DATE)
 ### default source and target file names
 CONFIG:= config.yaml
 INPUT:= TITLE.md
+REVERSE_INPUT:= reverse-input.docx
 TARGET:= TARGET-$(DATE)-$(HASH)
