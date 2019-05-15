@@ -15,6 +15,7 @@ PROJECT= `pwd`
 # CONFIG:= config.yaml
 # INPUT:= TITLE.md
 # TARGET:= TARGET-$(DATE)-$(HASH)
+# REVERSE_INPUT:= reverse-input.docx
 # REFERENCE:= $(MISC)/ref.docx
 # COREPROPFLAGS := --table "Normal Table=Centered"
 # COREPROPFLAGS += --paragraph "Normal=Body Text"
