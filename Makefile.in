@@ -25,6 +25,7 @@ BITFIELD:= bitfield
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= docx-coreprop-writer
 IMAGINEDIR:= pd-images
+LUA_FILTER_BASE = /usr/local/share/lua/5.3/pandocker
 
 TEXTEMPLATE := $(MISC)/CJK_xelatex.tex
 TEXTEMPLATE_EXTRA := preamble_after.tex
@@ -48,11 +49,15 @@ HASH= '$(shell git rev-parse --short HEAD)'
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/default_loader.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/preprocess.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-unnumberedheadings.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/listingtable.lua
 PANFLAGS += --filter=pandocker-rmnote
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=pandocker-aafigure
 PANFLAGS += --filter=pandocker-bitfield
-PANFLAGS += --filter=pandocker-listingtable
+#PANFLAGS += --filter=pandocker-listingtable
 PANFLAGS += --filter=pandocker-blockdiag-filters
 PANFLAGS += --filter=pandoc-svgbob-filter
 PANFLAGS += --filter=pandocker-filters
