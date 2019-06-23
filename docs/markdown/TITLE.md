@@ -400,15 +400,17 @@ width:
 ```
 
 \newpage
+
 ### ソースコードを引用する {#sec:listingtable}
+
 ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ[^listingtable-yaml][^listingtable-inline]
 を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref] [^pandoc-crossref-ref]
 との組み合わせ運用を前提にしています)。
 
 [^listingtable-yaml]: pandoc_misc/panflute/ListingTable.py
 [^listingtable-inline]: pandoc_misc/panflute/listingtable-inline.py
-[^pandoc-crossref]: https://github.com/lierdakil/pandoc-crossref
-[^pandoc-crossref-ref]: http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref
+[^pandoc-crossref]: <https://github.com/lierdakil/pandoc-crossref>
+[^pandoc-crossref-ref]: <http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref>
 
 ```table
 ---
@@ -436,12 +438,15 @@ tex: True
 `````
 
 ### ページを横長にする {#sec:landscape}
+
 PDF出力の場合のみ適用されますが、横に長い表・ソースコードなどを引用するときに、
 ページを横に長く使う（ランドスケープ）設定にできます。`\Begin{landscape}`と`\End{landscape}`
 に挟まれた部分が90度回転してレンダリングされます。いまお読みいただいているものがPDF版であれば @lst:ditaa-sample を参照ください。
 
 \newpage
+
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
+
 bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
 レジスタマップ風SVGに描画するJSライブラリです。
 
@@ -489,6 +494,7 @@ alignment: DCCD
 \newpage
 
 #### 記述例 - ブロック形式
+
 ~~~~~markdown
 ```bitfield
 # input: data/bitfields/bit.yaml
@@ -511,11 +517,13 @@ caption: _**block bitfield sample**_
 ~~~~~
 
 #### インライン形式 {.unnumbered}
+
 ```markdown
 ![**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 ```
 
 #### 変換結果 - ブロック形式
+
 ```bitfield
 # input: data/bitfields/bit.yaml
 caption: _**block bitfield sample**_
@@ -549,6 +557,7 @@ WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSラ
 [inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 
 \newpage
+
 ### その他各種レンダラを使う {#sec:pandoc-imagine}
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
@@ -563,7 +572,7 @@ Imagineフィルタ[^imagine-filter]を使えばコードブロックから
 [^imagine-png-only-issue]: https://github.com/hertogp/imagine/issues/1
 [^plantuml-reference]: https://qiita.com/mitsugu/items/014e13ca0696c7c53d4c
 
-```{.plantuml im_out="fcb,img" caption="PlantUML sample"}
+```{.plantuml im_out="fcb,img" im_fmt='svg' caption="PlantUML sample"}
 @startuml
 skinparam monochrome true
 skinparam defaultFontName Ricty Diminished
@@ -584,9 +593,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 
 [ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
-```{.plantuml im_out="img" caption="PlantUML x ditaa x imagine"}
-<#include "ditaa.puml">
-```
+[](data/ditaa.puml){.listingtable .plantuml #fig:ditaa-sample im_out="img" im_fmt='png' caption="PlantUML x ditaa x imagine"}
 
 \Stoplandscape
 
