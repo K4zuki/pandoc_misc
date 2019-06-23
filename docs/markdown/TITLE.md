@@ -1,8 +1,8 @@
-\\newpage
+\newpage
 
-\\newpage
+\newpage
 
-\\toc
+\toc
 
 # まえがき {.unnumbered}
 このドキュメントは、筆者が本を書くために構築したオレオレMarkdown-PDF変換環境
@@ -242,7 +242,7 @@ markdown: True
 `BIT16DIR`,ディレクトリ,16ビット幅Bitfieldファイルの置き場所,`bitfield16/`
 ```
 
-\\newpage
+\newpage
 #### Pandocオプションの設定(config.yaml) {.unnumbered}
 Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAMLファイルから
 コンパイルオプションを取得します。これらの値は表紙絵と奥付に使用されます
@@ -268,7 +268,7 @@ width:
 `front`,表紙画像ファイル名,`images/front-image.png`
 ```
 
-\\newpage
+\newpage
 ## 原稿リポジトリをコンパイル
 ここでいったんコンパイルできるかどうか試してみましょう。`TITLE.md`の中身が空でも
 コンパイルすることはできます。コンパイルする前に`Makefile`/`config.yaml`と
@@ -292,9 +292,9 @@ width:
 コマンド,効果,成果物
 `make html`,HTMLファイル生成,`$(TARGETDIR)/$(TARGET).html`
 `make pdf`,PDFファイル生成,`$(TARGETDIR)/$(TARGET).pdf`
-`make clean`,成果物を全部消去,"`rm -rf $(TARGETDIR)/*`\\
-`rm -rf $(IMAGEDIR)/$(WAVEDIR)/`\\
-`rm -rf $(IMAGEDIR)/$(BITDIR)/`\\
+`make clean`,成果物を全部消去,"`rm -rf $(TARGETDIR)/*`\
+`rm -rf $(IMAGEDIR)/$(WAVEDIR)/`\
+`rm -rf $(IMAGEDIR)/$(BITDIR)/`\
 `rm -rf $(IMAGEDIR)/$(BIT16DIR)/`
 "
 ```
@@ -310,7 +310,7 @@ width:
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _強制的に_ ナンバリングされます。
 _**バグっぽいんだけどどうなんですかね**_。そこまで深く章分けする人あまりいないんですかね。
 
-\\newpage
+\newpage
 ```markdown
 # 深さ1：章番号なし {.unnumbered}
 ## 深さ2：章番号なし {.unnumbered}
@@ -326,10 +326,10 @@ C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃i
 と記述します。該当部分は指定されたファイルに置き換えられます(入れ子になっていても機能します)。
 
 GPPの良くないところは
-**バックスラッシュ`\\`(または半角の`￥`)が1つだけ使われていると強制的に消されてしまうことです。**
+**バックスラッシュ`\`(または半角の`￥`)が1つだけ使われていると強制的に消されてしまうことです。**
 _このドキュメントの原稿も2個重ねてあります。_
 
-\\newpage
+\newpage
 ### 表を書く・引用する {#sec:pantable}
 表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
 コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
@@ -374,7 +374,7 @@ width:
 ```
 ~~~~~
 
-\\newpage
+\newpage
 #### CSVファイルの中身 {.unnumbered}
 ```listingtable
 source: data/table.csv
@@ -399,7 +399,7 @@ width:
 ---
 ```
 
-\\newpage
+\newpage
 ### ソースコードを引用する {#sec:listingtable}
 ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ[^listingtable-yaml][^listingtable-inline]
 を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref] [^pandoc-crossref-ref]
@@ -437,10 +437,10 @@ tex: True
 
 ### ページを横長にする {#sec:landscape}
 PDF出力の場合のみ適用されますが、横に長い表・ソースコードなどを引用するときに、
-ページを横に長く使う（ランドスケープ）設定にできます。`\\Begin{landscape}`と`\\End{landscape}`
+ページを横に長く使う（ランドスケープ）設定にできます。`\Begin{landscape}`と`\End{landscape}`
 に挟まれた部分が90度回転してレンダリングされます。いまお読みいただいているものがPDF版であれば @lst:ditaa-sample を参照ください。
 
-\\newpage
+\newpage
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
 bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
 レジスタマップ風SVGに描画するJSライブラリです。
@@ -486,7 +486,7 @@ alignment: DCCD
 `attr`,Y,,画像幅などの指定
 ```
 (*) インライン形式のときはタイトルなしにできる
-\\newpage
+\newpage
 
 #### 記述例 - ブロック形式
 ~~~~~markdown
@@ -537,7 +537,7 @@ caption: _**block bitfield sample**_
 #### インライン形式 {.unnumbered}
 [**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 
-\\newpage
+\newpage
 ### WaveDromロジック波形を描く・挿入する {#sec:wavedrom}
 
 WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSライブラリです。
@@ -548,7 +548,7 @@ WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSラ
 ~~~
 [inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 
-\\newpage
+\newpage
 ### その他各種レンダラを使う {#sec:pandoc-imagine}
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
@@ -579,8 +579,8 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 
 [^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
-\\newpage
-\\Startlandscape
+\newpage
+\Startlandscape
 
 [ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
@@ -588,9 +588,9 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 <#include "ditaa.puml">
 ```
 
-\\Stoplandscape
+\Stoplandscape
 
-\\newpage
+\newpage
 ### 画像を回転する
 シンプルな画像回転フィルタです。wavedromとbitfieldとの組み合わせ、拡大縮小も可能です。
 wavedrom/bitfieldと組み合わせた場合はSVG/PDF画像の回転を試みます。~~たまにSVGの回転がイマイチになります。~~
