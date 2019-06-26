@@ -1,7 +1,7 @@
 ifeq ($(OS),Windows_NT)
 HOME = C:/Users/$(USERNAME)
 endif
-PANSTYLES= /usr/local/var
+PANSTYLES= $(shell get-pip-base)/var
 MISC= $(PANSTYLES)/pandoc_misc
 
 ifeq ($(PROJECT),)
