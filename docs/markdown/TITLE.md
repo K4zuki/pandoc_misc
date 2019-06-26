@@ -1,10 +1,11 @@
-\\newpage
+\newpage
 
-\\newpage
+\newpage
 
-\\toc
+\toc
 
 # まえがき {.unnumbered}
+
 このドキュメントは、筆者が本を書くために構築したオレオレMarkdown-PDF変換環境
 を解説するための本です。^[このドキュメント自身もその環境で出力されました。よくあることですね]
 
@@ -16,6 +17,7 @@ Windows10とWSL上のUbuntuであればUbuntu16.04のやり方がうまくいっ
 ので検証が進まず、あまり良いアドバイスができません。ごめんなさい。
 
 ## 背景というか {-}
+
 2x歳になってはじめてコミケにサークル参加してみた。本を書かねばならなくなった（？）。ネタはあった。
 
 楽な開発（？）方法をネットで探したらGitBookというのが良さそうだった^[ここで初めてMarkdownを使いだした]。
@@ -27,6 +29,7 @@ Pandoc=ｻﾝはたしかに神だったけどオプションも大量にあっ�
 そこでみんな大好き^[個人の意見です]GNU Makeを使うことにした。
 
 ## 何が変換されて何が出力されるの？ {.unnumbered}
+
 Markdown原稿がGNU Make x Pandocという*グレイトな*アプリケーションの*ファンタスティックな*コンビネーションによって
 *HTML*、*TeX*または/および*PDF*に変換されます。
 
@@ -60,26 +63,33 @@ Windowsはこのあたりが非常にめんどいのでMacまたはUbuntuの使�
 [^pandoc-localize]: マニュアルを日本語化している有志の方がいますね
 
 # 環境構築する
+
 やることはいっぱいあります。~~やっぱりDockerイメージ欲しいな()~~
 
 ## インストールそしてインストールそれからインストール
+
 インストールしまくります。
 
 ### パッケージ管理ツールのインストール
+
 #### Homebrew(Mac) - https://brew.sh/index_ja.html
 
 全てに先んじてHomebrewのインストールをします。
+
 ```sh
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
+
 Ubuntuユーザはaptがほぼ全てやってくれるので特別にインストールするものはありません
 
 ### 言語のインストール
+
 主に４言語使います - **Haskell・Python _３_・NodeJS・LaTeXです**。
 HaskellはPandocとpandoc-crossrefフィルタのインストールで必要です。NodeJSはフィルタと画像生成、
 Pythonはフィルタとシェルスクリプトの代わり、そしてLaTeXはPDF出力のためです。
 
 #### Mac {.unnumbered}
+
 ```sh
 $ brew install cabal-install
 $ brew install python3
@@ -89,6 +99,7 @@ $ brew cask install mactex
 ```
 
 #### Ubuntu {.unnumbered}
+
 ```sh
 $ sudo apt-get install python3 python3-pip
 $ sudo apt-get install cabal-install
@@ -99,7 +110,9 @@ $ sudo apt-get install texlive-xetex
 参考サイト： https://texwiki.texjp.org
 
 ### 各言語のパッケージのインストール
+
 #### Mac {.unnumbered}
+
 ```sh
 $ cabal install pandoc
 $ pip3 install pyyaml pillow
@@ -118,8 +131,10 @@ $ tlmgr install oberdiek
 <!-- pandoc-crossrefがpandocに依存しているので自動的にインストールされます。 -->
 
 #### Ubuntu {.unnumbered}
+
 aptで入るpandocは1.16でだいぶ古いのでpandocのGitHubサイト^[https://github.com/jgm/pandoc/releases]
 からdebファイルを落としてきます
+
 ```sh
 $ wget -c https://github.com/jgm/pandoc/releases/download/2.0.1.1/pandoc-2.0.1.1-1-amd64.deb
 $ sudo dpkg -i pandoc-2.0.1.1-1-amd64.deb
@@ -139,19 +154,27 @@ $ sudo cp BXptool-0.4/bx*.{sty,def} /usr/share/texlive/texmf-dist/tex/latex/BXpt
 $ sudo mktexlsr
 $ tlmgr install oberdiek
 ```
+
 ### ツールのインストール
+
 #### Mac {.unnumbered}
+
 ```sh
 $ brew install librsvg gpp plantuml wget
 ```
+
 #### Ubuntu {.unnumbered}
+
 ```sh
 $ sudo apt-get install librsvg2-bin gpp
 $ sudo apt-get install graphviz plantuml
 ```
+
 ### フォントのインストール
+
 各リポジトリからアーカイブをダウンロード・解凍してTTFファイル(TrueTypeフォント)を全部、
 ユーザフォントディレクトリにコピーします。
+
 ```sh
 mkdir -p $HOME/.local/share/fonts/
 cd $HOME/.local/share/fonts/
@@ -161,7 +184,9 @@ wget -c https://github.com/mzyy94/RictyDiminished-for-Powerline/archive/3.2.4-po
 ```
 
 ## ダウンロード
+
 ### pandoc_misc
+
 この本の原稿が置かれたリポジトリです。`$(HOME)/.pandoc`にクローンします。
 ```sh
 $ cd ~/.pandoc
@@ -181,20 +206,27 @@ $ make initdir
 ```
 
 # 本を書く
+
 ## 原稿リポジトリの準備
+
 新規に原稿管理用Gitリポジトリを作りましょう。たとえば
 ホームディレクトリ直下のworkspaceディレクトリにMyBookというGitリポジトリを作ります。
+
 ```sh
 $ mkdir -p ~/workspace/MyBook
 $ cd ~/workspace/MyBook
 $ git init
 ```
+
 ここでpandoc_miscディレクトリに戻り、原稿リポジトリにコンパイル環境をコピーします。
+
 ```sh
 $ cd ~/.pandoc/pandoc_misc
 $ make init PREFIX=~/workspace/MyBook
 ```
+
 初期状態では以下のようなディレクトリ構成のはずです。
+
 ```
 ~/workspace/MyBook
 |-- Makefile
@@ -210,10 +242,12 @@ $ make init PREFIX=~/workspace/MyBook
 ```
 
 ## 原稿リポジトリの調整
+
 原稿のファイル名・置き場所・ディレクトリ構成は自由に配置してください。日本語ファイル名は
 問題ないと思います^[推奨しません]が、スペースを入れるのは避けるべきです。
 
 #### ファイル名・ディレクトリ名の設定(Makefile) {.unnumbered}
+
 タイトルファイル名、ディレクトリ名を変更した場合は、そのことをビルドスクリプトに知らせる必要があります。
 ビルドスクリプトはタイトルページのファイル名と各種ディレクトリ名をMakefileから取得します。
 ディレクトリ名はすべてMakefileが置かれたディレクトリからの相対パスです。
@@ -242,8 +276,10 @@ markdown: True
 `BIT16DIR`,ディレクトリ,16ビット幅Bitfieldファイルの置き場所,`bitfield16/`
 ```
 
-\\newpage
+\newpage
+
 #### Pandocオプションの設定(config.yaml) {.unnumbered}
+
 Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAMLファイルから
 コンパイルオプションを取得します。これらの値は表紙絵と奥付に使用されます
 ```table
@@ -268,18 +304,22 @@ width:
 `front`,表紙画像ファイル名,`images/front-image.png`
 ```
 
-\\newpage
+\newpage
+
 ## 原稿リポジトリをコンパイル
+
 ここでいったんコンパイルできるかどうか試してみましょう。`TITLE.md`の中身が空でも
 コンパイルすることはできます。コンパイルする前に`Makefile`/`config.yaml`と
 原稿一式をリポジトリに登録して最初のコミットをします。
+
 ```sh
 $ git add .
 $ git commit -m"initial commit"
 ```
+
 この状態で`make html`とすると`Out/TARGET.html`というファイルができあがるはずです。
 以下に代表的なコマンドの一覧を載せます。
-<!--  -->
+
 ```table
 ---
 caption: コンパイル方法
@@ -292,9 +332,9 @@ width:
 コマンド,効果,成果物
 `make html`,HTMLファイル生成,`$(TARGETDIR)/$(TARGET).html`
 `make pdf`,PDFファイル生成,`$(TARGETDIR)/$(TARGET).pdf`
-`make clean`,成果物を全部消去,"`rm -rf $(TARGETDIR)/*`\\
-`rm -rf $(IMAGEDIR)/$(WAVEDIR)/`\\
-`rm -rf $(IMAGEDIR)/$(BITDIR)/`\\
+`make clean`,成果物を全部消去,"`rm -rf $(TARGETDIR)/*`\
+`rm -rf $(IMAGEDIR)/$(WAVEDIR)/`\
+`rm -rf $(IMAGEDIR)/$(BITDIR)/`\
 `rm -rf $(IMAGEDIR)/$(BIT16DIR)/`
 "
 ```
@@ -302,15 +342,16 @@ width:
 `make pdf` を使うとXeLaTeXを使ってPDFに出力します。表紙、目次、本文、奥付けが体裁されたPDFができあがるはずです。
 
 ## 原稿を書く {#sec:pandoc}
+
 これでとりあえずコンパイルが通るようになったので、実際の原稿を書けるようになりました。
 **~~デファクトスタンダードこと~~**Pandoc式Markdown記法に則って書いていきます。
 
 ### ヘッダの書き方
+
 デフォルトの`config.yaml`では章番号がつく設定で、例外的に消すこともできます。
 例外が適用できるのは深さ４までの章番号に限られ、深さ５より深いものは _強制的に_ ナンバリングされます。
 _**バグっぽいんだけどどうなんですかね**_。そこまで深く章分けする人あまりいないんですかね。
 
-\\newpage
 ```markdown
 # 深さ1：章番号なし {.unnumbered}
 ## 深さ2：章番号なし {.unnumbered}
@@ -320,22 +361,26 @@ _**バグっぽいんだけどどうなんですかね**_。そこまで深く�
 ```
 
 ### 原稿を連結する {#sec:gpp}
+
 原稿の連結にはGeneric Preprocessor^[https://github.com/logological/gpp]を使います。
 C言語で`＃include "stdio.h"`などと記述するアレです。
 C言語風そのままだとヘッダと間違われるのでHTML風に&lt;`＃include "ファイル名"`&gt;
 と記述します。該当部分は指定されたファイルに置き換えられます(入れ子になっていても機能します)。
 
 GPPの良くないところは
-**バックスラッシュ`\\`(または半角の`￥`)が1つだけ使われていると強制的に消されてしまうことです。**
+**バックスラッシュ`\`(または半角の`￥`)が1つだけ使われていると強制的に消されてしまうことです。**
 _このドキュメントの原稿も2個重ねてあります。_
 
-\\newpage
+\newpage
+
 ### 表を書く・引用する {#sec:pantable}
+
 表の引用とレンダリングにはpantableフィルタ^[https://github.com/ickc/pantable]を使います。
 コードブロックに直接CSVを書くか、`include: ファイル名`でファイル名を指定します。
 タイトルの有無やCSVセルの内容をMarkdownとして解釈するかどうか
 を選択するオプションがあります。１セルが複数行に渡る表も書けます。
 `include`でファイルを指定しているときは直接記述部分は無視されます。
+
 ```table
 ---
 caption: pantableフィルタオプション（抜粋）
@@ -357,6 +402,7 @@ width:
 ```
 
 #### 記述例 {.unnumbered}
+
 ~~~~~markdown
 ```table
 ---
@@ -374,8 +420,10 @@ width:
 ```
 ~~~~~
 
-\\newpage
+\newpage
+
 #### CSVファイルの中身 {.unnumbered}
+
 ```listingtable
 source: data/table.csv
 class: csv
@@ -384,6 +432,7 @@ tex: True
 ```
 
 #### 変換結果 {.unnumbered}
+
 ```table
 ---
 caption: '*Awesome* **Markdown** Table'
@@ -399,8 +448,10 @@ width:
 ---
 ```
 
-\\newpage
+\newpage
+
 ### ソースコードを引用する {#sec:listingtable}
+
 ソースコードの引用とレンダリングにはPythonで組んだ自作フィルタ[^listingtable-yaml][^listingtable-inline]
 を使います。生成物は自動的にナンバリングされます(`pandoc-crossref`[^pandoc-crossref] [^pandoc-crossref-ref]
 との組み合わせ運用を前提にしています)。
@@ -436,12 +487,15 @@ tex: True
 `````
 
 ### ページを横長にする {#sec:landscape}
+
 PDF出力の場合のみ適用されますが、横に長い表・ソースコードなどを引用するときに、
-ページを横に長く使う（ランドスケープ）設定にできます。`\\Begin{landscape}`と`\\End{landscape}`
+ページを横に長く使う（ランドスケープ）設定にできます。`\Begin{landscape}`と`\End{landscape}`
 に挟まれた部分が90度回転してレンダリングされます。いまお読みいただいているものがPDF版であれば @lst:ditaa-sample を参照ください。
 
-\\newpage
+\newpage
+
 ### ビットフィールド画像を描く・挿入する {#sec:bitfield}
+
 bitfield^[https://github.com/drom/bitfield]はあまり知られていませんがJSONファイルを
 レジスタマップ風SVGに描画するJSライブラリです。
 
@@ -486,9 +540,11 @@ alignment: DCCD
 `attr`,Y,,画像幅などの指定
 ```
 (*) インライン形式のときはタイトルなしにできる
-\\newpage
+
+\newpage
 
 #### 記述例 - ブロック形式
+
 ~~~~~markdown
 ```bitfield
 # input: data/bitfields/bit.yaml
@@ -511,11 +567,13 @@ caption: _**block bitfield sample**_
 ~~~~~
 
 #### インライン形式 {.unnumbered}
+
 ```markdown
 ![**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 ```
 
 #### 変換結果 - ブロック形式
+
 ```bitfield
 # input: data/bitfields/bit.yaml
 caption: _**block bitfield sample**_
@@ -534,10 +592,13 @@ caption: _**block bitfield sample**_
 - bits: 1
   name: CPK
 ```
+
 #### インライン形式 {.unnumbered}
+
 [**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
 
-\\newpage
+\newpage
+
 ### WaveDromロジック波形を描く・挿入する {#sec:wavedrom}
 
 WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSライブラリです。
@@ -546,10 +607,13 @@ WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSラ
 ~~~markdown
 ![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 ~~~
+
 [inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 
-\\newpage
+\newpage
+
 ### その他各種レンダラを使う {#sec:pandoc-imagine}
+
 他にもplantuml、Mermaid、GNU Plotなどの画像レンダラをを仲介するPandocフィルタを使うことができます。
 種類があまりにも多くてPlantUML以外未テストですが、
 Imagineフィルタ[^imagine-filter]を使えばコードブロックから
@@ -579,8 +643,8 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 
 [^plantuml-svg-ditaa]: http://plantuml.sourceforge.net/qa/?qa=231/allow-ditaa-png-export-even-when-svg-is-selected
 
-\\newpage
-\\Startlandscape
+\newpage
+\Startlandscape
 
 [ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
@@ -588,14 +652,17 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 <#include "ditaa.puml">
 ```
 
-\\Stoplandscape
+\Stoplandscape
 
-\\newpage
+\newpage
+
 ### 画像を回転する
+
 シンプルな画像回転フィルタです。wavedromとbitfieldとの組み合わせ、拡大縮小も可能です。
 wavedrom/bitfieldと組み合わせた場合はSVG/PDF画像の回転を試みます。~~たまにSVGの回転がイマイチになります。~~
 _angle_ 指定が正の数で時計回り、負の数は反時計回りです。実際の _angle_ は360で割った余りを用います。
 _angle=365_ なら右に5度回転します。
+
 `````markdown
 ![inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
 
@@ -629,6 +696,8 @@ _angle=365_ なら右に5度回転します。
 </div>
 
 # 更新履歴 {-}
+
 ## Revision1.0（技術書典3） {-}
+
 - 最初の発行。
 - 次の目標はDockerイメージ構築です。インストールが楽になる^[予定である]反面、ﾂﾜﾓﾉ以外受け付けなくなる、かも
