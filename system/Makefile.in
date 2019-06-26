@@ -18,7 +18,8 @@ endif
 
 PANDOC= pandoc
 PCROSSREF = pandoc-crossref
-PANSTYLES= $(shell get-pip-base)/var
+PIPBASE= $(shell get-pip-base)
+PANSTYLES= $(PIPBASE)/var
 MISC= $(PANSTYLES)/pandoc_misc
 BITFIELD:= bitfield
 
