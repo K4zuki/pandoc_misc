@@ -2,8 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import subprocess as sp
+import site
 
-command = "docker run -v $PWD:/workdir k4zuki/pandocker make init -f /usr/local/var/pandoc_misc/Makefile"
+install_base = site.getsitepackages()[0].split("lib")[0][:-1]
+
+COMMAND = "docker run -v $PWD:/workdir k4zuki/pandocker make init -f {}/var/pandoc_misc/Makefile"
+command = COMMAND.format(install_base)
+
+
+def pip_base():
+    print(install_base)
 
 
 def main():

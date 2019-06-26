@@ -1,7 +1,7 @@
 ifeq ($(OS),Windows_NT)
 HOME = C:/Users/$(USERNAME)
 endif
-PANSTYLES= /usr/local/var
+PANSTYLES= $(shell get-pip-base)/var
 MISC= $(PANSTYLES)/pandoc_misc
 include $(MISC)/Makefile.in
 PROJECT= `pwd`
@@ -14,7 +14,10 @@ PROJECT= `pwd`
 
 # CONFIG:= config.yaml
 # INPUT:= TITLE.md
-# TARGET:= TARGET
+# TARGET:= TARGET-$(DATE)-$(HASH)
 # REVERSE_INPUT:= reverse-input.docx
+# REFERENCE:= $(MISC)/ref.docx
+# COREPROPFLAGS := --table "Normal Table=Centered"
+# COREPROPFLAGS += --paragraph "Normal=Body Text"
 ##
 include $(MISC)/Makefile

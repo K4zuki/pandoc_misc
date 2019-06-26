@@ -196,6 +196,7 @@ setup(
     entry_points={  # Optional
         "console_scripts": [
             "pandoc-misc-init=pandoc_misc:main",
+            "get-pip-base=pandoc_misc:pip_base",
         ],
     },
 
