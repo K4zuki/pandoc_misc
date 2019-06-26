@@ -170,20 +170,20 @@ setup(
     #
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
     data_files=[("var/pandoc_misc", [
-        "circleci.yml",
-        "CJK_xelatex.tex",
-        "config.txt",
-        "config.yaml",
-        "github.html",
-        "gitignore.txt",
-        "Makefile",
-        "Makefile.in",
-        "Makefile.txt",
-        "preamble_after.tex",
-        "ref.docx",
-        "tailnote.tex",
-        "titleGP.tex",
-    ]), ("var/pandoc_misc/github_css", ["github_css/github.css"])
+        "system/CJK_xelatex.tex",
+        "system/config.yaml",
+        "system/github.html",
+        "system/Makefile",
+        "system/Makefile.in",
+        "system/preamble_after.tex",
+        "system/ref.docx",
+        "system/tailnote.tex",
+        "system/titleGP.tex",
+        "user/circleci.yml",
+        "user/config.txt",
+        "user/gitignore.txt",
+        "user/Makefile.txt",
+    ]), ("var/pandoc_misc/github_css", ["system/github_css/github.css"])
                 ],  # Optional
 
     # To provide executable scripts, use entry points in preference to the
