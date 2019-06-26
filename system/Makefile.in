@@ -26,7 +26,7 @@ BITFIELD:= bitfield
 FILTER= $(MISC)/include.py
 DOCXPWRTR:= docx-coreprop-writer
 IMAGINEDIR:= pd-images
-LUA_FILTER_BASE = /usr/local/share/lua/5.3/pandocker
+LUA_FILTER_BASE = $(PIPBASE)/share/lua/5.3/pandocker
 
 TEXTEMPLATE := $(MISC)/CJK_xelatex.tex
 TEXTEMPLATE_EXTRA := preamble_after.tex
