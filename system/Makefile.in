@@ -51,6 +51,7 @@ HASH= '$(shell git rev-parse --short HEAD)'
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/default_loader.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-landscape.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/preprocess.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-unnumberedheadings.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/listingtable.lua
@@ -64,7 +65,7 @@ PANFLAGS += --filter=pandoc-svgbob-filter
 PANFLAGS += --filter=pandocker-filters
 PANFLAGS += --filter=$(IMAGINE)
 PANFLAGS += --filter=pandocker-rotateimage
-PANFLAGS += --filter=pandocker-tex-landscape
+#PANFLAGS += --filter=pandocker-tex-landscape
 PANFLAGS += --filter=pandoc-docx-pagebreakpy
 PANFLAGS += --filter=pandoc-docx-utils
 PANFLAGS += --filter=$(PCROSSREF)
