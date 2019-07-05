@@ -183,7 +183,7 @@ setup(
         "system/github_css/github.css"
     ]), ("var/pandoc_misc/user", [
         "user/circleci.yml",
-        "user/config.txt",
+        "user/config.yaml",
         "user/.gitignore",
         "user/Makefile",
     ]),
