@@ -4,7 +4,7 @@ endif
 PIPBASE= $(shell get-pip-base)
 PANSTYLES= $(PIPBASE)/var
 MISC= $(PANSTYLES)/pandoc_misc
-include $(MISC)/Makefile.in
+include $(MISC)/system/Makefile.in
 PROJECT= `pwd`
 
 ## userland: uncomment and replace
@@ -21,4 +21,4 @@ PROJECT= `pwd`
 # COREPROPFLAGS := --table "Normal Table=Centered"
 # COREPROPFLAGS += --paragraph "Normal=Body Text"
 ##
-include $(MISC)/Makefile
+include $(MISC)/system/Makefile

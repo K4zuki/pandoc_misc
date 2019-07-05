@@ -86,7 +86,7 @@ PANDOCXFLAGS = -M linkReferences=true
 
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --toc
-PANHTMLFLAGS += --template=$(MISC)/github.html
+PANHTMLFLAGS += --template=$(MISC)/system/github.html
 PANHTMLFLAGS += -M css=$(MISC)/system/github_css/github.css
 PANHTMLFLAGS += -M date=$(DATE)
 
