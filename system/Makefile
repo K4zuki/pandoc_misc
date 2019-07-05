@@ -6,7 +6,7 @@ PANSTYLES= $(PIPBASE)/var
 MISC= $(PANSTYLES)/pandoc_misc
 
 ifeq ($(PROJECT),)
-include $(MISC)/Makefile.in
+include $(MISC)/system/Makefile.in
 endif
 
 REQ = 'Requirements -\n'
