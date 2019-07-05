@@ -169,7 +169,7 @@ setup(
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files
     #
     # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=[("var/pandoc_misc", [
+    data_files=[("var/pandoc_misc/system", [
         "system/CJK_xelatex.tex",
         "system/config.yaml",
         "system/github.html",
@@ -178,12 +178,15 @@ setup(
         "system/preamble_after.tex",
         "system/ref.docx",
         "system/tailnote.tex",
-        "system/titleGP.tex",
+        "system/titleGP.tex"
+    ]), ("var/pandoc_misc/system/github_css", [
+        "system/github_css/github.css"
+    ]), ("var/pandoc_misc/user", [
         "user/circleci.yml",
         "user/config.txt",
-        "user/gitignore.txt",
-        "user/Makefile.txt",
-    ]), ("var/pandoc_misc/github_css", ["system/github_css/github.css"])
+        "user/.gitignore",
+        "user/Makefile",
+    ]),
                 ],  # Optional
 
     # To provide executable scripts, use entry points in preference to the

@@ -26,10 +26,12 @@ heading-unnumbered:
 bullet-style:
   1: "Bullet List 1"
   2: "Bullet List 2"
+  3: "Bullet List 3"
 
 numbered-bullets:
   1: "Number Bullet"
   2: "Number Bullet 2"
+  3: "Number Bullet 3"
 
 image-div-style: "Image Caption"
 
