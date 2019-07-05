@@ -99,10 +99,10 @@ initdir:
 	mkdir -p $(PREFIX)/$(SVGDIR)
 
 init: initdir
-	cp -i $(MISC)/Makefile.txt $(PREFIX)/Makefile
-	cp -i $(MISC)/config.txt $(PREFIX)/$(MDDIR)/$(CONFIG)
-	cp -i $(MISC)/gitignore.txt $(PREFIX)/.gitignore
-	cp -i $(MISC)/circleci.yml $(PREFIX)/$(CIDIR)/config.yml
+	cp -i $(MISC)/user/Makefile $(PREFIX)/Makefile
+	cp -i $(MISC)/user/config.yaml $(PREFIX)/$(MDDIR)/$(CONFIG)
+	cp -i $(MISC)/user/.gitignore $(PREFIX)/.gitignore
+	cp -i $(MISC)/user/circleci.yml $(PREFIX)/$(CIDIR)/config.yml
 	touch $(PREFIX)/$(MDDIR)/$(INPUT)
 
 $(TARGETDIR):

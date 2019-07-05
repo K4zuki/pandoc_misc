@@ -458,8 +458,8 @@ width:
 
 [^listingtable-yaml]: pandoc_misc/panflute/ListingTable.py
 [^listingtable-inline]: pandoc_misc/panflute/listingtable-inline.py
-[^pandoc-crossref]: https://github.com/lierdakil/pandoc-crossref
-[^pandoc-crossref-ref]: http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref
+[^pandoc-crossref]: <https://github.com/lierdakil/pandoc-crossref>
+[^pandoc-crossref-ref]: <http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref>
 
 ```table
 ---
@@ -627,7 +627,7 @@ Imagineフィルタ[^imagine-filter]を使えばコードブロックから
 [^imagine-png-only-issue]: https://github.com/hertogp/imagine/issues/1
 [^plantuml-reference]: https://qiita.com/mitsugu/items/014e13ca0696c7c53d4c
 
-```{.plantuml im_out="fcb,img" caption="PlantUML sample"}
+```{.plantuml im_out="fcb,img" im_fmt='svg' caption="PlantUML sample"}
 @startuml
 skinparam monochrome true
 skinparam defaultFontName Ricty Diminished
@@ -648,9 +648,7 @@ PlantUMLからditaa図をレンダリングすることもできます。詳細�
 
 [ditaa code sample](data/ditaa.puml){.listingtable type=puml #lst:ditaa-sample}
 
-```{.plantuml im_out="img" caption="PlantUML x ditaa x imagine"}
-<#include "ditaa.puml">
-```
+[](data/ditaa.puml){.listingtable .plantuml #fig:ditaa-sample im_out="img" im_fmt='png' caption="PlantUML x ditaa x imagine"}
 
 \Stoplandscape
 
