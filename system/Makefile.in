@@ -21,6 +21,8 @@ PCROSSREF = pandoc-crossref
 PIPBASE= $(shell get-pip-base)
 PANSTYLES= $(PIPBASE)/var
 MISC= $(PANSTYLES)/pandoc_misc
+MISC_SYS = $(MISC)/system
+MISC_USER = $(MISC)/user
 BITFIELD:= bitfield
 
 FILTER= $(MISC)/include.py
@@ -86,8 +88,8 @@ PANDOCXFLAGS = -M linkReferences=true
 
 PANHTMLFLAGS = --self-contained -thtml5
 PANHTMLFLAGS += --toc
-PANHTMLFLAGS += --template=$(MISC)/system/github.html
-PANHTMLFLAGS += -M css=$(MISC)/system/github_css/github.css
+PANHTMLFLAGS += --template=$(MISC_SYS)/github.html
+PANHTMLFLAGS += -M css=$(MISC_SYS)/github_css/github.css
 PANHTMLFLAGS += -M date=$(DATE)
 
 PANREVERSEDOCX = -f docx-styles
