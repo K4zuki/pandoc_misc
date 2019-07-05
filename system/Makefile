@@ -4,9 +4,11 @@ endif
 PIPBASE= $(shell get-pip-base)
 PANSTYLES= $(PIPBASE)/var
 MISC= $(PANSTYLES)/pandoc_misc
+MISC_SYS = $(MISC)/system
+MISC_USER = $(MISC)/user
 
 ifeq ($(PROJECT),)
-include $(MISC)/system/Makefile.in
+include $(MISC_SYS)/Makefile.in
 endif
 
 REQ = 'Requirements -\n'
@@ -75,12 +77,12 @@ $(TARGETDIR)/$(IMAGINEDIR):
 	ln -s ../$(IMAGINEDIR)
 
 tex: $(TARGETDIR)/$(TARGET).tex
-$(TARGETDIR)/$(TEXTEMPLATE_EXTRA): $(MISC)/$(TEXTEMPLATE_EXTRA) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC)/system/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
-$(TARGETDIR)/$(TEXTEMPLATE_COVER): $(MISC)/$(TEXTEMPLATE_COVER) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC)/system/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
-$(TARGETDIR)/$(TEXTEMPLATE_TAIL): $(MISC)/$(TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC)/system/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+$(TARGETDIR)/$(TEXTEMPLATE_EXTRA): $(MISC_SYS)/$(TEXTEMPLATE_EXTRA) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+$(TARGETDIR)/$(TEXTEMPLATE_COVER): $(MISC_SYS)/$(TEXTEMPLATE_COVER) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+$(TARGETDIR)/$(TEXTEMPLATE_TAIL): $(MISC_SYS)/$(TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
 $(TARGETDIR)/$(TARGET).tex: $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG) $(TARGETDIR)/$(TEXTEMPLATE_EXTRA) $(TARGETDIR)/$(TEXTEMPLATE_COVER) $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
 	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) \
 		$(MDDIR)/$(INPUT) -o $(TARGETDIR)/$(TARGET).tex
@@ -99,10 +101,10 @@ initdir:
 	mkdir -p $(PREFIX)/$(SVGDIR)
 
 init: initdir
-	cp -i $(MISC)/user/Makefile $(PREFIX)/Makefile
-	cp -i $(MISC)/user/config.yaml $(PREFIX)/$(MDDIR)/$(CONFIG)
-	cp -i $(MISC)/user/.gitignore $(PREFIX)/.gitignore
-	cp -i $(MISC)/user/circleci.yml $(PREFIX)/$(CIDIR)/config.yml
+	cp -i $(MISC_USER)/Makefile $(PREFIX)/Makefile
+	cp -i $(MISC_USER)/config.yaml $(PREFIX)/$(MDDIR)/$(CONFIG)
+	cp -i $(MISC_USER)/.gitignore $(PREFIX)/.gitignore
+	cp -i $(MISC_USER)/circleci.yml $(PREFIX)/$(CIDIR)/config.yml
 	touch $(PREFIX)/$(MDDIR)/$(INPUT)
 
 $(TARGETDIR):
