@@ -25,12 +25,11 @@ MISC_SYS = $(MISC)/system
 MISC_USER = $(MISC)/user
 BITFIELD:= bitfield
 
-FILTER= $(MISC)/include.py
 DOCXPWRTR:= docx-coreprop-writer
 IMAGINEDIR:= pd-images
 LUA_FILTER_BASE = $(PIPBASE)/share/lua/5.3/pandocker
 
-TEXTEMPLATE := $(MISC)/CJK_xelatex.tex
+TEXTEMPLATE := $(MISC_SYS)/CJK_xelatex.tex
 TEXTEMPLATE_EXTRA := preamble_after.tex
 TEXTEMPLATE_COVER := titleGP.tex
 TEXTEMPLATE_TAIL := tailnote.tex
@@ -81,7 +80,7 @@ PANFLAGS += --top-level-division=chapter
 PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
-PANFLAGS += $(MISC)/$(CONFIG)
+PANFLAGS += $(MISC_SYS)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 
 PANDOCXFLAGS = -M linkReferences=true
@@ -113,7 +112,7 @@ IMAGEDIR:= images
 CIDIR:= .circleci
 PREFIX:= .
 SVGDIR:= svg
-REFERENCE:= $(MISC)/ref.docx
+REFERENCE:= $(MISC_SYS)/ref.docx
 COREPROPFLAGS := -M created=$(DATE)
 ### default source and target file names
 CONFIG:= config.yaml
