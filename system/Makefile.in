@@ -62,14 +62,14 @@ PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/wavedrom.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/svgconvert.lua
 #PANFLAGS += --filter=pandocker-rmnote
 PANFLAGS += --filter=$(PANTABLE)
-PANFLAGS += --filter=pandocker-aafigure
+#PANFLAGS += --filter=pandocker-aafigure
 #PANFLAGS += --filter=pandocker-bitfield
 #PANFLAGS += --filter=pandocker-listingtable
 PANFLAGS += --filter=pandocker-blockdiag-filters
 PANFLAGS += --filter=pandoc-svgbob-filter
 PANFLAGS += --filter=pandocker-filters
 PANFLAGS += --filter=$(IMAGINE)
-PANFLAGS += --filter=pandocker-rotateimage
+#PANFLAGS += --filter=pandocker-rotateimage
 #PANFLAGS += --filter=pandocker-tex-landscape
 #PANFLAGS += --filter=pandoc-docx-pagebreakpy
 PANFLAGS += --filter=pandoc-docx-utils
