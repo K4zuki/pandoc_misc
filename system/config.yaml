@@ -16,12 +16,12 @@ papersize: b5paper
 secnumdepth: 3
 mainfont: SourceHanSans-Regular
 sansfont: SourceHanSans-Regular
-monofont: RictyDiminished-Regular
+monofont: NotoSansMono-Regular
 mainlang: Japanese
 mathfont: SourceHanSans-Light
 CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
-CJKmonofont: RictyDiminished-Regular
+CJKmonofont: NotoSansMono-Regular
 geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
 
