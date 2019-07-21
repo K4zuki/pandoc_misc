@@ -53,6 +53,7 @@ HASH= '$(shell git rev-parse --short HEAD)'
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/removable-note.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-landscape.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-rowcolors-reset.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/preprocess.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-unnumberedheadings.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-pagebreak-toc.lua
