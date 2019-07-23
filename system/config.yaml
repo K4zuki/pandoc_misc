@@ -18,12 +18,12 @@ mainfont: SourceHanSans-Regular
 sansfont: SourceHanSans-Regular
 monofont: RictyDiminished-Regular
 mainlang: Japanese
-mathfont: SourceHanSans-Light
+mathfont: SourceHanSans-Regular
 CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
 CJKmonofont: RictyDiminished-Regular
 geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
-lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
+#lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
 
 include: [markdown, images, data, Out]
 ...
