@@ -51,6 +51,7 @@ HASH= '$(shell git rev-parse --short HEAD)'
 # TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
+PANFLAGS += --resource-path=.:$(DATADIR):$(IMAGEDIR):$(MDDIR):$(TARGETDIR)
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/removable-note.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-landscape.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-rowcolors-reset.lua
