@@ -200,6 +200,7 @@ setup(
         "console_scripts": [
             "pandoc-misc-init=pandoc_misc:main",
             "get-pip-base=pandoc_misc:pip_base",
+            "pandocker-version:pandoc_misc:env_version"
         ],
     },
 
