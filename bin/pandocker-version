@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+echo pip3 list | sha1sum | cut -c1-7
