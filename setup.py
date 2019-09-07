@@ -186,7 +186,7 @@ setup(
         "user/config.yaml",
         "user/.gitignore",
         "user/Makefile",
-    ]),
+    ]), ("bin", ["bin/pandocker-version"])
                 ],  # Optional
 
     # To provide executable scripts, use entry points in preference to the
@@ -200,7 +200,6 @@ setup(
         "console_scripts": [
             "pandoc-misc-init=pandoc_misc:main",
             "get-pip-base=pandoc_misc:pip_base",
-            "pandocker-version=pandoc_misc:env_version"
         ],
     },
 
