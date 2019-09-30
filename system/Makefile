@@ -78,11 +78,11 @@ $(TARGETDIR)/$(IMAGINEDIR):
 
 tex: $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TEXTEMPLATE_EXTRA): $(MISC_SYS)/$(TEXTEMPLATE_EXTRA) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
 $(TARGETDIR)/$(TEXTEMPLATE_COVER): $(MISC_SYS)/$(TEXTEMPLATE_COVER) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
 $(TARGETDIR)/$(TEXTEMPLATE_TAIL): $(MISC_SYS)/$(TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
 $(TARGETDIR)/$(TARGET).tex: $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG) $(TARGETDIR)/$(TEXTEMPLATE_EXTRA) $(TARGETDIR)/$(TEXTEMPLATE_COVER) $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
 	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) \
 		$(MDDIR)/$(INPUT) -o $(TARGETDIR)/$(TARGET).tex
