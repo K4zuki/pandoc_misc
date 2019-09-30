@@ -84,6 +84,7 @@ PANFLAGS += --top-level-division=chapter
 PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
+PANFLAGS += -M envversion=$(ENV_VERSION)
 PANFLAGS += $(MISC_SYS)/$(CONFIG)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 
