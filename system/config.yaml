@@ -1,16 +1,12 @@
 ---
-documentclass: book
-secPrefix: Chapter
+### Pandoc's general options
+listings: true
+
+### Pandoc's LaTeX options
 linkcolor: black
 urlcolor: black
 citecolor: black
-chapter: true
-listings: true
-tables: true
-codeBlockCaptions: true
-listingTitle: "List"
-# date: 本の出版日時
-
+documentclass: book
 fontsize: 11
 papersize: b5paper
 secnumdepth: 3
@@ -23,7 +19,19 @@ CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
 CJKmonofont: RictyDiminished-Regular
 geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
-#lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
 
+### pandoc-crossref options
+tables: true
+secPrefix: Chapter
+codeBlockCaptions: true
+nameInLink: true
+figureTitle: "&#9650;Figure"
+tableTitle: "&#9660;Table"
+listingTitle: "&#9660;List"
+
+chapters: true
+
+### pandocker-lua-filters options
+#lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
 #include: [markdown, images, data, Out]
 ...

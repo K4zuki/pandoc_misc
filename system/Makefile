@@ -39,7 +39,7 @@ DOCX:=$(TARGETDIR)/$(TARGET).docx
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
-.PHONY: docx html filtered pdf tex merge clean linking
+.PHONY: docx html pdf tex merge clean linking
 
 all: html
 
@@ -84,12 +84,11 @@ $(TARGETDIR)/$(TEXTEMPLATE_COVER): $(MISC_SYS)/$(TEXTEMPLATE_COVER) $(MDDIR)/$(C
 $(TARGETDIR)/$(TEXTEMPLATE_TAIL): $(MISC_SYS)/$(TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
 	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MISC_SYS)/$(CONFIG) $(MDDIR)/$(CONFIG) -o $@
 $(TARGETDIR)/$(TARGET).tex: $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG) $(TARGETDIR)/$(TEXTEMPLATE_EXTRA) $(TARGETDIR)/$(TEXTEMPLATE_COVER) $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
-	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) \
-		$(MDDIR)/$(INPUT) -o $(TARGETDIR)/$(TARGET).tex
+	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) $(MDDIR)/$(INPUT) -o $(TARGETDIR)/$(TARGET).tex
 
-filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN)
-	$(GPP) $(GPPFLAGS) $< > $@
+#filtered: $(FILTERED)
+#$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN)
+#	$(GPP) $(GPPFLAGS) $< > $@
 
 initdir:
 	mkdir -p $(PREFIX)/

@@ -43,7 +43,7 @@ TEXFLAGS += --include-before-body=$(TARGETDIR)/$(TEXTEMPLATE_COVER)
 TEXFLAGS += --include-after-body=$(TARGETDIR)/$(TEXTEMPLATE_TAIL)
 TEXFLAGS += -M date=$(DATE)
 
-TEXFONTFLAGS:= -M documentclass=book
+#TEXFONTFLAGS:= -M documentclass=book
 # TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
 
 DATE= '$(shell date +%d-%b-%Y)'
