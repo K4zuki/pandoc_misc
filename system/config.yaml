@@ -1,7 +1,4 @@
 ---
-### Pandoc's general options
-listings: true
-
 ### Pandoc's LaTeX options
 linkcolor: black
 urlcolor: black
@@ -21,14 +18,16 @@ CJKmonofont: RictyDiminished-Regular
 geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 
 ### pandoc-crossref options
-tables: true
+listings: true
 secPrefix: Chapter
 codeBlockCaptions: true
 nameInLink: true
-figureTitle: "&#9650;Figure"
-tableTitle: "&#9660;Table"
-listingTitle: "&#9660;List"
+figureTitle: "^~&#9650;~^Figure"
+tableTitle: "~^&#9660;^~Table"
+listingTitle: "~^&#9660;^~List"
 
+### extra LaTeX template options
+tables: true
 chapters: true
 
 ### pandocker-lua-filters options
