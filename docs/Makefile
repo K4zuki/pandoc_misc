@@ -3,8 +3,10 @@ HOME = C:/Users/$(USERNAME)
 endif
 PIPBASE= $(shell get-pip-base)
 PANSTYLES= $(PIPBASE)/var
-MISC= $(PANSTYLES)/pandoc_misc
-include $(MISC)/system/Makefile.in
+MISC= ..
+MISC_SYS = $(MISC)/system
+MISC_USER = $(MISC)/user
+include $(MISC_SYS)/Makefile.in
 PROJECT= `pwd`
 
 ## userland: uncomment and replace
@@ -21,4 +23,11 @@ PROJECT= `pwd`
 # COREPROPFLAGS := --table "Normal Table=Centered"
 # COREPROPFLAGS += --paragraph "Normal=Body Text"
 ##
-include $(MISC)/system/Makefile
+MISC:= ..
+MISC_SYS:= $(MISC)/system
+MISC_USER:= $(MISC)/user
+SYSTEM_TEXTEMPLATE_EXTRA := $(MISC_SYS)/$(TEXTEMPLATE_EXTRA)
+SYSTEM_TEXTEMPLATE_COVER := $(MISC_SYS)/$(TEXTEMPLATE_COVER)
+SYSTEM_TEXTEMPLATE_TAIL := $(MISC_SYS)/$(TEXTEMPLATE_TAIL)
+
+include $(MISC_SYS)/Makefile
