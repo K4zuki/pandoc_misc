@@ -20,10 +20,15 @@ PANDOC= pandoc
 PCROSSREF = pandoc-crossref
 PIPBASE= $(shell get-pip-base)
 PANSTYLES= $(PIPBASE)/var
-MISC= $(PANSTYLES)/pandoc_misc
-MISC_SYS = $(MISC)/system
-MISC_USER = $(MISC)/user
+MISC:= $(PANSTYLES)/pandoc_misc
+MISC_SYS:= $(MISC)/system
+MISC_USER:= $(MISC)/user
 BITFIELD:= bitfield
+
+MDDIR:= markdown
+DATADIR:= data
+TARGETDIR:= Out
+IMAGEDIR:= images
 
 DOCXPWRTR:= docx-coreprop-writer
 IMAGINEDIR:= pd-images
@@ -33,14 +38,22 @@ TEXTEMPLATE := $(MISC_SYS)/CJK_xelatex.tex
 TEXTEMPLATE_EXTRA := preamble_after.tex
 TEXTEMPLATE_COVER := titleGP.tex
 TEXTEMPLATE_TAIL := tailnote.tex
+
+SYSTEM_TEXTEMPLATE_EXTRA := $(MISC_SYS)/$(TEXTEMPLATE_EXTRA)
+SYSTEM_TEXTEMPLATE_COVER := $(MISC_SYS)/$(TEXTEMPLATE_COVER)
+SYSTEM_TEXTEMPLATE_TAIL := $(MISC_SYS)/$(TEXTEMPLATE_TAIL)
+TARGET_TEXTEMPLATE_EXTRA:= $(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
+TARGET_TEXTEMPLATE_COVER:= $(TARGETDIR)/$(TEXTEMPLATE_COVER)
+TARGET_TEXTEMPLATE_TAIL:= $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
+
 # TEXTEMPLATE = $(MISC)/../pandoc-latex-template/eisvogel.latex
 TEXFLAGS= --template=$(TEXTEMPLATE) -t latex
 TEXFLAGS += --toc
 # TEXFLAGS += --filter=pandoc-latex-barcode
 TEXFLAGS += --pdf-engine=xelatex
-TEXFLAGS += --include-in-header=$(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
-TEXFLAGS += --include-before-body=$(TARGETDIR)/$(TEXTEMPLATE_COVER)
-TEXFLAGS += --include-after-body=$(TARGETDIR)/$(TEXTEMPLATE_TAIL)
+TEXFLAGS += --include-in-header=$(TARGET_TEXTEMPLATE_EXTRA)
+TEXFLAGS += --include-before-body=$(TARGET_TEXTEMPLATE_COVER)
+TEXFLAGS += --include-after-body=$(TARGET_TEXTEMPLATE_TAIL)
 TEXFLAGS += -M date=$(DATE)
 
 #TEXFONTFLAGS:= -M documentclass=book
@@ -110,10 +123,6 @@ GPPFLAGS += -I$(DATADIR)
 GPPFLAGS += -I$(TARGETDIR)
 
 ###  default directories set; otherwise images/ directory cleaned by make-clean
-MDDIR:= markdown
-DATADIR:= data
-TARGETDIR:= Out
-IMAGEDIR:= images
 CIDIR:= .circleci
 PREFIX:= .
 SVGDIR:= svg
