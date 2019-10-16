@@ -19,7 +19,6 @@ PROJECT= `pwd`
 # INPUT:= TITLE.md
 # TARGET:= TARGET-$(DATE)-$(HASH)
 # REVERSE_INPUT:= reverse-input.docx
-# REFERENCE:= $(MISC)/ref.docx
 # COREPROPFLAGS := --table "Normal Table=Centered"
 # COREPROPFLAGS += --paragraph "Normal=Body Text"
 ##
@@ -29,5 +28,6 @@ MISC_USER:= $(MISC)/user
 SYSTEM_TEXTEMPLATE_EXTRA := $(MISC_SYS)/$(TEXTEMPLATE_EXTRA)
 SYSTEM_TEXTEMPLATE_COVER := $(MISC_SYS)/$(TEXTEMPLATE_COVER)
 SYSTEM_TEXTEMPLATE_TAIL := $(MISC_SYS)/$(TEXTEMPLATE_TAIL)
+REFERENCE:= $(MISC_SYS)/ref.docx
 
 include $(MISC_SYS)/Makefile
