@@ -23,6 +23,10 @@ docx:
 	cd docs; \
 	make docx
 
+reverse-docx:
+	cd docs; \
+	make reverse-docx
+
 pdf:
 	cd docs; \
 	make pdf
