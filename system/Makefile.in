@@ -89,7 +89,7 @@ PANFLAGS += --filter=$(IMAGINE)
 #PANFLAGS += --filter=pandocker-rotateimage
 #PANFLAGS += --filter=pandocker-tex-landscape
 #PANFLAGS += --filter=pandoc-docx-pagebreakpy
-PANFLAGS += --filter=pandoc-docx-utils
+#PANFLAGS += --filter=pandoc-docx-utils
 PANFLAGS += --filter=$(PCROSSREF)
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-image-styles.lua
 #PANFLAGS += --toc
