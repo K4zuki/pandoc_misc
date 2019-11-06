@@ -91,6 +91,7 @@ PANFLAGS += --filter=$(IMAGINE)
 #PANFLAGS += --filter=pandoc-docx-pagebreakpy
 PANFLAGS += --filter=pandoc-docx-utils
 PANFLAGS += --filter=$(PCROSSREF)
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-image-styles.lua
 #PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --top-level-division=chapter
