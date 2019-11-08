@@ -1,38 +1,19 @@
-# USERNAME=
-# HOME=
+PANDOC := pandoc
+PIPBASE := $(shell get-pip-base)
+PANSTYLES := $(PIPBASE)/var
+MISC := $(PANSTYLES)/pandoc_misc
+MISC_SYS := $(MISC)/system
+MISC_USER := $(MISC)/user
+BITFIELD := bitfield
 
-ifeq ($(OS),Windows_NT)
-HOME = C:/Users/$(USERNAME)
-EXE:=.exe
-else
-# UNIX common #
-EXE =
-PANTABLE = pantable
-RSVG = rsvg-convert
-PYTHON = python3
-IMAGINE = pandoc-imagine
-CSV2TABLE= csv2table
-FONTDIR = "ExternalLocation = /usr/local/share/fonts/"
-GPP = /usr/bin/gpp
-endif
+MDDIR := markdown
+DATADIR := data
+TARGETDIR := Out
+IMAGEDIR := images
 
-PANDOC= pandoc
-PCROSSREF = pandoc-crossref
-PIPBASE= $(shell get-pip-base)
-PANSTYLES= $(PIPBASE)/var
-MISC:= $(PANSTYLES)/pandoc_misc
-MISC_SYS:= $(MISC)/system
-MISC_USER:= $(MISC)/user
-BITFIELD:= bitfield
-
-MDDIR:= markdown
-DATADIR:= data
-TARGETDIR:= Out
-IMAGEDIR:= images
-
-DOCXPWRTR:= docx-coreprop-writer
-IMAGINEDIR:= pd-images
-LUA_FILTER_BASE = $(PIPBASE)/share/lua/5.3/pandocker
+DOCXPWRTR := docx-coreprop-writer
+IMAGINEDIR := pd-images
+LUA_FILTER_BASE := $(PIPBASE)/share/lua/5.3/pandocker
 
 TEXTEMPLATE := $(MISC_SYS)/CJK_xelatex.tex
 TEXTEMPLATE_EXTRA := preamble_after.tex
@@ -42,58 +23,44 @@ TEXTEMPLATE_TAIL := tailnote.tex
 SYSTEM_TEXTEMPLATE_EXTRA := $(MISC_SYS)/$(TEXTEMPLATE_EXTRA)
 SYSTEM_TEXTEMPLATE_COVER := $(MISC_SYS)/$(TEXTEMPLATE_COVER)
 SYSTEM_TEXTEMPLATE_TAIL := $(MISC_SYS)/$(TEXTEMPLATE_TAIL)
-TARGET_TEXTEMPLATE_EXTRA:= $(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
-TARGET_TEXTEMPLATE_COVER:= $(TARGETDIR)/$(TEXTEMPLATE_COVER)
-TARGET_TEXTEMPLATE_TAIL:= $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
+TARGET_TEXTEMPLATE_EXTRA := $(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
+TARGET_TEXTEMPLATE_COVER := $(TARGETDIR)/$(TEXTEMPLATE_COVER)
+TARGET_TEXTEMPLATE_TAIL := $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
 
-# TEXTEMPLATE = $(MISC)/../pandoc-latex-template/eisvogel.latex
-TEXFLAGS= --template=$(TEXTEMPLATE) -t latex
+DATE := '$(shell date +%d-%b-%Y)'
+HASH := '$(shell git rev-parse --short HEAD)'
+ENV_VERSION := '$(shell pandocker-version)'
+
+TEXFLAGS := --template=$(TEXTEMPLATE) -t latex
 TEXFLAGS += --toc
-# TEXFLAGS += --filter=pandoc-latex-barcode
 TEXFLAGS += --pdf-engine=xelatex
 TEXFLAGS += --include-in-header=$(TARGET_TEXTEMPLATE_EXTRA)
 TEXFLAGS += --include-before-body=$(TARGET_TEXTEMPLATE_COVER)
 TEXFLAGS += --include-after-body=$(TARGET_TEXTEMPLATE_TAIL)
 TEXFLAGS += -M date=$(DATE)
 
-#TEXFONTFLAGS:= -M documentclass=book
-# TEXFONTFLAGS += -M localfontdir=$(FONTDIR)
-
-DATE= '$(shell date +%d-%b-%Y)'
-HASH= '$(shell git rev-parse --short HEAD)'
-ENV_VERSION = '$(shell pandocker-version)'
-# TEXFLAGS += -V lang=en-us
 ### pandoc flags
 PANFLAGS = --read=markdown+east_asian_line_breaks
 PANFLAGS += --resource-path=.:$(DATADIR):$(IMAGEDIR):$(MDDIR):$(TARGETDIR)
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/removable-note.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-landscape.lua
-PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-rowcolors-reset.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/preprocess.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-rowcolors-reset.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-unnumberedheadings.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-pagebreak-toc.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/listingtable.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/wavedrom.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/csv2table.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/table-width.lua
-#PANFLAGS += --filter=pandocker-rmnote
-PANFLAGS += --filter=$(PANTABLE)
-#PANFLAGS += --filter=pandocker-aafigure
-#PANFLAGS += --filter=pandocker-bitfield
-#PANFLAGS += --filter=pandocker-listingtable
+PANFLAGS += --filter=pantable
 PANFLAGS += --filter=pandocker-blockdiag-filters
 PANFLAGS += --filter=pandoc-svgbob-filter
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/svgconvert.lua
 PANFLAGS += --filter=pandocker-filters
-PANFLAGS += --filter=$(IMAGINE)
-#PANFLAGS += --filter=pandocker-rotateimage
-#PANFLAGS += --filter=pandocker-tex-landscape
-#PANFLAGS += --filter=pandoc-docx-pagebreakpy
-#PANFLAGS += --filter=pandoc-docx-utils
+PANFLAGS += --filter=pandoc-imagine
 PANFLAGS += --filter=pandoc-docx-extract-bullet-list
-PANFLAGS += --filter=$(PCROSSREF)
+PANFLAGS += --filter=pandoc-crossref
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-image-styles.lua
-#PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --top-level-division=chapter
 PANFLAGS += --number-sections --highlight-style=kate
@@ -103,35 +70,30 @@ PANFLAGS += -M envversion=$(ENV_VERSION)
 PANFLAGS += $(MDDIR)/$(CONFIG)
 PANFLAGS += $(MISC_SYS)/$(CONFIG)
 
-PANDOCXFLAGS = -M linkReferences=true
+PANDOCXFLAGS := -M linkReferences=true
 
-PANHTMLFLAGS = --self-contained -thtml5
+PANHTMLFLAGS := --self-contained -thtml5
 PANHTMLFLAGS += --toc
 PANHTMLFLAGS += --template=$(MISC_SYS)/github.html
 PANHTMLFLAGS += -M css=$(MISC_SYS)/github_css/github.css
 PANHTMLFLAGS += -M date=$(DATE)
 
-PANREVERSEDOCX = -f docx-styles
+PANREVERSEDOCX := -f docx-styles
 PANREVERSEDOCX += -t markdown-simple_tables-multiline_tables+grid_tables+pipe_tables
 PANREVERSEDOCX += --filter=pantable2csv
 PANREVERSEDOCX += --extract-media=$(IMAGEDIR)
 PANREVERSEDOCX += --wrap=preserve
 PANREVERSEDOCX += --atx-headers
 
-### GPP flags
-GPPFLAGS = -H +c "<!--" "-->"
-GPPFLAGS += -I$(MDDIR)
-GPPFLAGS += -I$(DATADIR)
-GPPFLAGS += -I$(TARGETDIR)
-
 ###  default directories set; otherwise images/ directory cleaned by make-clean
-CIDIR:= .circleci
-PREFIX:= .
-SVGDIR:= svg
-REFERENCE:= $(MISC_SYS)/ref.docx
+CIDIR := .circleci
+PREFIX := .
+SVGDIR := svg
+REFERENCE := $(MISC_SYS)/ref.docx
 COREPROPFLAGS := -M created=$(DATE)
+
 ### default source and target file names
-CONFIG:= config.yaml
-INPUT:= TITLE.md
-REVERSE_INPUT:= reverse-input.docx
-TARGET:= TARGET-$(DATE)-$(HASH)
+CONFIG := config.yaml
+INPUT := TITLE.md
+REVERSE_INPUT := reverse-input.docx
+TARGET := TARGET-$(DATE)-$(HASH)

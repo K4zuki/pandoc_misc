@@ -1,37 +1,12 @@
-ifeq ($(OS),Windows_NT)
-HOME = C:/Users/$(USERNAME)
-endif
-PIPBASE= $(shell get-pip-base)
-PANSTYLES= $(PIPBASE)/var
-MISC= $(PANSTYLES)/pandoc_misc
-MISC_SYS = $(MISC)/system
-MISC_USER = $(MISC)/user
+PIPBASE := $(shell get-pip-base)
+PANSTYLES := $(PIPBASE)/var
+MISC := $(PANSTYLES)/pandoc_misc
+MISC_SYS := $(MISC)/system
+MISC_USER := $(MISC)/user
 
 ifeq ($(PROJECT),)
 include ./Makefile.in
 endif
-
-REQ = 'Requirements -\n'
-REQ += '\033[92m'
-REQ += 'pandoc'
-REQ += '\033[0m'
-REQ += 'to convert Markdown to TeX/html\n\033[0m'
-REQ += '\033[92m'
-REQ += 'XeLaTeX'
-REQ += '\033[0m'
-REQ += 'to convert TeX to PDF\n\033[0m'
-REQ += '\033[92m'
-REQ += 'pyYAML(via pip)'
-REQ += '\033[0m'
-REQ += 'to convert yaml to json waveform file \n\033[0m'
-REQ += '\033[92m'
-REQ += 'WAVEDROM+PhantomJS(via npm)'
-REQ += '\033[0m'
-REQ += 'to convert JSON to waveform png\n\033[0m'
-REQ += '\033[92m'
-REQ += 'rsvg-convert(via librsvg)'
-REQ += '\033[0m'
-REQ += 'to convert SVG to PNG\n\033[0m'
 
 FILTERED:= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
@@ -42,9 +17,6 @@ MARKDOWN = $(shell ls $(MDDIR)/*.md)
 .PHONY: docx html pdf tex merge clean linking
 
 all: html
-
-help:
-	@echo $(REQ)"\033[0m"
 
 docx: coreprop
 
@@ -77,18 +49,24 @@ $(TARGETDIR)/$(IMAGINEDIR):
 	ln -s ../$(IMAGINEDIR)
 
 tex: $(TARGETDIR)/$(TARGET).tex
-$(TARGET_TEXTEMPLATE_EXTRA): $(SYSTEM_TEXTEMPLATE_EXTRA) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MDDIR)/$(CONFIG) $(MISC_SYS)/$(CONFIG) -o $@
-$(TARGET_TEXTEMPLATE_COVER): $(SYSTEM_TEXTEMPLATE_COVER) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MDDIR)/$(CONFIG) $(MISC_SYS)/$(CONFIG) -o $@
-$(TARGET_TEXTEMPLATE_TAIL): $(SYSTEM_TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
-	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) --template $< $(MDDIR)/$(CONFIG) $(MISC_SYS)/$(CONFIG) -o $@
-$(TARGETDIR)/$(TARGET).tex: $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG) $(TARGET_TEXTEMPLATE_EXTRA) $(TARGET_TEXTEMPLATE_COVER) $(TARGET_TEXTEMPLATE_TAIL)
-	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) $(MDDIR)/$(INPUT) -o $(TARGETDIR)/$(TARGET).tex
 
-#filtered: $(FILTERED)
-#$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN)
-#	$(GPP) $(GPPFLAGS) $< > $@
+$(TARGET_TEXTEMPLATE_EXTRA): $(SYSTEM_TEXTEMPLATE_EXTRA) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) \
+	--template $< $(MDDIR)/$(CONFIG) $(MISC_SYS)/$(CONFIG) -o $@
+
+$(TARGET_TEXTEMPLATE_COVER): $(SYSTEM_TEXTEMPLATE_COVER) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) \
+	--template $< $(MDDIR)/$(CONFIG) $(MISC_SYS)/$(CONFIG) -o $@
+
+$(TARGET_TEXTEMPLATE_TAIL): $(SYSTEM_TEXTEMPLATE_TAIL) $(MDDIR)/$(CONFIG)
+	$(PANDOC) -f markdown -t latex -M short-hash=$(HASH) -M envversion=$(ENV_VERSION) \
+	--template $< $(MDDIR)/$(CONFIG) $(MISC_SYS)/$(CONFIG) -o $@
+
+$(TARGETDIR)/$(TARGET).tex: $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG) \
+							$(TARGET_TEXTEMPLATE_EXTRA) \
+							$(TARGET_TEXTEMPLATE_COVER) \
+							$(TARGET_TEXTEMPLATE_TAIL)
+	$(PANDOC) $(PANFLAGS) $(TEXFLAGS) $(TEXFONTFLAGS) $(MDDIR)/$(INPUT) -o $(TARGETDIR)/$(TARGET).tex
 
 initdir:
 	mkdir -p $(PREFIX)/
@@ -108,12 +86,16 @@ init: initdir
 
 $(TARGETDIR):
 	mkdir -p $(TARGETDIR)
+
 $(DATADIR):
 	mkdir -p $(DATADIR)
+
 $(MDDIR):
 	mkdir -p $(MDDIR)
+
 $(IMAGEDIR):
 	mkdir -p $(IMAGEDIR)
+
 $(SVGDIR):
 	mkdir -p $(SVGDIR)
 
