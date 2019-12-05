@@ -55,9 +55,9 @@ PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/table-width.lua
 PANFLAGS += --filter=pantable
 PANFLAGS += --filter=pandocker-blockdiag-filters
 PANFLAGS += --filter=pandoc-svgbob-filter
+PANFLAGS += --filter=pandoc-imagine
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/svgconvert.lua
 PANFLAGS += --filter=pandocker-filters
-PANFLAGS += --filter=pandoc-imagine
 PANFLAGS += --filter=pandoc-docx-extract-bullet-list
 PANFLAGS += --filter=pandoc-crossref
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-image-styles.lua
