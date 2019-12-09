@@ -13,8 +13,8 @@ $if(title)$
 \rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
 
 \scshape % Small caps
-$if(abstract)$
-{\Large $abstract$}
+$if(subtitle)$
+{\Large $subtitle$}
 $endif$
 \vspace*{2\baselineskip} % Whitespace between location/year and editors
 
@@ -34,6 +34,6 @@ $endif$
 
 \thispagestyle{empty}
 \blankpage
-\afterpage{\blankpage}
+%\afterpage{\blankpage}
 \endgroup
 $endif$

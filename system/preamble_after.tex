@@ -60,10 +60,8 @@ $if(verbcolored)$
 % Hint(1): https://tex.stackexchange.com/questions/191131/how-to-set-fit-height-and-width-for-tcbox-according-to-the-text-inside
 % Hint(2): https://tex.stackexchange.com/questions/218928/tcbox-raise-base-for-selected-text-only
 % Hint(3): http://texdoc.net/texmf-dist/doc/latex/tcolorbox/tcolorbox.pdf
-\newcommand{\passthrough}[1]{\tcbox[colback=listing-background,colframe=listing-rule,
+\renewcommand{\passthrough}[1]{\tcbox[colback=listing-background,colframe=listing-rule,
 size=tight,on line,left=0.4pt,right=0.4pt,before upper=\strut,rounded corners=all]{#1}}
-$else$
-\newcommand{\passthrough}[1]{#1}
 $endif$
 %
 % https://github.com/Wandmalfarbe/pandoc-latex-template
@@ -128,7 +126,10 @@ $endif$
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 % colors
 %
-\usepackage[usenames, dvipsnames, svgnames, table]{xcolor}
+\PassOptionsToPackage{[usenames, dvipsnames, svgnames, table]}{xcolor}
+
+% make \XeLaTeX work
+\usepackage{xltxtra}
 
 % https://github.com/Wandmalfarbe/pandoc-latex-template
 % listing colors
@@ -149,7 +150,7 @@ $endif$
 $if(tables)$
 \renewcommand{\arraystretch}{1.4} % table spacing
 \definecolor{table-gray}{HTML}{F5F5F5}
-\rowcolors{3}{white!100!white}{table-gray!100!white!100}
+%\rowcolors{3}{white!100!white}{table-gray!100!white!100}
 % Unfortunately the colored cells extend beyond the edge of the
 % table because pandoc uses @-expressions (@{}) like so:
 %
@@ -158,8 +159,6 @@ $if(tables)$
 %
 % https://en.wikibooks.org/wiki/LaTeX/Tables#.40-expressions
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
 $endif$
 
 \usepackage{xhfill}

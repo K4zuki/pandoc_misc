@@ -31,7 +31,7 @@ DATE := '$(shell date +%d-%b-%Y)'
 HASH := '$(shell git rev-parse --short HEAD)'
 ENV_VERSION := '$(shell pandocker-version)'
 
-TEXFLAGS := --template=$(TEXTEMPLATE) -t latex
+TEXFLAGS := -t latex
 TEXFLAGS += --toc
 TEXFLAGS += --pdf-engine=xelatex
 TEXFLAGS += --include-in-header=$(TARGET_TEXTEMPLATE_EXTRA)
