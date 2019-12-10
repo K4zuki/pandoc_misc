@@ -1,6 +1,6 @@
 ---
 title: 私的Markdown-PDF変換環境を紹介する本
-abstract: Pandocはいいぞ
+subtitle: Pandocはいいぞ
 circle: KY技研
 author: "@_K4ZUKI_"
 comiket: 技術書典3
@@ -8,25 +8,26 @@ year: 2017
 publisher: キンコーズで印刷製本
 docrevision: "1.0"
 front: images/front-image.png
-verbcolored: false
+verbcolored: true
 # rmnote: false
 
 docx_coreprop:
-  author: "@_K4ZUKI_" # str
-  category: "Category" # str
-  comments: "Comment" # str
-  created: "30-Dec-2018" # datetime YYYY-MM-DD
-  keywords: "Keyword1 Keyword2" # str
-  last_modified_by: "K4ZUKI" # str
-  last_printed: "29-Dec-2018" # datetime YYYY-MM-DD
-  modified: "29-Dec-2018" # datetime YYYY-MM-DD
-  revision: 1230 # int < 32768
-  subject: "SubjecT" # str
+  #  author: "@_K4ZUKI_" # str
+  #  category: "Category" # str
+  #  comments: "Comment" # str
+  #  created: "30-Dec-2018" # datetime YYYY-MM-DD
+  #  keywords: "Keyword1 Keyword2" # str
+  #  last_modified_by: "K4ZUKI" # str
+  #  last_printed: "29-Dec-2018" # datetime YYYY-MM-DD
+  #  modified: "29-Dec-2018" # datetime YYYY-MM-DD
+  #  revision: 1230 # int < 32768
+  #  subject: "SubjecT" # str
   #  title: "Title" # str
   table:
     "Normal Table": "Centered"
   paragraph:
+    "Subtitle": "Abstract"
     "Normal": "Body Text"
     "First Paragraph": "Body Text"
-    "Compact": "Bullet List 1"
+#    "Compact": "Bullet List 1"
 ...
