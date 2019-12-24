@@ -172,6 +172,7 @@ setup(
     data_files=[("var/pandoc_misc/system", [
         "system/CJK_xelatex.tex",
         "system/config.yaml",
+        "system/frontpage.md",
         "system/github.html",
         "system/Makefile",
         "system/Makefile.in",

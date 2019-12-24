@@ -8,11 +8,28 @@ ifeq ($(PROJECT),)
 include ./Makefile.in
 endif
 
-FILTERED:= $(INPUT:%.md=$(TARGETDIR)/%.md)
-HTML:=$(TARGETDIR)/$(TARGET).html
-DOCX:=$(TARGETDIR)/$(TARGET).docx
+FILTERED := $(INPUT:%.md=$(TARGETDIR)/%.md)
+HTML := $(TARGETDIR)/$(TARGET).html
+DOCX := $(TARGETDIR)/$(TARGET).docx
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
+
+PANFLAGS += --resource-path=.:$(DATADIR):$(IMAGEDIR):$(MDDIR):$(TARGETDIR)
+PANFLAGS += $(MDDIR)/$(CONFIG)
+PANFLAGS += $(MISC_SYS)/$(CONFIG)
+
+PANDOCXFLAGS += --template=$(SYSTEM_DOCXFRONTPAGE)
+PANDOCXFLAGS += $(MDDIR)/$(CONFIG)
+PANDOCXFLAGS += $(MISC_SYS)/$(CONFIG)
+
+TARGET_TEXTEMPLATE_EXTRA := $(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
+TARGET_TEXTEMPLATE_COVER := $(TARGETDIR)/$(TEXTEMPLATE_COVER)
+TARGET_TEXTEMPLATE_TAIL := $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
+TARGET_DOCXFRONTPAGE := $(TARGETDIR)/$(DOCXFRONTPAGE)
+
+TEXFLAGS += --include-in-header=$(TARGET_TEXTEMPLATE_EXTRA)
+TEXFLAGS += --include-before-body=$(TARGET_TEXTEMPLATE_COVER)
+TEXFLAGS += --include-after-body=$(TARGET_TEXTEMPLATE_TAIL)
 
 .PHONY: docx html pdf tex merge clean linking
 
@@ -24,7 +41,9 @@ coreprop: $(DOCX)
 	$(DOCXPWRTR) -I $(MDDIR)/$(CONFIG) $(COREPROPFLAGS) -O $(DOCX)
 
 $(DOCX): $(MDDIR)/$(INPUT)
-	$(PANDOC) $(PANFLAGS) $(PANDOCXFLAGS) --reference-doc=$(REFERENCE) $(MDDIR)/$(INPUT) -o $(DOCX)
+	$(PANDOC) $(PANDOCXFLAGS) -o $(TARGET_DOCXFRONTPAGE)
+	$(PANDOC) $(PANFLAGS) -M linkReferences=true --reference-doc=$(REFERENCE) -Mtitle= -Msubtitle= -Mauthor= \
+	$(TARGET_DOCXFRONTPAGE) $(MDDIR)/$(INPUT) -o $(DOCX)
 
 reverse-docx:
 	$(PANDOC) $(PANREVERSEDOCX) $(TARGETDIR)/$(REVERSE_INPUT) -o $(MDDIR)/$(INPUT)
@@ -76,6 +95,7 @@ initdir:
 	mkdir -p $(PREFIX)/$(MDDIR)
 	mkdir -p $(PREFIX)/$(IMAGEDIR)
 	mkdir -p $(PREFIX)/$(SVGDIR)
+	mkdir -p $(PREFIX)/$(IMAGINEDIR)
 
 init: initdir
 	cp -i $(MISC_USER)/Makefile $(PREFIX)/Makefile
@@ -99,6 +119,10 @@ $(IMAGEDIR):
 $(SVGDIR):
 	mkdir -p $(SVGDIR)
 
-clean: $(TARGETDIR) $(SVGDIR)
+$(IMAGINEDIR):
+	mkdir -p $(IMAGINEDIR)
+
+clean: $(TARGETDIR) $(SVGDIR) $(IMAGINEDIR)
 	rm -rf $(TARGETDIR)/*
 	rm -rf $(SVGDIR)/*
+	rm -rf $(IMAGINEDIR)/*

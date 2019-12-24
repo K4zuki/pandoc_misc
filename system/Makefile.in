@@ -19,13 +19,12 @@ TEXTEMPLATE := $(MISC_SYS)/CJK_xelatex.tex
 TEXTEMPLATE_EXTRA := preamble_after.tex
 TEXTEMPLATE_COVER := titleGP.tex
 TEXTEMPLATE_TAIL := tailnote.tex
+DOCXFRONTPAGE := frontpage.md
 
 SYSTEM_TEXTEMPLATE_EXTRA := $(MISC_SYS)/$(TEXTEMPLATE_EXTRA)
 SYSTEM_TEXTEMPLATE_COVER := $(MISC_SYS)/$(TEXTEMPLATE_COVER)
 SYSTEM_TEXTEMPLATE_TAIL := $(MISC_SYS)/$(TEXTEMPLATE_TAIL)
-TARGET_TEXTEMPLATE_EXTRA := $(TARGETDIR)/$(TEXTEMPLATE_EXTRA)
-TARGET_TEXTEMPLATE_COVER := $(TARGETDIR)/$(TEXTEMPLATE_COVER)
-TARGET_TEXTEMPLATE_TAIL := $(TARGETDIR)/$(TEXTEMPLATE_TAIL)
+SYSTEM_DOCXFRONTPAGE := $(MISC_SYS)/$(DOCXFRONTPAGE)
 
 DATE := '$(shell date +%d-%b-%Y)'
 HASH := '$(shell git rev-parse --short HEAD)'
@@ -34,14 +33,10 @@ ENV_VERSION := '$(shell pandocker-version)'
 TEXFLAGS := -t latex
 TEXFLAGS += --toc
 TEXFLAGS += --pdf-engine=xelatex
-TEXFLAGS += --include-in-header=$(TARGET_TEXTEMPLATE_EXTRA)
-TEXFLAGS += --include-before-body=$(TARGET_TEXTEMPLATE_COVER)
-TEXFLAGS += --include-after-body=$(TARGET_TEXTEMPLATE_TAIL)
 TEXFLAGS += -M date=$(DATE)
 
 ### pandoc flags
-PANFLAGS = --read=markdown+east_asian_line_breaks
-PANFLAGS += --resource-path=.:$(DATADIR):$(IMAGEDIR):$(MDDIR):$(TARGETDIR)
+PANFLAGS := --read=markdown+east_asian_line_breaks
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-hide-meta.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/removable-note.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-landscape.lua
@@ -68,10 +63,9 @@ PANFLAGS += --number-sections --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
 PANFLAGS += -M tables=true
 PANFLAGS += -M envversion=$(ENV_VERSION)
-PANFLAGS += $(MDDIR)/$(CONFIG)
-PANFLAGS += $(MISC_SYS)/$(CONFIG)
 
 PANDOCXFLAGS := -M linkReferences=true
+PANDOCXFLAGS += -f markdown -t markdown
 
 PANHTMLFLAGS := --self-contained -thtml5
 PANHTMLFLAGS += --toc
