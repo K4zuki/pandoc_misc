@@ -37,7 +37,7 @@ TEXFLAGS += -M date=$(DATE)
 
 ### pandoc flags
 PANFLAGS := --read=markdown+east_asian_line_breaks
-PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-hide-meta.lua
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/hide-frontpage-metadata.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/removable-note.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-landscape.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/preprocess.lua
@@ -49,6 +49,7 @@ PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/wavedrom.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/csv2table.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/table-width.lua
 PANFLAGS += --filter=pantable
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-apply-cell-styles.lua
 PANFLAGS += --filter=pandocker-blockdiag-filters
 PANFLAGS += --filter=pandoc-svgbob-filter
 PANFLAGS += --filter=pandoc-imagine
@@ -75,7 +76,7 @@ PANHTMLFLAGS += -M date=$(DATE)
 
 PANREVERSEDOCX := -f docx-styles
 PANREVERSEDOCX += -t markdown-simple_tables-multiline_tables+grid_tables+pipe_tables
-PANREVERSEDOCX += --filter=pantable2csv
+PANREVERSEDOCX += -F pantable2csv
 PANREVERSEDOCX += --extract-media=$(IMAGEDIR)
 PANREVERSEDOCX += --wrap=preserve
 PANREVERSEDOCX += --atx-headers
