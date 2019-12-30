@@ -14,9 +14,9 @@ PROJECT= `pwd`
 #DATADIR := data
 #TARGETDIR := Out
 #IMAGEDIR := images
-
 #CONFIG := config.yaml
 #INPUT := TITLE.md
+#DOCXFRONTPAGE := frontpage.md
 #TARGET := TARGET-$(DATE)-$(HASH)
 #REVERSE_INPUT := reverse-input.docx
 #REFERENCE := $(MISC)/ref.docx
