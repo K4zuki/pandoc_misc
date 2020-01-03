@@ -3,19 +3,28 @@
 linkcolor: black
 urlcolor: black
 citecolor: black
-documentclass: book
-fontsize: 11
-papersize: b5paper
+documentclass: bxjsbook
+classoption:
+  - xelatex
+  - pandoc
+  - jafont=noto-jp
+  - textwidth=45zw
+  - base=10pt
+  - openany
+fontsize: 10
+papersize: b5
 secnumdepth: 3
 mainfont: SourceHanSans-Regular
 sansfont: SourceHanSans-Regular
 monofont: RictyDiminished-Regular
+monofontoptions:
+  - Scale=MatchLowercase
 mainlang: Japanese
 mathfont: SourceHanSans-Regular
 CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
 CJKmonofont: RictyDiminished-Regular
-geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
+#geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 
 ### pandoc-crossref options
 listings: true
@@ -31,6 +40,6 @@ tables: true
 chapters: true
 
 ### pandocker-lua-filters options
-#lgeometry: "top=20truemm,bottom=20truemm,left=20truemm,right=20truemm"
+lgeometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 #include: [markdown, images, data, Out]
 ...
