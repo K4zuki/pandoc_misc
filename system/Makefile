@@ -1,13 +1,3 @@
-PIPBASE := $(shell get-pip-base)
-PANSTYLES := $(PIPBASE)/var
-MISC := $(PANSTYLES)/pandoc_misc
-MISC_SYS := $(MISC)/system
-MISC_USER := $(MISC)/user
-
-ifeq ($(PROJECT),)
-include ./Makefile.in
-endif
-
 FILTERED := $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML := $(TARGETDIR)/$(TARGET).html
 DOCX := $(TARGETDIR)/$(TARGET).docx
