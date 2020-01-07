@@ -9,6 +9,7 @@ classoption:
   - pandoc
   - jafont=noto-jp
   - textwidth=45zw
+  - number-of-lines=38
   - base=10pt
   - openany
 fontsize: 10
@@ -24,6 +25,9 @@ mathfont: SourceHanSans-Regular
 CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
 CJKmonofont: RictyDiminished-Regular
+CJKoptions:
+  - AutoFakeSlant
+  - AutoFakeBold
 #geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 
 ### pandoc-crossref options
