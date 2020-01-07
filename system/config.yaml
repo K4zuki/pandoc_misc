@@ -8,6 +8,7 @@ classoption:
   - xelatex
   - pandoc
   - jafont=noto-jp
+  - ja=standard
   - textwidth=45zw
   - number-of-lines=38
   - base=10pt
@@ -16,17 +17,20 @@ fontsize: 10
 papersize: b5
 secnumdepth: 3
 mainfont: SourceHanSans-Regular
+mainfontoptions:
+  - AutoFakeSlant=0.2
 sansfont: SourceHanSans-Regular
 monofont: RictyDiminished-Regular
 monofontoptions:
   - Scale=MatchLowercase
+  - Mapping=tex-ansi
 mainlang: Japanese
 mathfont: SourceHanSans-Regular
 CJKmainfont: SourceHanSans-Normal
 CJKsansfont: SourceHanSans-Normal
 CJKmonofont: RictyDiminished-Regular
 CJKoptions:
-  - AutoFakeSlant
+  - AutoFakeSlant=0.2
   - AutoFakeBold
 #geometry: "top=30truemm,bottom=30truemm,left=20truemm,right=20truemm"
 
