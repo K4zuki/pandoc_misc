@@ -32,7 +32,7 @@ coreprop: $(DOCX)
 
 $(DOCX): $(MDDIR)/$(INPUT)
 	$(PANDOC) $(PANDOCXFLAGS) -o $(TARGET_DOCXFRONTPAGE)
-	$(PANDOC) $(PANFLAGS) -M linkReferences=true --reference-doc=$(REFERENCE) -Mtitle= -Msubtitle= -Mauthor= \
+	$(PANDOC) $(PANFLAGS) -M linkReferences=true --reference-doc=$(REFERENCE) \
 	$(TARGET_DOCXFRONTPAGE) $(MDDIR)/$(INPUT) -o $(DOCX)
 
 reverse-docx:
