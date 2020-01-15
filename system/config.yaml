@@ -39,9 +39,9 @@ listings: true
 secPrefix: Chapter
 codeBlockCaptions: true
 nameInLink: true
-figureTitle: "^~&#9650;~^Figure"
-tableTitle: "~^&#9660;^~Table"
-listingTitle: "~^&#9660;^~List"
+figureTitle: "^~&#9650;~^ Figure"
+tableTitle: "~^&#9660;^~ Table"
+listingTitle: "~^&#9660;^~ List"
 
 ### extra LaTeX template options
 tables: true
