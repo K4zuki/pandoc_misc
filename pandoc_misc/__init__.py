@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import platform
 import subprocess as sp
-import site
-import pip
+import setuptools
 import hashlib
 
-install_base = site.getsitepackages()[0].split("/lib/")[0]
+separator = "/lib/"
+docker = ""
+if platform.system() == "Windows":
+    separator = "/Lib/"
+    docker = "docker run -v $PWD:/workdir k4zuki/pandocker-alpine:2.8"
+install_base = setuptools.__path__[0].split(separator)[0]
 
-COMMAND = "docker run -v $PWD:/workdir k4zuki/pandocker make init -f {}/var/pandoc_misc/Makefile"
-command = COMMAND.format(install_base)
+COMMAND = "{} make init -f {}/var/pandoc_misc/user/Makefile"
+command = COMMAND.format(docker, install_base)
+
+pip_list = sp.run(["pip", "list"], stdout=sp.PIPE, stderr=sp.DEVNULL)
+
+
+def pandocker_version():
+    print(hashlib.sha1(pip_list.stdout).hexdigest()[:7])
 
 
 def pip_base():
