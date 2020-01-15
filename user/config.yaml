@@ -55,6 +55,8 @@ docx_coreprop:
   #  version: "Version" # ignored?
 
   table:
+    table-alignment: center
+    vertical-alignment: center
   #    "Normal Table": "Centered"
   paragraph:
   #    "Normal": "Body Text"
