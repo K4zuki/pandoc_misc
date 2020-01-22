@@ -10,24 +10,55 @@ docrevision: "1.0"
 front: images/front-image.png
 verbcolored: true
 # rmnote: false
+#toc-title: "Table of Contents"
+
+svgbob:
+  font-family: "Source Code Pro"
+  font-size: 14
+  scale: 1
+  strike-width: 2
+
+heading-unnumbered:
+  1: "Heading Unnumbered 1"
+  2: "Heading Unnumbered 2"
+  3: "Heading Unnumbered 3"
+  4: "Heading Unnumbered 4"
+
+bullet-style:
+  1: "Bullet List 1"
+  2: "Bullet List 2"
+  3: "Bullet List 3"
+
+numbered-bullets:
+  1: "Number Bullet"
+  2: "Number Bullet 2"
+  3: "Number Bullet 3"
+
+image-div-style: "Image Caption"
 
 docx_coreprop:
-  #  author: "@_K4ZUKI_" # str
+  #  author: "K4ZUKI" # str
   #  category: "Category" # str
   #  comments: "Comment" # str
-  #  created: "30-Dec-2018" # datetime YYYY-MM-DD
   #  keywords: "Keyword1 Keyword2" # str
   #  last_modified_by: "K4ZUKI" # str
-  #  last_printed: "29-Dec-2018" # datetime YYYY-MM-DD
-  #  modified: "29-Dec-2018" # datetime YYYY-MM-DD
-  #  revision: 1230 # int < 32768
+  #  last_printed: "31-Dec-2018" # datetime DD-MMM-YYYY
+  #  modified: "31-Dec-2018" # datetime DD-MMM-YYYY
+  #  revision: 1123 # int < 32768
   #  subject: "SubjecT" # str
   #  title: "Title" # str
+
+  #  created: "31-Dec-2018" # datetime DD-MMM-YYYY set externally
+  #  content_status: "Status" # ignored?
+  #  identifier: "ID" # ignored?
+  #  language: "Japanese" # ignored?
+  #  version: "Version" # ignored?
+
   table:
+    table-alignment: center
+    vertical-alignment: center
     "Normal Table": "Centered"
   paragraph:
-    "Subtitle": "Abstract"
     "Normal": "Body Text"
     "First Paragraph": "Body Text"
-#    "Compact": "Bullet List 1"
 ...
