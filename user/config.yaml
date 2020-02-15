@@ -1,6 +1,6 @@
 ---
 title: 本のタイトル
-abstract: 本の概要
+subtitle: 本の概要
 circle: サークル名
 author: 本の作者
 comiket: コミケ
@@ -54,11 +54,13 @@ docx_coreprop:
   #  language: "Japanese" # ignored?
   #  version: "Version" # ignored?
 
+  read-only-recommended: false
   table:
     table-alignment: center
     vertical-alignment: center
   #    "Normal Table": "Centered"
   paragraph:
+    "Image Caption": "Figure Caption"
   #    "Normal": "Body Text"
   #    "First Paragraph": "Body Text"
 ...
