@@ -54,13 +54,15 @@ docx_coreprop:
   #  language: "Japanese" # ignored?
   #  version: "Version" # ignored?
 
-  read-only-recommended: false
+  table-alignment-in-page: center # left / center /right
+  table-cell-vertical-alignment: center # top / center / bottom / both
+  read-only-recommended: true
+  disable-table-autofit: false
   table:
-    table-alignment: center
-    vertical-alignment: center
   #    "Normal Table": "Centered"
   paragraph:
     "Image Caption": "Figure Caption"
   #    "Normal": "Body Text"
   #    "First Paragraph": "Body Text"
+  character:
 ...
