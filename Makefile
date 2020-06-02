@@ -1,3 +1,9 @@
+PIPBASE := $(shell get-pip-base)
+PANSTYLES := $(PIPBASE)/var
+MISC := $(PANSTYLES)/pandoc_misc
+MISC_SYS := $(MISC)/system
+MISC_USER := $(MISC)/user
+
 html:
 	cd docs; \
 	make html
@@ -15,18 +21,22 @@ clean:
 	cd docs; \
 	make clean
 
-tex:
+copy:
+	cp -R system/* $(MISC_SYS)/
+	cp -R user/* $(MISC_USER)/
+
+tex: copy
 	cd docs; \
 	make tex
 
-docx:
+docx: copy
 	cd docs; \
 	make docx
 
-reverse-docx:
+reverse-docx: copy
 	cd docs; \
 	make reverse-docx
 
-pdf:
+pdf: copy
 	cd docs; \
 	make pdf
