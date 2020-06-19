@@ -23,6 +23,14 @@ heading-unnumbered:
   2: "Heading Unnumbered 2"
   3: "Heading Unnumbered 3"
   4: "Heading Unnumbered 4"
+  5: "Heading Unnumbered 4"
+
+heading-appendix:
+  1: "Appendix Heading 1"
+  2: "Appendix Heading 2"
+  3: "Appendix Heading 3"
+  4: "Appendix Heading 4"
+  5: "Appendix Heading 4"
 
 bullet-style:
   1: "Bullet List 1"
