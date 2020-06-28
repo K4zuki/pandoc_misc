@@ -42,6 +42,11 @@ numbered-bullets:
   2: "Number Bullet 2"
   3: "Number Bullet 3"
 
+custom-spans:
+  red: "WarningTok"
+  green: "PreprocessorTok"
+  blue: "AttributeTok"
+
 image-div-style: "Image Caption"
 
 docx_coreprop:
