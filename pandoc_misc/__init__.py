@@ -12,7 +12,7 @@ DOCKER = ""
 
 if platform.system() == "Windows":
     SEPARATOR = "/Lib/"
-    DOCKER = "docker run -v $PWD:/workdir k4zuki/pandocker-alpine:2.10"
+    DOCKER = "docker run -v $PWD:/workdir k4zuki/pandocker-alpine:2.8"
 
 
 def build_command():
@@ -32,8 +32,7 @@ def pip_base():
     pip_inst_dir = yaml.load(pip_info.stdout, Loader=yaml.SafeLoader)["Location"]
     install_base = pip_inst_dir.split(SEPARATOR)[0]
 
-    # print(install_base, file=sys.stderr)
-    return install_base
+    print(install_base)
 
 
 def main():
