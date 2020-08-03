@@ -32,8 +32,7 @@ def pip_base():
     pip_inst_dir = yaml.load(pip_info.stdout, Loader=yaml.SafeLoader)["Location"]
     install_base = pip_inst_dir.split(SEPARATOR)[0]
 
-    # print(install_base, file=sys.stderr)
-    return install_base
+    print(install_base)
 
 
 def main():
