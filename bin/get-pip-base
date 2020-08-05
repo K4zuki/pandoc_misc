@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+pip3 show pandoc-misc | grep Location | cut -c11- | rev | cut -d/ -f4- | rev

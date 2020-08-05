@@ -187,7 +187,7 @@ setup(
         "user/config.yaml",
         "user/.gitignore",
         "user/Makefile",
-    ]),
+    ]), ("bin/", ["bin/get-pip-base"])
                 ],  # Optional
 
     # To provide executable scripts, use entry points in preference to the
@@ -200,7 +200,7 @@ setup(
     entry_points={  # Optional
         "console_scripts": [
             "pandoc-misc-init=pandoc_misc:main",
-            "get-pip-base=pandoc_misc:pip_base",
+            # "get-pip-base=pandoc_misc:pip_base",
             "pandocker-version=pandoc_misc:pandocker_version",
         ],
     },
