@@ -7,7 +7,7 @@ documentclass: bxjsbook
 classoption:
   - xelatex
   - pandoc
-  - jafont=noto-jp
+  - jafont=haranoaji
   - ja=standard
   - textwidth=45zw
   - number-of-lines=38
@@ -16,18 +16,18 @@ classoption:
 fontsize: 10
 papersize: b5
 secnumdepth: 3
-mainfont: SourceHanSans-Regular
+mainfont: HaranoAjiGothic-Regular.otf
 mainfontoptions:
   - AutoFakeSlant=0.2
-sansfont: SourceHanSans-Regular
+sansfont: HaranoAjiGothic-Regular.otf
 monofont: RictyDiminished-Regular
 monofontoptions:
   - Scale=MatchLowercase
   - Mapping=tex-ansi
 mainlang: Japanese
-mathfont: SourceHanSans-Regular
-CJKmainfont: SourceHanSans-Normal
-CJKsansfont: SourceHanSans-Normal
+mathfont: HaranoAjiGothic-Regular.otf
+CJKmainfont: HaranoAjiGothic-Regular.otf
+CJKsansfont: HaranoAjiGothic-Regular.otf
 CJKmonofont: RictyDiminished-Regular
 CJKoptions:
   - AutoFakeSlant=0.2
