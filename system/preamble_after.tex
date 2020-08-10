@@ -53,7 +53,15 @@
 \newcommand{\Begin}{\begin}
 \newcommand{\End}{\end}
 \usepackage{subfig}
-\usepackage{xeCJKfntef}
+\ifxetex
+    \usepackage{xeCJKfntef}
+    $if(CJKsansfont)$
+    \setCJKsansfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKsansfont$}
+    $endif$
+    $if(CJKmonofont)$
+    \setCJKmonofont[Scale=1.0,$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmonofont$}
+    $endif$
+\fi
 $if(listings)$
 \usepackage{listings}
 $if(verbcolored)$
