@@ -30,7 +30,7 @@ DATE := '$(shell date +%d-%b-%Y)'
 HASH := '$(shell git rev-parse --short HEAD)'
 ENV_VERSION := '$(shell pandocker-version)'
 
-TEXFLAGS := -t latex
+TEXFLAGS :=
 TEXFLAGS += --toc
 TEXFLAGS += --pdf-engine=xelatex
 TEXFLAGS += -M date=$(DATE)
