@@ -54,6 +54,7 @@ PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-apply-cell-styles.lua
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-custom-span-styles.lua
 #PANFLAGS += --filter=pandocker-blockdiag-filters
 #PANFLAGS += --filter=pandoc-svgbob-filter
+PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/svgbob.lua
 PANFLAGS += --filter=pandoc-imagine
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/svgconvert.lua
 #PANFLAGS += --filter=pandocker-filters
