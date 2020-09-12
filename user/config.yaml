@@ -8,6 +8,12 @@ year: 出版年
 publisher: 印刷会社で印刷製本
 docrevision: "1.0"
 # front: images/front-image.png
+#frontoption:
+#  - scale=1.25
+#  - position=current page.south # bottom of the page
+#  - vshift=3cm
+#  - angle=0
+
 verbcolored: false
 # rmnote: false
 #toc-title: "Table of Contents"

@@ -13,6 +13,8 @@ classoption:
   - number-of-lines=38
   - base=10pt
   - openany
+watermarkoption:
+  - contents=
 fontsize: 10
 papersize: b5
 secnumdepth: 3

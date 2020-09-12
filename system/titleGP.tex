@@ -25,7 +25,7 @@ $endif$
 
 $if(front)$
 \vfill % Whitespace between editor names and publisher logo
-\includegraphics[width=\textwidth,height=0.4\paperheight,keepaspectratio]{$front$}
+\backgroundsetup{$for(frontoption)$$frontoption$$sep$,$endfor$,contents=\includegraphics{$front$}}
 $endif$
 \vfill* % Whitespace between editor names and publisher logo
 
