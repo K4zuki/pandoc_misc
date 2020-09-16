@@ -21,11 +21,16 @@ secnumdepth: 3
 mainfont: HaranoAjiGothic-Regular.otf
 mainfontoptions:
   - AutoFakeSlant=0.2
+  - AutoFakeBold
 sansfont: HaranoAjiGothic-Regular.otf
+sansfontoptions:
+  - AutoFakeSlant=0.2
+  - AutoFakeBold
 monofont: RictyDiminished-Regular
 monofontoptions:
   - Scale=MatchLowercase
   - Mapping=tex-ansi
+  - AutoFakeBold
 mainlang: Japanese
 mathfont: HaranoAjiGothic-Regular.otf
 CJKmainfont: HaranoAjiGothic-Regular.otf
