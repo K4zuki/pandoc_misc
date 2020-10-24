@@ -40,7 +40,7 @@ reverse-docx:
 
 html: $(HTML) $(MDDIR)/$(CONFIG)
 $(HTML): $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG)
-	$(PANDOC) $(PANFLAGS) $(PANHTMLFLAGS) $(MDDIR)/$(INPUT) -o $(HTML)
+	$(PANDOC) $(PANFLAGS) --number-sections $(PANHTMLFLAGS) $(MDDIR)/$(INPUT) -o $(HTML)
 
 pdf: $(MDDIR)/$(INPUT) $(MDDIR)/$(CONFIG) \
 							$(TARGET_TEXTEMPLATE_EXTRA) \
