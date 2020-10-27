@@ -83,7 +83,7 @@ PANHTMLFLAGS += -M date=$(DATE)
 
 PANREVERSEDOCX := -f docx-styles
 PANREVERSEDOCX += -t markdown-simple_tables-multiline_tables+grid_tables+pipe_tables
-PANREVERSEDOCX += -F pantable2csv
+#PANREVERSEDOCX += -F pantable2csv
 PANREVERSEDOCX += --extract-media=$(IMAGEDIR)
 PANREVERSEDOCX += --wrap=preserve
 PANREVERSEDOCX += --atx-headers
