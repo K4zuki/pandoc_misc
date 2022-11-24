@@ -33,7 +33,7 @@ monofontoptions:
   - AutoFakeBold
 mainlang: Japanese
 mathfont: Noto Serif CJK JP
-CJKmainfont: Noto Serif CJK JP
+CJKmainfont: Noto Sans CJK JP
 CJKsansfont: Noto Sans CJK JP
 CJKmonofont: Noto Sans Mono CJK JP
 CJKoptions:
