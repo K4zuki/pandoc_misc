@@ -7,7 +7,7 @@ documentclass: bxjsbook
 classoption:
   - xelatex
   - pandoc
-  - jafont=haranoaji
+  - jafont=noto
   - ja=standard
   - textwidth=45zw
   - number-of-lines=38
@@ -18,24 +18,24 @@ watermarkoption:
 fontsize: 10
 papersize: b5
 secnumdepth: 3
-mainfont: HaranoAjiGothic-Regular.otf
+mainfont: Noto Sans CJK JP
 mainfontoptions:
   - AutoFakeSlant=0.2
   - AutoFakeBold
-sansfont: HaranoAjiGothic-Regular.otf
+sansfont: Noto Sans CJK JP
 sansfontoptions:
   - AutoFakeSlant=0.2
   - AutoFakeBold
-monofont: RictyDiminished-Regular
+monofont: Noto Sans Mono CJK JP
 monofontoptions:
   - Scale=MatchLowercase
   - Mapping=tex-ansi
   - AutoFakeBold
 mainlang: Japanese
-mathfont: HaranoAjiGothic-Regular.otf
-CJKmainfont: HaranoAjiGothic-Regular.otf
-CJKsansfont: HaranoAjiGothic-Regular.otf
-CJKmonofont: RictyDiminished-Regular
+mathfont: Noto Serif CJK JP
+CJKmainfont: Noto Serif CJK JP
+CJKsansfont: Noto Sans CJK JP
+CJKmonofont: Noto Sans Mono CJK JP
 CJKoptions:
   - AutoFakeSlant=0.2
   - AutoFakeBold
