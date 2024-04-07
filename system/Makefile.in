@@ -79,8 +79,6 @@ PANDOCXFLAGS += -f markdown -t markdown
 
 PANHTMLFLAGS := --self-contained -thtml5
 PANHTMLFLAGS += --toc
-PANHTMLFLAGS += --template=$(MISC_SYS)/github.html
-PANHTMLFLAGS += -M css=$(MISC_SYS)/github_css/github.css
 PANHTMLFLAGS += -M date=$(DATE)
 
 PANREVERSEDOCX := -f docx-styles
@@ -96,6 +94,8 @@ PREFIX := .
 SVGDIR := svg
 REFERENCE := $(MISC_SYS)/ref.docx
 COREPROPFLAGS := -M created=$(DATE)
+HTML_TEMPLATE := $(MISC_SYS)/github.html
+HTML_CSS := -M css=$(MISC_SYS)/github_css/github.css
 
 ### default source and target file names
 CONFIG := config.yaml
