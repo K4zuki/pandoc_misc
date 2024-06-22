@@ -152,22 +152,7 @@ $endif$
 \definecolor{listing-comment}{rgb}{0.4,0.4,0.4}
 \definecolor{listing-javadoc-comment}{rgb}{0.4,0.4,0.4}
 
-%
-% https://github.com/Wandmalfarbe/pandoc-latex-template
-%
-$if(tables)$
-%\renewcommand{\arraystretch}{1.3} % table spacing
-\definecolor{table-gray}{HTML}{F5F5F5}
-%\rowcolors{3}{white!100!white}{table-gray!100!white!100}
-% Unfortunately the colored cells extend beyond the edge of the
-% table because pandoc uses @-expressions (@{}) like so:
-%
-% \begin{longtable}[]{@{}ll@{}}
-% \end{longtable}
-%
-% https://en.wikibooks.org/wiki/LaTeX/Tables#.40-expressions
 \usepackage{longtable,booktabs}
-$endif$
 
 \usepackage{xhfill}
 
