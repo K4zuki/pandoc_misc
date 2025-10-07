@@ -69,7 +69,7 @@ PANFLAGS += --filter=pandoc-crossref
 PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/docx-image-styles.lua
 #PANFLAGS += --lua-filter=$(LUA_FILTER_BASE)/tex-rowcolors-reset.lua
 PANFLAGS += --listings
-PANFLAGS += --top-level-division=chapter
+PANFLAGS += --top-level-division=default
 #PANFLAGS += --number-sections
 PANFLAGS += --highlight-style=kate
 PANFLAGS += -M short-hash=$(HASH)
