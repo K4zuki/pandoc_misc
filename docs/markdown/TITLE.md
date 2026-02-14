@@ -128,6 +128,7 @@ $ sudo cp BXptool-0.4/bx*.{sty,def} /usr/local/texlive/2015basic/texmf-local/BXp
 $ sudo mktexlsr
 $ tlmgr install oberdiek
 ```
+
 <!-- pandoc-crossrefがpandocに依存しているので自動的にインストールされます。 -->
 
 #### Ubuntu {.unnumbered}
@@ -188,6 +189,7 @@ wget -c https://github.com/mzyy94/RictyDiminished-for-Powerline/archive/3.2.4-po
 ### pandoc_misc
 
 この本の原稿が置かれたリポジトリです。`$(HOME)/.pandoc`にクローンします。
+
 ```sh
 $ cd ~/.pandoc
 $ git clone https://github.com/K4zuki/pandoc_misc.git
@@ -282,6 +284,7 @@ markdown: True
 
 Pandocはmarkdownファイル内のYAML FrontMatterもしくは独立したYAMLファイルから
 コンパイルオプションを取得します。これらの値は表紙絵と奥付に使用されます
+
 ```table
 ---
 caption: Pandocコンパイルオプション
@@ -354,9 +357,13 @@ _**バグっぽいんだけどどうなんですかね**_。そこまで深く�
 
 ```markdown
 # 深さ1：章番号なし {.unnumbered}
+
 ## 深さ2：章番号なし {.unnumbered}
+
 ### 深さ3：章番号なし {.unnumbered}
+
 #### 深さ4：章番号なし {.unnumbered}
+
 ##### 深さ5+：章番号復活 {.unnumbered}
 ```
 
@@ -457,8 +464,11 @@ width:
 との組み合わせ運用を前提にしています)。
 
 [^listingtable-yaml]: pandoc_misc/panflute/ListingTable.py
+
 [^listingtable-inline]: pandoc_misc/panflute/listingtable-inline.py
+
 [^pandoc-crossref]: <https://github.com/lierdakil/pandoc-crossref>
+
 [^pandoc-crossref-ref]: <http://d.hatena.ne.jp/LaclefYoshi/20150616/crossref>
 
 ```table
@@ -539,6 +549,7 @@ alignment: DCCD
 `directory`,Y,"`./svg`",出力ディレクトリ
 `attr`,Y,,画像幅などの指定
 ```
+
 (*) インライン形式のときはタイトルなしにできる
 
 \newpage
@@ -595,7 +606,9 @@ caption: _**block bitfield sample**_
 
 #### インライン形式 {.unnumbered}
 
+<!--
 [**inline bitfield sample**](data/bitfields/bit.yaml){.bitfield}
+-->
 
 \newpage
 
@@ -608,7 +621,9 @@ WaveDrom^[`http://wavedrom.com`] は、ロジック波形を記述ためのJSラ
 ![inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
 ~~~
 
+<!--
 [inline wavedrom sample](data/waves/wave.yaml){.wavedrom}
+-->
 
 \newpage
 
@@ -624,7 +639,9 @@ Imagineフィルタ[^imagine-filter]を使えばコードブロックから
 - 参考にしたサイトはこちら： UbuntuのVimでPlantUMLをプレビューする on @Qiita[^plantuml-reference]
 
 [^imagine-filter]: https://github.com/hertogp/imagine
+
 [^imagine-png-only-issue]: https://github.com/hertogp/imagine/issues/1
+
 [^plantuml-reference]: https://qiita.com/mitsugu/items/014e13ca0696c7c53d4c
 
 ```{.plantuml im_out="fcb,img" im_fmt='svg' caption="PlantUML sample"}
@@ -664,11 +681,13 @@ _angle=365_ なら右に5度回転します。
 ![inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
 `````
 
+<!--
 [inline wavedrom rotation sample 30degree](data/waves/wave.yaml){.wavedrom .rotate angle=30}
 
 [inline bitfield rotation sample -30degree](data/bitfields/bit.yaml){.bitfield .rotate angle=-30}
+-->
 
-
+<!--
 <div id="fig:RotateImage">
 [0](data/bitfields/bit.yaml){.bitfield height=30% width=30%}
 
@@ -689,6 +708,7 @@ _angle=365_ なら右に5度回転します。
 
 回転サンプル
 </div>
+-->
 
 # 更新履歴 {-}
 
