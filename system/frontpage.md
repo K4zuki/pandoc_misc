@@ -17,4 +17,5 @@ $if(circle)$/`<w:fldSimple w:instr="DOCPROPERTY  circle \* MERGEFORMAT"></w:fldS
 $endif$
 :::
 $endif$
+
 \newpage
